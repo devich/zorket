@@ -6,7 +6,7 @@
     },
     "404": {
       "title": "404 - Page non trouvée",
-      "subtext_html": "Cette page n'est pas disponible. <a href=\"/\">Retourner au magasinage</a>"
+      "subtext_html": "Cette page n'est pas disponible. <a href=\"\/\">Retourner au magasinage<\/a>"
     },
     "password_page": {
       "opening_soon": "Bientôt ouvert",
@@ -20,7 +20,7 @@
       "signup_form_email_placeholder": "Votre courriel",
       "signup_form_submit": "Soumettre",
       "signup_form_success": "Nous vous ferons parvenir un courriel juste avant l'ouverture!",
-      "admin_link_html": "Êtes-vous le propriétaire de la boutique? <a href=\"/admin\" class=\"text-link\">Connectez-vous ici</a>.",
+      "admin_link_html": "Êtes-vous le propriétaire de la boutique? <a href=\"\/admin\" class=\"text-link\">Connectez-vous ici<\/a>.",
       "password_link": "Entrer avec un mot de passe",
       "powered_by_shopify_html": "Cette boutique sera propulsée par {{ shopify }}"
     },
@@ -80,7 +80,7 @@
       "update": "Mettre à jour",
       "checkout": "Procéder au paiement",
       "empty": "Votre panier est vide.",
-      "continue_browsing_html": "<a href=\"/collections/all\">Retourner au magasinage</a>.",
+      "continue_browsing_html": "<a href=\"\/collections\/all\">Retourner au magasinage<\/a>.",
       "close_cart": "Fermer le panier",
       "savings_html": "Vous économisez {{ savings }}"
     },
@@ -223,10 +223,10 @@
     },
     "onboarding": {
       "modal_title": "Nous y sommes presque...",
-      "no_products_html": "Vous n'avez pas de produit dans votre collection Home page. Ce message apparaitra jusqu'à ce qu'un produit soit <a href=\"/admin/collections?query=Frontpage\">ajouté à cette collection</a>.",
+      "no_products_html": "Vous n'avez pas de produit dans votre collection Home page. Ce message apparaitra jusqu'à ce qu'un produit soit <a href=\"\/admin\/collections?query=Frontpage\">ajouté à cette collection<\/a>.",
       "add_product": "Ajouter un produit",
       "product_title": "Titre du produit",
-      "no_collections_html": "Vous n'avez pas de collection à afficher ici. <a href=\"/admin/custom_collections\">Ajoutez une ou plusieurs collections</a> pour compléter la page d'accueil par défaut.",
+      "no_collections_html": "Vous n'avez pas de collection à afficher ici. <a href=\"\/admin\/custom_collections\">Ajoutez une ou plusieurs collections<\/a> pour compléter la page d'accueil par défaut.",
       "add_collection": "Ajouter une collection",
       "collection_title": "Titre de la collection"
     }
@@ -247,7 +247,7 @@
   },
   "products": {
     "general": {
-      "save_html": "Épargnez<br />{{ saved_amount }}",
+      "save_html": "Épargnez<br \/>{{ saved_amount }}",
       "collection_return": "Retour à {{ collection }}",
       "sale_price": "Prix réduit",
       "regular_price": "Prix régulier"
@@ -278,7 +278,7 @@
       "add_to_apple_wallet": "Ajouter à Apple Wallet"
     }
   },
-  "date_formats":{
+  "date_formats": {
     "month_day_year": "%d %B, %Y"
   }
 }

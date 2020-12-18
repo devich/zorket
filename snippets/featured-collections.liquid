@@ -1,15 +1,20 @@
 <!-- snippets/featured-collections.liquid -->
 
+
 {% if section_number > 1 and number_of_index_sections > 1 %}
  <hr class="hr--medium hr--clear">
 {% endif %}
 
-<div class="section-header text-center" style="margin-bottom: 25px;margin-top: 10px;">
-  <h1>{{ 'home_page.sections.featured_collections' | t }}</h1>
-  <hr class="hr--small" style="margin: 15px auto;margin-bottom: 5px;">
+<div class="section-header">
+  <div class="rec-head-wrap">
+				<span class="new-arrivals feat-col-header">{{ 'home_page.sections.featured_collections' | t }}</span>
+				<!-- <div class="view-more-mob">
+				    <a href="/collections" class="vm-mob-link-light">all collections <strong>⟩</strong></a>
+				</div> -->
+			</div>
 </div>
 
-<div class="grid collection-grid">
+<div class="grid home-collection-grid">
 
   {% comment %}
     Show up to 9 collections.

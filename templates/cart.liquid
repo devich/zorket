@@ -1,3 +1,7 @@
+{% comment %}
+{% layout 'cart-no-footer' %}
+{% endcomment %}
+
 <!-- /templates/cart.liquid -->
 {% comment %}
 
@@ -10,8 +14,7 @@
   <div class="grid__item large--five-sixths push--large--one-twelfth">
     {% if cart.item_count > 0 %}
       <header class="section-header text-center">
-        <h1 class="text-center">{{ 'cart.general.title' | t }}</h1>
-        <hr class="hr--small">
+        <h1 class="cart-h1">{{ 'cart.general.title' | t }}</h1>
         <!-- Facebook Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -35,9 +38,9 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 
         <div class="cart__row medium-down--hide cart__header-labels">
           <div class="grid--full">
-            <div class="grid__item large--two-fifths push--large--three-fifths">
+            <div class="grid__item large--one-quarter push--large--three-quarters">
               <div class="grid--full">
-                <div class="grid__item one-third medium-down--half text-center">
+                <div class="grid__item one-third medium-down--half text-left">
                   {{ 'cart.label.quantity' | t }}
                 </div>
                 <div class="grid__item two-thirds medium-down--half text-right">
@@ -53,12 +56,12 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
         {% endcomment %}
         {% for item in cart.items %}
           <div class="cart__row">
+			<div class="cart__row-wrapper">
             <div class="grid--full cart__row--table-large">
-
-              <div class="grid__item large--three-fifths">
+			  <div class="grid__item large--three-quarters">
                 <div class="grid">
 
-                  <div class="grid__item one-third">
+                  <div class="grid__item one-quarter">
                     <a href="{{ item.url | within: collections.all }}" class="cart__image">
 
                       {% comment %}
@@ -69,7 +72,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                     </a>
                   </div>
 
-                  <div class="grid__item two-thirds">
+                  <div class="grid__item three-quarters cart__product-column">
                     <a href="{{ item.url }}" class="h4 cart__product-name">
                       {{ item.product.title }}
                     </a>
@@ -100,31 +103,50 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                         {% endunless %}
                       {% endfor %}
                     {% endif %}
-
+					<!-- <br class="cart_name_br">
                     <p class="cart__product-meta">
                       <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">
                         {{ 'cart.general.remove' | t }}
                       </a>
-                    </p>
+                    </p> -->
                   </div>
 
                 </div>
               </div>
-
-              <div class="grid__item large--two-fifths">
+              <div class="grid__item large--one-quarter cart__price-quantity">
                 <div class="grid--full cart__row--table">
 
-                  <div class="grid__item one-third text-center">
-                    <input type="number" name="updates[]" id="updates_{{ item.id }}" class="cart__product-qty" value="{{ item.quantity }}" min="0">
+                  <div class="grid__item two-thirds text-left cart__quantity-column">
+                    <div class="quantity-cart-wrapper">
+                      <div class="input-group plus-minus-input">
+                        <div class="input-group-button">
+                          <button type="button" class="circle" data-quantity="minus" data-field="quantity_{{ item.id }}">
+                            –
+                          </button>
+                        </div>
+                        <input class="input-group-field quantity-input quantity-input-cart" readonly="readonly" type="number" input-id="quantity_{{ item.id }}" name="updates[]" min="0" pattern="[0-9]*" max="100" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="cart__product-qty js-quantity-selector" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0';}">
+                        <div class="input-group-button">
+                          <button type="button" class="circle" data-quantity="plus" data-field="quantity_{{ item.id }}">
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      
+                        <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">
+                          <div class="cart-remove-button"><span class="cart-remove-button-text">{{ 'cart.general.remove' | t }}</span></div>
+                        </a>
+                     
+                    </div>
+                    <!-- <input type="number" name="updates[]" id="updates_{{ item.id }}" class="cart__product-qty" value="{{ item.quantity }}" min="0"> -->
                   </div>
 
-                  <div class="grid__item two-thirds text-right">
+                  <div class="grid__item one-third text-right cart__price-column">
                     {% if item.original_line_price != item.line_price %}
                       <small class="cart__price cart__price--strikethrough">{{ item.original_line_price | money }}</small>
                     {% endif %}
                     
                     <span class="cart__price">{{ item.line_price | money }}</span>
-                  
+                    
                     {% assign discounts_size = item.discounts | size %}
                     {% if discounts_size > 0 %}
                       {% for discount in item.discounts %}
@@ -134,7 +156,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                   </div>
                 </div>
               </div>
-
+			</div>
             </div>
           </div>
         {% endfor %}
@@ -146,37 +168,154 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                 - Your theme settings can turn this on or off. Default is on.
                 - Make sure you have name="note" for the message to be submitted properly
             {% endcomment %}
+            
             {% if settings.cart_notes_enable %}
-              <div class="grid__item large--seven-twelfths">
+              <div class="grid__item large--five-twelfths">
+                {% comment %}
                 <div class="cart__note">
                   <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
                   <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
                 </div>
+                {% endcomment %}
               </div>
             {% endif %}
-            <div class="grid__item large--five-twelfths text-center large--text-right{% unless settings.cart_notes_enable %} push--large--seven-twelfths{% endunless %}">
+            <div class="grid__item large--seven-twelfths text-center large--text-right{% unless settings.cart_notes_enable %} push--large--seven-twelfths{% endunless %}">
               <div class="grid--full cart__row--table">
                 <div class="grid__item one-half large--two-thirds large--text-center">
-                  <p class="cart__subtotal">{{ 'cart.general.subtotal' | t }}</p>
+                  <p class="cart__subtotal subtottitle"><span id="bk-cart-subtotal-label">{{ 'cart.general.subtotal' | t }}</span></p>
                 </div>
                 <div class="grid__item one-half large--one-third">
-                  <p class="cart__subtotal">{{ cart.total_price | money }}</p>
+                  <p class="cart__subtotal subtotmon"><span id="bk-cart-subtotal-price">{{ cart.total_price | money }}</span></p>
                 </div>
               </div>
               
+              
+              <div class="grid--full cart__row--table">
+                <div class="grid__item one-half large--two-thirds large--text-center">
+                  <p id="dicsnote">
+                    {% comment %}{{ 'cart.general.shipping_at_checkout' | t }}{% endcomment %}
+                    <strong>Free shipping</strong><br>
+                    Discounts (if any) will be calculated at checkout
+                  </p>
+                </div>
+                <div class="grid__item one-half large--one-third">
+                  <!-- <div style="text-align: right;"><input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}"></div>               -->
+                </div>
+              </div>
+              
+              
+              
+              
+              
+              
+              
+              
+              {% comment %} 
               {% if cart.total_discounts > 0 %}
                 {% assign cartTotalDiscounts = cart.total_discounts | money %}
                 <p class="cart__savings">{{ 'cart.general.savings_html' | t: savings: cartTotalDiscounts }}</p>
               {% endif %}
-              <p><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
-              <input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}">
-              <button type="submit" name="checkout" class="btn cart__checkout">
-                {{ 'cart.general.checkout' | t }} <span class="icon icon-arrow-right" aria-hidden="true"></span>
-              </button>
+              {% endcomment %}
+              
+              
+			  <div id="paypaypal">
+				<p>Pay with PayPal&nbsp;Express&nbsp;Checkout if you have PayPal account</p>                
+                
+                {% comment %}
+                <ul class="inline-list payment-icons">
 
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'pplogo.svg' | asset_url | img_tag: 'Paypal', 'paypalicon' }}
+                        </span>
+                      </span>
+                    </li>
+                </ul>
+				{% endcomment %}
+                
+                
               {% if additional_checkout_buttons %}
                 <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
               {% endif %}
+              </div>
+         	
+           <div id="payanycard">
+              
+              
+             <p>Pay with any Debit or Credit Card</p>
+        
+              
+              
+              <button type="submit" name="checkout" class="btn cart__checkout">
+                     
+              <ul class="inline-list payment-icons">
+								  <!-- <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'pplogo.svg' | asset_url | img_tag: 'Pay With Card', 'carticons paypal-logo' }}
+                        </span>
+                      </span>
+                    </li> -->
+           		<li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'visa.svg' | asset_url | img_tag: 'Visa', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+                
+                 <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'mastercard.svg' | asset_url | img_tag: 'Master Card', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+                 <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'amex.svg' | asset_url | img_tag: 'American Express', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+               
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'discover.svg' | asset_url | img_tag: 'Discover', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+              </ul>    
+              </button>
+             </div>
+              
+			  
+			  
+			  
+			  
+			  
+              <div id="paycrypto">
+				  <p>Pay with Cryptocurrencies — ETH BTC DASH LTC XRP</p>
+				  <a href="pages/cryptocurrency" id="paycrypro-button">
+           {{ 'ethereum.png' | asset_url | img_tag: 'Ethereum', 'etherimg' }}
+					 {{ 'bitcoin.png' | asset_url | img_tag: 'Bitcoin', 'etherimg' }}
+					 {{ 'dash.png' | asset_url | img_tag: 'Dash', 'etherimg' }}
+					 {{ 'litecoin.png' | asset_url | img_tag: 'Litecoin', 'etherimg' }}
+					 {{ 'ripple.png' | asset_url | img_tag: 'Ripple', 'etherimg' }}
+					 <span class="cart-cr-off">10%&nbsp;OFF!</span>
+				  </a>
+              </div>
+			  
+			  
+			  
+			  
+			  
             </div>
           </div>
 
@@ -189,12 +328,127 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
         The cart is empty
       {% endcomment %}
       <header class="section-header text-center">
-        <h1 class="text-center">{{ 'cart.general.title' | t }}</h1>
+        <h1 class="text-center" style="text-align: center !important;">{{ 'cart.general.title' | t }}</h1>
         <hr class="hr--small">
-        <p>{{ 'cart.general.empty' | t }}</p>
-        <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
+        <p>Your cart is currently empty</p>
+        <p><a href="/">Go to Home Page</a></p>
       </header>
 
     {% endif %}
   </div>
 </div>
+
+
+<!-- Recents and reopened wrapper -->
+</div>
+<div class="rec-wrapper recents-wrap white-bg">
+<div class="rec-box-divider white-bg">&nbsp;</div>	
+<h1 class="new-arrivals">Recently Viewed Products</h1>
+{% include 'recently-viewed' %}
+</div>
+<div class="wrapper">
+<!-- End Recents and reopened wrapper -->
+	
+	
+<style>
+	.paypal-button {
+	    font-family: 'Teko', Arial, sans-serif !important;
+	    letter-spacing: 0.05em;
+	    font-weight: 400 !important;
+	    font-size: 21px !important;
+	    border-radius: 4px !important;
+	    padding: 2px 10px 3px 10px !important;
+		  border: 3px solid rgba(37, 59, 128, 1) !important;
+	    text-transform: uppercase !important;
+		  width: 100% !important;
+		  height: 50px !important;
+			background-color: #fff !important;
+	    &:hover {
+		  	background-color: #fff !important;
+		  	border: 3px solid rgba(24, 155, 215, 1) !important;
+	    }
+	}
+	
+	.additional-checkout-button {
+		border: 3px solid #253b80 !important;
+		width: 100%;
+	}
+	
+	.paypal-button {
+		border-radius: 0px;
+		background: rgba(255, 196, 57, 0.85);
+	}
+	
+	._3TUeZPsTWjDxakSmeDcA4D {
+		min-width: 100%;
+		padding-right: 10px;
+	}
+	
+	#dynamic-checkout-cart {
+		padding-top: 0;
+	}
+</style>
+	
+<script>
+	jQuery(document).ready(function($){
+
+     // This button will increment the value
+     $('[data-quantity="plus"]').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('data-field');
+        // Get its current value
+        var currentVal = parseInt($('input[input-id='+fieldName+']').val());
+        // If is not undefined
+        if (!isNaN(currentVal) && currentVal < 100) {
+            // Increment
+            $('input[input-id='+fieldName+']').val(currentVal + 1);
+            this.form.submit();
+        } else {
+            // Otherwise put a 1000 there
+            $('input[input-id='+fieldName+']').val(100);
+        }
+    });
+    // This button will decrement the value till 1
+    $('[data-quantity="minus"]').click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('data-field');
+        // Get its current value
+        var currentVal = parseInt($('input[input-id='+fieldName+']').val());
+        // If it isn't undefined or its greater than 1
+        if (!isNaN(currentVal) && currentVal > 1) {
+            // Decrement one
+            $('input[input-id='+fieldName+']').val(currentVal - 1);
+            this.form.submit();
+        } else {
+            // Otherwise put a 1 there
+            $('input[input-id='+fieldName+']').val(1);
+        }
+    });
+
+
+    // $("input[name='updates[]']").on('input change blur', function() {
+    //   $( "input[name='update']" ).trigger( "click" );
+    // });
+
+
+		waitForEl('.paypalLight', function() {
+			var head = $(".paypalLight").contents().find("head");
+			// var button = $(".paypalLight").contents().find("div[id*='zoid-paypal-button']");
+// 			$(button).css("border", "3px solid navy");
+// 			_(button);
+			var css = `<style type="text/css">
+			
+			div[id*='zoid-paypal-button'] {
+			  ;
+			}
+			
+			</style>`;
+      jQuery(head).append(css);
+    });	  
+  
+  });
+</script>

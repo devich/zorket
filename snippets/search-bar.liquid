@@ -21,13 +21,17 @@
   {% assign search_btn_style = 'btn--secondary' %}
 {% endunless %}
 
-<form style="max-width: 230px;    margin-bottom: 30px;    margin-top: -40px;" action="/search" method="get" class="input-group search-bar {{ search_bar_location }}" role="search">
+<form action="/search" method="get" class="input-group search-bar {{ search_bar_location }}" role="search">
   {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
-  <input style="height:39px;" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="input-group-field" aria-label="{{ 'general.search.placeholder' | t }}">
-  <span class="input-group-btn">
-    <button style="height:39px;    padding: 12px 11.35px;" type="submit" class="{{ search_btn_style }} icon-fallback-text">
-      <span class="icon icon-search" aria-hidden="true"></span>
-      <span class="fallback-text">{{ 'general.search.submit' | t }}</span>
-    </button>
-  </span>
+  <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="input-group-field" aria-label="{{ 'general.search.placeholder' | t }}">
+	<span class="input-group-btn">
+	  <button type="submit" class="btn newsletter__submit search-res-btn">
+	    <span class="newsletter__submit-text--large">Search</span>
+	    <span class="newsletter__submit-text--small">
+	      <!-- <span class="icon icon-arrow-right" aria-hidden="true"></span> -->
+				<!-- Sign&nbsp;Up -->
+				<span class="icon icon-search" aria-hidden="true"></span>
+	    </span>
+	  </button>
+	</span>
 </form>

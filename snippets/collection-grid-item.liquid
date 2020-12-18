@@ -21,49 +21,52 @@
 {% endunless %}
 
 {% assign no_collection_image = true %}
+{% comment %}
+  Use capture to put the collection title in a variable that is used in liquid filters
+{% endcomment %}
+{% capture collection_title %}{{ collections[collection_handle].title | escape }}{% endcapture %}
+{% if collections[collection_handle].image %}
+  {% assign no_collection_image = false %}
+  {% assign collection_image = collections[collection_handle] %}
+	{% assign collection_image_2 = collections[collection_handle].products[1] %}
+{% else %}
+  {% assign collection_image = collections[collection_handle].products.first %}
+{% endif %}
 
-<div class="grid__item {{ grid_item_width }} collection-collage__item text-center">
-  <a href="{{ collections[collection_handle].url }}" class="collection-grid__item-link collection-collage__item-wrapper">
-    {% comment %}
-      Use capture to put the collection title in a variable that is used in liquid filters
-    {% endcomment %}
-    {% capture collection_title %}{{ collections[collection_handle].title | escape }}{% endcapture %}
-    {% if collections[collection_handle].image %}
-      {% assign no_collection_image = false %}
-      {% assign collection_image = collections[collection_handle] %}
-    {% else %}
-      {% assign collection_image = collections[collection_handle].products.first %}
-    {% endif %}
-
-    {% if grid_item_responsive %}
-      <style>
-        @media screen and (max-width: 480px) {
-          .grid__image--responsive {
-            background-image: url('{{ collection_image | img_url: 'large' }}');
-          }
-        }
-        @media screen and (min-width: 481px) and (max-width: 600px) {
-          .grid__image--responsive {
-            background-image: url('{{ collection_image | img_url: 'grande' }}');
-          }
-        }
-        @media screen and (min-width: 601px) {
-          .grid__image--responsive {
-            background-image: url('{{ collection_image | img_url: '1024x1024' }}');
-          }
-        }
-      </style>
-      <div class="collection-grid__item-overlay grid__image grid__image--responsive"></div>
-    {% else %}
-      <div class="collection-grid__item-overlay grid__image" style="background-image: url({{ collection_image  | img_url: image_size }})"></div>
-    {% endif %}
-
-
-
-    <div class="collection-grid__item-title--wrapper">
-      <span class="collection-grid__item-title">
-        {{ collections[collection_handle].title }}
-      </span>
-    </div>
-  </a>
+<div id="{{ collection_handle }}-card" class="grid__item small--one-half medium--one-half large--one-fifth collection-collage__item text-center">
+  <div class="front flip-1">
+		<a href="{{ collections[collection_handle].url }}" class="collection-grid__item-link collection-collage__item-wrapper">
+      <div class="collection-grid__item-overlay grid__image {{ collection_handle }}-fc-img-1"></div>
+	    <div class="collection-grid__item-title--wrapper">
+	      <span class="collection-grid__item-title">
+	        {{ collections[collection_handle].title }}
+	      </span>
+	    </div>
+			<div class="feat-coll-item-count">
+				{{ collections[collection_handle].all_products_count }} products
+			</div>
+	  </a>
+	</div>
+  <div class="back flip-2">
+		<a href="{{ collections[collection_handle].url }}" class="collection-grid__item-link collection-collage__item-wrapper">
+      <div class="collection-grid__item-overlay grid__image {{ collection_handle }}-fc-img-2"></div>
+	    <div class="collection-grid__item-title--wrapper">
+	      <span class="collection-grid__item-title">
+					{{ collections[collection_handle].title }}
+	      </span>
+	    </div>
+			<div class="feat-coll-item-count">
+				{{ collections[collection_handle].all_products_count }} products
+			</div>
+	  </a>
+	</div>
 </div>
+
+<style>
+	.{{ collection_handle }}-fc-img-1 {
+		background-image: url({{ collection_image  | img_url: 'grande' }});
+	}
+	.{{ collection_handle }}-fc-img-2 {
+		background-image: url({{ collection_image_2  | img_url: 'grande' }});
+	}
+</style>

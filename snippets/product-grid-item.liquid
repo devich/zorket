@@ -32,11 +32,15 @@
 {% comment %}
 <div class="grid__item grid-product {{ grid_item_width }}{% if sold_out %} is-sold-out{% endif %}">
 {% endcomment %} 
-<div class="grid__item grid-product one-whole medium--one-half large--one-quarter {% if sold_out %} is-sold-out{% endif %}">
+<div class="grid__item grid-product one-half medium--one-half {% if template == 'search' or currentcategory == 'spring' or currentcategory == 'new' or currentcategory == 'bestsellers' or currentcategory == 'sales' or currentcategory == 'winter' or currentcategory == 'featured' or currentcategory == 'summer' or currentcategory == 'autumn' or currentcategory == 't' or currentcategory == 'shoe' %} large--one-quarter {% else %} {% if template == 'index' %} large--one-sixth {% else %} large--one-third {% endif %}{% endif %} {% if sold_out %} is-sold-out{% endif %}">
   <div class="grid-product__wrapper">
-    <div class="grid-product__image-wrapper">
-      <a class="grid-product__image-link" href="{{ product.url | within: collection }}">
-        <img src="{{ product | img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}" class="grid-product__image">
+    <div class="grid-product__image-wrapper {% if template != 'index' %} non-index-image-height {% endif %}" >
+      <a class="grid-product__image-link lazy" href="{% if template == 'index' %}/collections/featured{{product.url}}{% else %}{{ product.url | within: collection }}{% endif %}" data-src="{{ product | img_url: 'large' }}" style="background: center center no-repeat; background-size: cover;">
+        {% comment %}
+        <div class="pr-image-wrap" style="background:url({{ product | img_url: 'medium' }}) center center no-repeat; background-size: cover;">
+        	<img src="{{ product | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" class="grid-product__image">
+        </div>
+        {% endcomment %}
       </a>
       {% if sold_out %}
         <div class="grid-product__sold-out">
@@ -49,34 +53,82 @@
         </div>
       {% endif %}
     </div>
-    <br>
-<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-    <a href="{{ product.url | within: collection }}" class="grid-product__meta">
-      <div class="grid-product__title">{{ product.title }}</div>
-      
-	  <div class="grid-product__price-wrap">
-        <!-- <span class="long-dash">—</span> -->
-        <div class="grid-product__price">
-          {% if on_sale %}
-            <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
-          {% else %}
-             <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
-          {% endif %}
-          {% if product.price_varies %}
-            {{ product.price_min | money_without_trailing_zeros }}
-            <span class="icon-fallback-text">
-              <span class="icon icon-plus grid-product__price-min" aria-hidden="true"></span>
-              <span class="fallback-text">+</span>
-            </span>
-          {% else %}
-            {{ product.price | money_without_trailing_zeros }}
-          {% endif %}
+    <div class="product-bottom">
+			<a class="admin-link" href="https://purcharest.myshopify.com/admin/products/{{ product.id }}" target="_blank" style="display: none;">&nbsp;</a>
+      <a href="{{ product.url | within: collection }}" class="grid-product__meta">
+        <div class="grid-product__title">{{ product.title }}</div>
+        <div class="grid-product__price-wrap">
+          <!-- <span class="long-dash">—</span> -->
+          <div class="grid-product__price">
+            {% if on_sale %}
+              <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+            {% else %}
+               <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+            {% endif %}
+            {% if product.price_varies %}
+              {{ product.price_min | money_without_trailing_zeros }}
+              <span class="icon-fallback-text">
+                <span class="icon icon-plus grid-product__price-min" aria-hidden="true"></span>
+                <span class="fallback-text">+</span>
+              </span>
+            {% else %}
+              {{ product.price | money_without_trailing_zeros }}
+            {% endif %}
+          </div>
         </div>
-      </div>
-      {% if settings.product_vendor_enable %}
-        <p class="grid-product__vendor">{{ product.vendor }}</p>
-      {% endif %}
-    </a>
-    
+        {% if settings.product_vendor_enable %}
+          <p class="grid-product__vendor">{{ product.vendor }}</p>
+        {% endif %}
+      </a>
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+	  <span class="home-colors">
+	  	
+		{% assign color_counter = 0 %}
+		{% for option in product.options %}
+		  {% if option == 'Color' %}
+		    {% assign index = forloop.index0 %}
+		    {% assign colorlist = '' %}
+		    {% assign color = '' %}
+			{% assign color_counter = 0 %}
+		    {% for variant in product.variants %}
+		      {% capture color %}
+		        {{ variant.options[index] }}
+		      {% endcapture %}
+		      {% unless colorlist contains color %}
+			  	{% assign color_text = color | downcase | strip_html | rstrip | strip_newlines | strip_html | escape | remove: '	' | remove: ' ' | remove: '(' | remove: ')' | remove: '/' | remove: '\' | remove: '-' %}
+				{% assign color_tooltip = color | strip_newlines | strip_html | escape | remove: '	' | remove: '  ' | capitalize %}
+				{% assign color_counter = color_counter | plus: 1 %}
+				{% if color_counter <= 6 %}
+					<a href="{{ variant.url }}">
+					<!-- <a href="{{ product.url }}"> -->
+					<div class="home-color-wrapper lazy" data-src="{{ 'nocolor.png' | asset_url }}"> 
+						<div class="home-color-swatch home-color-tooltip lazy"
+            title="{{ color_tooltip }}"
+            data-src="{{ color_text | append: '.png' | asset_url }}"
+						style="background-color: {{ color_text }};">
+					 	</div>
+					</div>
+					</a>
+				{% endif %}
+		        {% capture tempList %}
+		          {{colorlist | append: color | append: ‘ ‘}}
+		        {% endcapture %}
+		        {% assign colorlist = tempList %}
+		      {% endunless %}
+		    {% endfor %}
+		  {% endif %}
+		{% endfor %}
+		
+		{% if color_counter > 6 %}
+		<a href="{{ product.url }}">
+			<div class="home-color-more">
+				+
+		 	</div>
+		</a>
+		{% endif %}
+	  
+	  </span>
+    </div>
   </div>
 </div>
+

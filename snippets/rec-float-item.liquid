@@ -1,0 +1,80 @@
+<!-- /snippets/rec-float-item.liquid -->
+{% comment %}
+
+  This snippet is used to showcase each product during the loop,
+  'for product in collection.products' in collection.liquid.
+
+  A liquid variable (float_item_width) is set just before the this
+  snippet is included to change the size of the container.
+  Once the variable is set on a page, all future instances of this
+  snippet will use that width. Overwrite the variable to adjust this.
+
+  Example
+    - assign float_item_width = 'large--one-quarter medium--one-half'
+
+{% endcomment %}
+
+{% unless float_item_width %}
+  {% assign float_item_width = 'large--one-third medium--one-half' %}
+{% endunless %}
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = false %}
+{% if product.available != true %}
+  {% assign sold_out = true %}
+{% endif %}
+
+
+<div class="float-item {% if sold_out %} rec-sold-out {% endif %}">
+  <div class="rec-prod-wrapper">
+    <div class="rec-prod-image-wrapper">
+      <a class="rec-prod-image-link" href="{{ product.url | within: collection }}">
+        <div class="rec-prod-image lazy lazy-delay" data-src="{{ product | img_url: '400x400' }}" style="background: center center no-repeat; background-size: cover;">
+          &nbsp;
+        </div>
+      </a>
+      {% if sold_out %}
+        <div class="grid-product__sold-out">
+          <p>{{ 'products.product.sold_out_html' | t }}</p>
+        </div>
+      {% elsif on_sale %}
+        <div class="grid-product__on-sale">
+          {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | money_without_trailing_zeros }}{% endcapture %}
+          <p>{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p>
+        </div>
+      {% endif %}
+    </div>
+    <div class="rec-product-bottom">
+      
+      	<div class="rec-product-title">
+        <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+      	</div>
+        <div class="rec-product-price-wrap">
+          <!-- <span class="long-dash">—</span> -->
+          <div class="rec-product-price">
+            {% if on_sale %}
+              <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+            {% else %}
+               <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+            {% endif %}
+            {% if product.price_varies %}
+              {{ product.price_min | money_without_trailing_zeros }}
+              <span class="icon-fallback-text">
+                <span class="icon icon-plus grid-product__price-min" aria-hidden="true"></span>
+                <span class="fallback-text">+</span>
+              </span>
+            {% else %}
+              {{ product.price | money_without_trailing_zeros }}
+            {% endif %}
+          </div>
+        </div>
+      	{% comment %}<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>{% endcomment %}
+    </div>
+  </div>
+</div>
+
+

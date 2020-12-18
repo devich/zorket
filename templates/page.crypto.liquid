@@ -1,0 +1,467 @@
+<!-- /templates/page.liquid -->
+<div class="grid">
+  <div class="grid__item large--five-sixths push--large--one-twelfth">
+
+    <header class="section-header text-center page-header" style="display: none;">
+      
+      <!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '709796692516135');
+fbq('track', 'PageView');
+fbq('track', 'ViewContent');  
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+    </header>
+
+    <div class="grid">
+      <div class="grid__item large--four-fifths push--large--one-tenth">
+        <h1 class="page-h1">{{ page.title }}</h1>
+        <div class="rte--nomargin rte--indented-images crypto-checkout">
+          {{ page.content }}
+		  
+
+	        <div class="crypto-cart-labels cart__row medium-down--hide cart__header-labels">
+	          <div class="grid--full">
+	            <div class="grid__item large--two-fifths push--large--three-fifths">
+	              <div class="grid--full">
+	                <div class="grid__item one-third medium-down--half text-center">
+	                  {{ 'cart.label.quantity' | t }}
+	                </div>
+	                <div class="grid__item two-thirds medium-down--half text-right">
+	                  {{ 'cart.label.total' | t }}
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+
+	        {% comment %}
+	          Loop through products in the cart
+	        {% endcomment %}
+	        {% for item in cart.items %}
+	          <div class="crypto-row cart__row">
+	            <div class="grid--full">
+
+	              <div class="grid__item large--three-fifths">
+	                <div class="grid">
+
+	                  <div class="grid__item one-third">
+	                      {% comment %}
+	                        More image size options at:
+	                          - http://docs.shopify.com/themes/filters/product-img-url
+	                      {% endcomment %}
+	                      <img src="{{ item | img_url: 'thumb', crop: 'center' }}" alt="{{ item.title | escape }}">
+	                  </div>
+
+	                  <div class="grid__item two-thirds">
+	                    <p class="crypto-title">
+	                      {{ item.product.title }}
+	                    </p>
+
+	                    {% unless item.variant.title contains 'Default' %}
+	                      <p class="crypto-variant cart__product-meta">
+	                        {{ item.variant.title }}
+	                      </p>
+	                    {% endunless %}
+
+	                    
+	                  </div>
+
+	                </div>
+	              </div>
+
+	              <div class="grid__item large--two-fifths">
+	                <div class="grid--full cart__row--table">
+
+	                  <div class="grid__item one-third text-center">
+	                    <span class="crypto-quantity">{{ item.quantity }}</span>
+	                  </div>
+
+	                  <div class="grid__item two-thirds text-right">
+	                    {% if item.original_line_price != item.line_price %}
+	                      <small class="cart__price cart__price--strikethrough">{{ item.original_line_price | money }}</small>
+	                    {% endif %}
+                    
+	                    <span class="cart__price">{{ item.line_price | money }}</span>
+                    
+	                    {% assign discounts_size = item.discounts | size %}
+	                    {% if discounts_size > 0 %}
+	                      {% for discount in item.discounts %}
+	                        <small class="cart__discount">{{ discount.title }}</small>
+	                      {% endfor %}
+	                    {% endif %}
+	                  </div>
+	                </div>
+	              </div>
+
+	            </div>
+	          </div>
+			  <hr class="crypto-hr">
+	        {% endfor %}
+
+	        <div class="cart__row">
+	          <div class="grid--full cart__row--table-large">
+	            {% comment %}
+	              Optional, add a textarea for special notes
+	                - Your theme settings can turn this on or off. Default is on.
+	                - Make sure you have name="note" for the message to be submitted properly
+	            {% endcomment %}
+ 
+
+	              <div class="grid--full cart__row--table">
+	                <div class="grid__item one-half large--two-thirds large--text-center">
+	                  <p class="cart__subtotal subtottitle"><span id="bk-cart-subtotal-label">{{ 'cart.general.subtotal' | t }}</span></p>
+	                </div>
+	                <div class="grid__item one-half large--one-third">
+	                  <p class="crypto-subtotal cart__subtotal subtotmon"><span>{{ cart.total_price | money }}</span></p>
+					  <p class="crypto-price eth"><span class="cr-token-name">ETH</span>&thinsp;<span id="ethprice">...</span></p>
+					  <p class="crypto-price btc"><span class="cr-token-name">BTC</span>&thinsp;<span id="btcprice">...</span></p>
+					  <p class="crypto-price dash"><span class="cr-token-name">DASH</span>&thinsp;<span id="dashprice">...</span></p>
+					  <p class="crypto-price ltc"><span class="cr-token-name">LTC</span>&thinsp;<span id="ltcprice">...</span></p>
+					  <p class="crypto-price xrp"><span class="cr-token-name">XRP</span>&thinsp;<span id="xrpprice">...</span></p>
+	                </div>
+	              </div>
+              
+              
+	              <div class="grid--full cart__row--table">
+	                
+	                  <p id="dicsnote">
+	                    {% comment %}{{ 'cart.general.shipping_at_checkout' | t }}{% endcomment %}
+	                    <strong>Free shipping</strong><br>
+	                    Cryptocurrency price is valid within 1 hour<br>Refresh browser page to update the price<br>
+	                    <span style="color: #c83619">Cryptocurrency prices include <strong>10% OFF!</strong></span>
+	                  </p>
+
+	                
+	              </div>
+             
+	          </div>
+
+	        </div>
+
+
+		  
+		  
+		  
+          <div class="form-vertical">
+          {% form 'contact' %}
+
+            {% comment %}
+              Successful message
+            {% endcomment %}
+            {% if form.posted_successfully? %}
+              <p class="note form-success">
+                Thank you! We've received your payment details.<br>
+				We'll process your order as soon as possible and send confirmation email to you within 24 hours.
+              </p>
+			  
+			  <style>
+				  .cr-sel-wrap {
+				  	  display: none;
+				  }
+			  </style>
+			  
+            {% endif %}
+
+            {{ form.errors | default_errors }}
+
+		<div class="cr-sel-wrap">
+			<div class="cr-sel-title">
+				Please select currency
+			</div>
+			<div class="crypto-select">
+				<div class="crypto-select-eth"><a href="javascript:void(0)">{{ 'ethereum.png' | asset_url | img_tag: 'Ethereum', 'cr-logo' }}<span class="cr-title">Ethereum</span></a></div>
+				<div class="crypto-select-btc"><a href="javascript:void(0)">{{ 'bitcoin.png' | asset_url | img_tag: 'Bitcoin', 'cr-logo' }}<span class="cr-title">Bitcoin</span></a></div>
+				<div class="crypto-select-dash"><a href="javascript:void(0)">{{ 'dash.png' | asset_url | img_tag: 'Dash', 'cr-logo' }}<span class="cr-title">Dash</span></a></div>
+				<div class="crypto-select-ltc"><a href="javascript:void(0)">{{ 'litecoin.png' | asset_url | img_tag: 'Litecoin', 'cr-logo' }}<span class="cr-title">Litecoin</span></a></div>
+				<div class="crypto-select-xrp"><a href="javascript:void(0)">{{ 'ripple.png' | asset_url | img_tag: 'Ripple', 'cr-logo' }}<span class="cr-title">Ripple</span></a></div>
+			</div>
+		</div>
+	
+			<div class="crypto-block" id="crypto-block-eth">
+				<h3 class="cr-header"><strong>Ethereum</strong> instructions:</h3>
+				<p>
+					To make a payment send Ethereum ETH&thinsp;<strong><span id="ethprice2">0.000000</span></strong> to this Address:</br>
+					<span class="crypto-address"><strong>0x92c0814D87b9a4327Fbb2e649358F9A6084A50A6</strong></span>
+				</p>
+				<p>
+					After transaction is completed, send us the Transaction Hash (TxHash) so we'll be able to identificate your order.
+				</p>
+				<p>
+					We'll process your order within 24 hours and send confirmation email to you.
+				</p>
+	            <label for="ContactFormHash" class="hidden-label">{{ 'contact.form.hash' | t }}</label>
+	            <input type="hash" id="ContactFormHash" class="input-full" placeholder="TxHash" name="contact[hash]">
+			</div>
+			
+			
+			<div class="crypto-block" id="crypto-block-btc">
+				<h3 class="cr-header"><strong>Bitcoin</strong> instructions:</h3>
+				<p>
+					To make a payment send Bitcoin BTC&thinsp;<strong><span id="btcprice2">0.000000</span></strong> to this Address:</br>
+					<span class="crypto-address"><strong>144WT3PQdfgxiMchVoD8cvc4CEopBkPkfx</strong></span>
+				</p>
+				<p>
+					After transaction is completed, send us the Transaction Hash (txid) so we'll be able to identificate your order.
+				</p>
+				<p>
+					We'll process your order within 24 hours and send confirmation email to you.
+				</p>
+	            <label for="ContactFormHash" class="hidden-label">{{ 'contact.form.hash' | t }}</label>
+	            <input type="hash" id="ContactFormHash" class="input-full" placeholder="Hash (txid)" name="contact[hash]">
+			</div>
+			
+			<div class="crypto-block" id="crypto-block-dash">
+				<h3 class="cr-header"><strong>Dash</strong> instructions:</h3>
+				<p>
+					To make a payment send DASH&thinsp;<strong><span id="dashprice2">0.000000</span></strong> to this Address:</br>
+					<span class="crypto-address"><strong>XwV4XWi2Bmf8PZmByT4Xc9awFbbjjqYts6</strong></span>
+				</p>
+				<p>
+					After transaction is completed, send us the Transaction Hash so we'll be able to identificate your order.
+				</p>
+				<p>
+					We'll process your order within 24 hours and send confirmation email to you.
+				</p>
+	            <label for="ContactFormHash" class="hidden-label">{{ 'contact.form.hash' | t }}</label>
+	            <input type="hash" id="ContactFormHash" class="input-full" placeholder="Transaction Hash" name="contact[hash]">
+			</div>
+			
+			<div class="crypto-block" id="crypto-block-ltc">
+				<h3 class="cr-header"><strong>Litecoin</strong> instructions:</h3>
+				<p>
+					To make a payment send Litecoin LTC&thinsp;<strong><span id="ltcprice2">0.000000</span></strong> to this Address:</br>
+					<span class="crypto-address"><strong>LSSHuXUqjKAp9bRRfGj47oECrYJsWnQzEh</strong></span>
+				</p>
+				<p>
+					After transaction is completed, send us the Transaction Hash so we'll be able to identificate your order.
+				</p>
+				<p>
+					We'll process your order within 24 hours and send confirmation email to you.
+				</p>
+	            <label for="ContactFormHash" class="hidden-label">{{ 'contact.form.hash' | t }}</label>
+	            <input type="hash" id="ContactFormHash" class="input-full" placeholder="Transaction Hash" name="contact[hash]">
+			</div>
+			
+			<div class="crypto-block" id="crypto-block-xrp">
+				<h3 class="cr-header"><strong>Ripple</strong> instructions:</h3>
+				<p>
+					To make a payment send Ripple XRP&thinsp;<strong><span id="xrpprice2">0.000000</span></strong> to this Address:</br>
+					<span class="crypto-address"><strong>rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh</strong></span>
+					with this tag:
+					<span class="crypto-address"><strong>109996671</strong></span>
+				</p>
+				<p>
+					<strong>IMPORTANT: Please don't forget to add the tag. We can't receive paymetns with no tag and can't refund them</strong>
+				</p>
+				<p>
+					After transaction is completed, send us the Transaction Hash so we'll be able to identificate your order.
+				</p>
+				<p>
+					We'll process your order within 24 hours and send confirmation email to you.
+				</p>
+	            <label for="ContactFormHash" class="hidden-label">{{ 'contact.form.hash' | t }}</label>
+	            <input type="hash" id="ContactFormHash" class="input-full" placeholder="Transaction Hash" name="contact[hash]">
+			</div>
+			
+			
+			<div id="crypto-shipping">
+            <label for="ContactFormEmail" class="hidden-label">{{ 'contact.form.email' | t }}</label>
+            <input type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+			
+			<p>
+				<strong>Shipping Details:</strong>
+			</p>
+            <label for="ContactFormName" class="hidden-label">{{ 'contact.form.name' | t }}</label>
+            <input type="text" id="ContactFormName" class="input-full" name="contact[name]" placeholder="{{ 'contact.form.name' | t }}"  value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+			
+            <label for="ContactFormPhone" class="hidden-label">{{ 'contact.form.phone' | t }}</label>
+            <input type="tel" id="ContactFormPhone" class="input-full" name="contact[phone]" placeholder="{{ 'contact.form.phone' | t }}" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+            
+            <label for="ContactFormCountry" class="hidden-label">Country</label>
+            <input type="text" id="ContactFormCountry" class="input-full" name="contact[country]" placeholder="Country" value="{% if form.country %}{{ form.country }}{% elsif customer %}{{ customer_address.country}}{% endif %}">
+            
+			<div class="grid grid--small">
+              <div class="grid__item large--one-half">
+                <label for="ContactFormProvince" class="hidden-label">State/Province</label>
+                <input type="text" id="ContactFormProvince" class="input-full" name="contact[province]" placeholder="State/Province" value="{% if form.province %}{{ form.province }}{% elsif customer %}{{ customer_address.country }}{% endif %}">
+              </div>
+
+              <div class="grid__item large--one-half">
+                <label for="ContactFormZip" class="hidden-label">ZIP-code</label>
+                <input type="text" id="ContactFormZip" class="input-full" name="contact[zip]" placeholder="ZIP-code" value="{% if form.zip %}{{ form.zip }}{% elsif customer %}{{ customer_address.zip }}{% endif %}">
+              </div>
+            </div>
+			
+            <label for="ContactFormCity" class="hidden-label">Country</label>
+            <input type="text" id="ContactFormCity" class="input-full" name="contact[city]" placeholder="City" value="{% if form.city %}{{ form.city }}{% elsif customer %}{{ customer_address.city}}{% endif %}">
+			
+            <label for="ContactFormStreet" class="hidden-label">Street Address</label>
+            <input type="text" id="ContactFormStreet" class="input-full" name="contact[street]" placeholder="Street Address" value="{% if form.street %}{{ form.street }}{% elsif customer %}{{ customer_address.street}}{% endif %}">
+			
+
+            <label for="ContactFormCart" class="hidden-label">Cart Summary</label>
+<textarea id="ContactFormCart" class="input-full" name="contact[cart]" placeholder="Cart Summary">
+{% assign counter = 1 %}{% for item in cart.items %}Item #{{ counter }}:
+https://zorket.com{{ item.url }}
+Title: {{ item.product.title }}
+Color/Size: {% unless item.variant.title contains 'Default' %}{{ item.variant.title }}{% endunless %}
+Quantity: {{ item.quantity }}
+Total price: {{ item.line_price | money }}
+--------------------------------------------------------------
+{% assign counter = counter | plus: 1 %}
+{% endfor %}
+Cart Total: {{ cart.total_price | money }}</textarea>
+
+			<label for="ContactFormCryptoPrice" class="hidden-label">Price in Crypto</label>
+			<input type="text" id="ContactFormCryptoPrice" class="input-full" name="contact[cryptoprice]" placeholder="Price in Crypto" value="">
+
+            <input type="submit" class="btn right crypto-send-button" value="Send Payment Details">
+			</div>
+          {% endform %}
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<br><br><br><br>
+
+
+
+<script>
+	usdprice = {{ cart.total_price }} / 100;
+	$.ajaxSettings.async = false;
+	
+	discount = 10; //discount in %
+	
+	$.getJSON('https://api.coinmarketcap.com/v1/ticker/ethereum/', function (data) {
+		ethPrice = data[0]['price_usd'];
+		ethTotal = usdprice / ethPrice;
+		ethTotal = ethTotal - (ethTotal / 100 * discount); //discount
+    });
+	
+	$.getJSON('https://api.coinmarketcap.com/v1/ticker/bitcoin/', function (data) {
+		btcPrice = data[0]['price_usd'];
+		btcTotal = usdprice / btcPrice;
+		btcTotal = btcTotal - (btcTotal / 100 * discount); //discount
+    });
+	
+	$.getJSON('https://api.coinmarketcap.com/v1/ticker/dash/', function (data) {
+		dashPrice = data[0]['price_usd'];
+		dashTotal = usdprice / dashPrice;
+		dashTotal = dashTotal - (dashTotal / 100 * discount); //discount
+    });
+	
+	$.getJSON('https://api.coinmarketcap.com/v1/ticker/litecoin/', function (data) {
+		ltcPrice = data[0]['price_usd'];
+		ltcTotal = usdprice / ltcPrice;
+		ltcTotal = ltcTotal - (ltcTotal / 100 * discount); //discount
+    });
+	
+	$.getJSON('https://api.coinmarketcap.com/v1/ticker/ripple/', function (data) {
+		xrpPrice = data[0]['price_usd'];
+		xrpTotal = usdprice / xrpPrice;
+		xrpTotal = xrpTotal - (xrpTotal / 100 * discount); //discount
+    });
+	
+	
+	$('#ethprice').text(ethTotal.toFixed(5));
+	$('#btcprice').text(btcTotal.toFixed(5));
+	$('#dashprice').text(dashTotal.toFixed(5));
+	$('#ltcprice').text(ltcTotal.toFixed(5));
+	$('#xrpprice').text(xrpTotal.toFixed(5));
+	
+	
+	//$("#crypto-block-eth").show();
+	//$('#ethprice2').text(ethTotal.toFixed(5));
+	//$('#ContactFormCryptoPrice').val('ETH ' + ethTotal + '; ' + 'ETH/USD: ' + ethPrice);
+		
+	$(".crypto-select-eth").click(function() {
+		$(".crypto-block").hide();
+		$("#crypto-block-eth").show();
+		$("#crypto-shipping").show();
+		$('#ethprice').text(ethTotal.toFixed(5));
+		$('#ethprice2').text(ethTotal.toFixed(5));
+		$('#ContactFormCryptoPrice').val('ETH ' + ethTotal + '; ' + 'ETH/USD: ' + ethPrice);
+		$('.crypto-price').removeClass('cr-current');
+		$('.crypto-price.eth').addClass('cr-current');
+	});
+	
+	$(".crypto-select-btc").click(function() {
+		$(".crypto-block").hide();
+		$("#crypto-block-btc").show();
+		$("#crypto-shipping").show();
+		$('#btcprice').text(btcTotal.toFixed(5));
+		$('#btcprice2').text(btcTotal.toFixed(5));
+		$('#ContactFormCryptoPrice').val('BTC ' + btcTotal + '; ' + 'BTC/USD: ' + btcPrice);
+		$('.crypto-price').removeClass('cr-current');
+		$('.crypto-price.btc').addClass('cr-current');
+	});
+	
+	$(".crypto-select-dash").click(function() {
+		$(".crypto-block").hide();
+		$("#crypto-block-dash").show();
+		$("#crypto-shipping").show();
+		$('#dashprice').text(dashTotal.toFixed(5));
+		$('#dashprice2').text(dashTotal.toFixed(5));
+		$('#ContactFormCryptoPrice').val('DASH ' + dashTotal + '; ' + 'DASH/USD: ' + dashPrice);
+		$('.crypto-price').removeClass('cr-current');
+		$('.crypto-price.dash').addClass('cr-current');
+	});
+	
+	$(".crypto-select-ltc").click(function() {
+		$(".crypto-block").hide();
+		$("#crypto-block-ltc").show();
+		$("#crypto-shipping").show();
+		$('#ltcprice').text(ltcTotal.toFixed(5));
+		$('#ltcprice2').text(ltcTotal.toFixed(5));
+		$('#ContactFormCryptoPrice').val('LTC ' + ltcTotal + '; ' + 'LTC/USD: ' + ltcPrice);
+		$('.crypto-price').removeClass('cr-current');
+		$('.crypto-price.ltc').addClass('cr-current');
+	});
+	
+	$(".crypto-select-xrp").click(function() {
+		$(".crypto-block").hide();
+		$("#crypto-block-xrp").show();
+		$("#crypto-shipping").show();
+		$('#xrpprice').text(xrpTotal.toFixed(5));
+		$('#xrpprice2').text(xrpTotal.toFixed(5));
+		$('#ContactFormCryptoPrice').val('XRP ' + xrpTotal + '; ' + 'XRP/USD: ' + xrpPrice);
+		$('.crypto-price').removeClass('cr-current');
+		$('.crypto-price.xrp').addClass('cr-current');
+	});
+	   
+	
+	// window.setInterval(function(){
+	//     //code goes here that will be run every 5 seconds
+	// 	$.getJSON('https://api.coinmarketcap.com/v1/ticker/ethereum/', function (data) {
+	// 		console.log(data[0]['price_usd']);
+	// 		usdprice = {{ cart.total_price }} / 100;
+	// 		ethPrice = data[0]['price_usd'];
+	// 		ethTotal = usdprice / ethPrice;
+	// 		console.log(usdprice);
+	// 		console.log(ethPrice);
+	// 		console.log(ethTotal);
+	// 		$('#eth_price').text(ethTotal.toFixed(5));
+	//     });
+	// }, 60000);
+	
+</script>
+
+<style>
+	.newsletter{
+		display: none;
+	}
+</style>

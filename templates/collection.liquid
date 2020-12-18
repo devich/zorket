@@ -1,3 +1,9 @@
 <!-- /templates/collection.liquid -->
+<script>
+	listView = Cookies.get('list-view');
+		if(listView == 'true') {
+			window.location.href = updateURLParameter(window.location.href, 'view', 'list');
+		}
+</script>
 
 {% include 'collection-template' %}

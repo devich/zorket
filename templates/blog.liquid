@@ -1,4 +1,37 @@
 <!-- /templates/blog.liquid -->
+<style>
+		.grid__item {
+			padding-left: 15px;
+		}
+		
+		.tags--article, hr, .rss-link {
+			display: none;
+		}
+		
+		.article {
+			margin-bottom: 20px;
+		}
+		
+		.section-header > h1 {
+			padding-left: 0;
+			padding-top: 20px;
+		}
+		
+		h3 {
+			font-size: 20px;
+			font-weight: bold;
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+		
+		a.text-link {
+			font-weight: bold;
+			font-size: 15px;
+		}
+		
+</style>
+
+
 {% paginate blog.articles by 5 %}
 
 <div class="grid">
@@ -48,7 +81,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
         {% assign featured_image_src = featured_image_src[1] | split: '"' | first %}
       {% endif %}
 
-      <article class="article grid small--text-center">
+      <article class="article grid">
 
         {% unless featured_image_src == blank %}
           <div class="grid__item">
@@ -58,11 +91,11 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
           </div>
         {% endunless %}
 
-        <div class="grid__item large--two-tenths push--large--one-tenth">
+        <!-- <div class="grid__item large--two-tenths push--large--one-tenth">
           <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}" class="date">{{ article.published_at | date: format: 'month_day_year' }}</time>
           <hr class="hr--small hr--left small--hide">
-        </div>
-        <div class="grid__item large--six-tenths push--large--one-tenth">
+        </div> -->
+        <div class="grid__item large--four-sixths push--large--one-sixth">
           <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
           <div class="rte rte--indented-images">
             {{ article_content | strip_html | truncatewords: 120 }}

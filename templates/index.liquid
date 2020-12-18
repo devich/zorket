@@ -1,5 +1,11 @@
 <!-- /templates/index.liquid -->
 
+
+<style>
+	.grid__item {	padding-left: 10px; }
+</style>
+
+
 {% comment %}
   Track how many sections are shown
 {% endcomment %}
@@ -10,17 +16,768 @@
   {% include settings.home_section_1, section_number: 1 %}
 {% endif %}
 
+<!-- Seasons and reopen wrapper-->
+</div>
+<div class="seasons grid grid-uniform">
+	<div class="season season1 grid__item small--one-half medium--one-quarter large--one-quarter text-center">
+		<a href="collections/winter-collection">
+			<div>
+				<img class="season-img" src="{{ 'winter-title.svg' | asset_url }}">
+			</div>
+		</a>
+	</div>
+	<div class="season season2 grid__item small--one-half medium--one-quarter large--one-quarter text-center">
+		<a href="collections/spring">
+			<div>
+				<img class="season-img" src="{{ 'spring-title.svg' | asset_url }}">
+			</div>
+		</a>
+	</div>
+	<div class="season season3 grid__item small--one-half medium--one-quarter large--one-quarter text-center">
+		<a href="collections/summer">
+			<div>
+				<img class="season-img" src="{{ 'summer-title.svg' | asset_url }}">
+			</div>
+		</a>
+	</div>
+	<div class="season season4 grid__item small--one-half medium--one-quarter large--one-quarter text-center">
+		<a href="collections/autumn">
+			<div>
+				<img class="season-img" src="{{ 'autumn-title.svg' | asset_url }}">
+			</div>
+		</a>
+	</div>
+</div>  
+<div class="wrapper">
+	
+<script>
+$('.season').hover(
+  function() {
+		_('HOVER');
+    $( this ).addClass('season-hover');
+  }, function() {
+		_('UNHOVER');
+    $( this ).removeClass('season-hover');
+  }
+);
+</script>
+
+<!-- End Seasons Collections and reopened wrapper-->
+	
+	
+
+<!-- New Arrivals and reopen wrapper-->
+</div>
+<div id="RecNewArrivals" class="rec-wrapper black-bg">
+	<div class="rec-head-wrap">
+		<span class="new-arrivals black-bg">Featured Products</span>
+		<div class="view-more-mob">
+		    <a href="/collections/featured" class="vm-mob-link-dark">view more <strong>⟩</strong></a>
+		</div>
+	</div>
+	<div class="scrollyeah new-arr-home">
+	{% paginate collections.featured.products by 20 %}
+	  {% assign counter = 0 %}
+	  {% assign products = collections.featured.products %}
+	  {% for product in products %}
+	    {% if counter < 20 and product.available %}
+	      {% include 'rec-float-item' with product %}
+	      {% assign counter = counter | plus: 1 %}
+	    {% endif %}
+	  {% endfor %}
+	{% endpaginate %}
+	</div>
+	<div class="scrollyeah-left">
+		<a href="javascript:void(0)" class="scrollyeah-left-link dark-btn no-border"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+	</div>
+	<div class="view-more-arr view-more">
+	    <a href="/collections/featured" class="link-button dark-btn">View more</a>
+	</div>
+	<div class="scrollyeah-right">
+		<a href="javascript:void(0)" class="scrollyeah-right-link dark-btn no-border"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+	</div>
+</div>
+<div class="wrapper">
+<!-- End New Arrivals and reopened wrapper-->
+
+
+<!-- Featured Collections and reopen wrapper-->
+<!-- <div class="collections-head"><span class="new-arrivals">Featured Collections</span></div> -->
+</div>
+<div class="home-section-2">
 {% if settings.home_section_2 != blank %}
   {% assign number_of_index_sections = number_of_index_sections | plus: 1 %}
   {% include settings.home_section_2, section_number: 2 %}
 {% endif %}
+</div>  
+<div class="wrapper">
+<!-- End Featured Collections and reopened wrapper-->
 
+
+<!-- Banners and reopen wrapper-->
+</div>
+<div class="banners grid grid-uniform">
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/men-suits-blazer">
+			<img class="lazy lazy-delay" data-src="{{ 'z-ban-suits.png' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/women-dresses">
+			<img class="lazy lazy-delay" data-src="{{ 'z-ban-dresses.png' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/men-tops-and-tees">
+			<img class="lazy lazy-delay" data-src="{{ 'z-ban-tshirts.png' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/women-tops">
+			<img class="lazy lazy-delay" data-src="{{ 'z-ban-tops.jpg' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/sales">
+			<img class="lazy lazy-delay" data-src="{{ 'z-ban-sales.jpg' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/men-shirts">
+			<img class="lazy lazy-delay" data-src="{{ 'z-ban-shirts.jpg' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/men-jeans">
+			<img class="lazy lazy-delay" data-src="{{ 'z-ban-jeans.jpg' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/women-blouses-shirts">
+			<img class="lazy lazy-delay" data-src="{{ 'z-ban-blouses.jpg' | asset_url }}">
+		</a>
+	</div>
+</div>  
+<div class="wrapper">
+<!-- End Banners and reopened wrapper-->
+
+<!-- Random for banners -->
+<script>
+/* Returns a random number between min (inclusive) and max (exclusive) */
+function generateRandomNumb(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+var randArray = [];
+
+for(var i = 0; i < 3; i++) {
+    var numberIsInArray = false;
+    var rand = generateRandomNumb(0, 8);
+    for(var j = 0; j < randArray.length; j++) {
+        if(rand === randArray[j]) {
+            numberIsInArray = true;
+            i--;
+        }
+    }
+    if(!numberIsInArray) {
+       randArray.push(rand);
+    }
+}
+
+  for(var i = 0; i < randArray.length; i++){
+	$($('.banner')[randArray[i]]).removeClass('banner-delete');
+	$($('.banner')[randArray[i]]).addClass('banner-visible');
+  }
+
+$('.banner-delete').remove();
+
+$.fn.randomize = function(selector){
+    (selector ? this.find(selector) : this).parent().each(function(){
+        $(this).children(selector).sort(function(){
+            return Math.random() - 0.5;
+        }).detach().appendTo(this);
+    });
+
+    return this;
+};
+
+$('.banner-visible').randomize();
+</script>
+<!-- End Random for banners -->
+
+
+<!-- Products and reopen wrapper-->
+</div>
+<div class="home-section-3 home-prod-wrapper">
 {% if settings.home_section_3 != blank %}
   {% assign number_of_index_sections = number_of_index_sections | plus: 1 %}
   {% include settings.home_section_3, section_number: 3 %}
 {% endif %}
+</div>
+<div class="wrapper">
+<!-- End Products and reopened wrapper-->
 
+
+<div class="home-section-4">
 {% if settings.home_section_4 != blank %}
   {% assign number_of_index_sections = number_of_index_sections | plus: 1 %}
   {% include settings.home_section_4, section_number: 4 %}
 {% endif %}
+</div>
+
+
+<!-- Featured Section and reopen wrapper-->
+</div>
+
+<div id="FeatSection" class="rec-wrapper rec-index-bg grid grid-uniform">
+
+	<div class="grid__item small--one-whole medium--one-half large--one-half">
+		<div id="FeatProd" class="feat-wrapper">
+			<div class="new-arrivals feat-title">Trending Products</div>
+			<div class="view-more feat-view-more">
+				<a href="/collections/featured" class="vm-mob-link-light">view more <strong>⟩</strong></a>
+			</div>
+			<div class="feat-content grid grid-uniform">
+			{% paginate collections.featured.products by 10 %}
+				{% assign counter = 0 %}
+				{% assign products = collections.featured.products %}
+				{% for product in products %}
+					{% if counter < 10 and product.available %}
+					{% include 'featured-item' with product %}
+					{% assign counter = counter | plus: 1 %}
+					{% endif %}
+				{% endfor %}
+			{% endpaginate %}
+			</div>
+		</div>
+	</div>
+	<div class="grid__item small--one-whole medium--one-half large--one-half">
+		<div class="feat-wrapper">
+			<div class="new-arrivals feat-title">New For You</div>
+			<div class="view-more feat-view-more">
+				<a href="/collections/new?page=2" class="vm-mob-link-light">view more <strong>⟩</strong></a>
+			</div>
+			<div class="feat-content grid grid-uniform">
+				
+				{% assign on_sale = false %}
+				{% if collections['new'].products[18].compare_at_price > collections['new'].products[18].price %}
+				{% assign on_sale = true %}
+				{% endif %}
+
+				{% assign sold_out = true %}
+				{% if collections['new'].products[18].available %}
+				{% assign sold_out = false %}
+				{% endif %}
+				<div class="grid__item grid-product feat-content-item large--one-quarter medium--one-half small--one-half {% if sold_out %} is-sold-out{% endif %}">
+					<div class="grid-product__wrapper">
+					  <div class="featured-image-wrapper {% if template != 'index' %} non-index-image-height {% endif %}" >
+						<a class="featured-image-link lazy" href="{% if template == 'index' %}/collections/new{{collections['new'].products[18].url}}{% else %}{{ collections['new'].products[18].url | within: collections['new'] }}{% endif %}" data-src="{{ collections['new'].products[18] | img_url: 'large' }}" style="background: center center no-repeat; background-size: cover;">
+						</a>
+						{% if sold_out %}
+						  <div class="grid-product__sold-out">
+							<p>{{ 'products.product.sold_out_html' | t }}</p>
+						  </div>
+						{% elsif on_sale %}
+						  <div class="grid-product__on-sale">
+							{% capture saved_amount %}{{ collections['new'].products[18].compare_at_price | minus: collections['new'].products[18].price | money_without_trailing_zeros }}{% endcapture %}
+							<p>{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p>
+						  </div>
+						{% endif %}
+					  </div>
+					  <div class="product-bottom">
+							  <a class="admin-link" href="https://purcharest.myshopify.com/admin/products/{{ collections['new'].products[18].id }}" target="_blank" style="display: none;">&nbsp;</a>
+						<a href="{{ collections['new'].products[18].url | within: collections['new'] }}" class="grid-product__meta">
+						  <div class="grid-product__title">{{ collections['new'].products[18].title }}</div>
+						  <div class="grid-product__price-wrap">
+							<!-- <span class="long-dash">—</span> -->
+							<div class="grid-product__price">
+							  {% if on_sale %}
+								<span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+							  {% else %}
+								 <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+							  {% endif %}
+							  {% if collections['new'].products[18].price_varies %}
+								{{ collections['new'].products[18].price_min | money_without_trailing_zeros }}
+								<span class="icon-fallback-text">
+								  <span class="icon icon-plus grid-product__price-min" aria-hidden="true"></span>
+								  <span class="fallback-text">+</span>
+								</span>
+							  {% else %}
+								{{ collections['new'].products[18].price | money_without_trailing_zeros }}
+							  {% endif %}
+							</div>
+						  </div>
+						  {% if settings.product_vendor_enable %}
+							<p class="grid-product__vendor">{{ collections['new'].products[18].vendor }}</p>
+						  {% endif %}
+						</a>
+						<span class="shopify-product-reviews-badge" data-id="{{ collections['new'].products[18].id }}"></span>
+					  </div>
+					</div>
+				</div>
+
+
+				{% assign on_sale = false %}
+				{% if collections['new'].products[19].compare_at_price > collections['new'].products[19].price %}
+				{% assign on_sale = true %}
+				{% endif %}
+
+				{% assign sold_out = true %}
+				{% if collections['new'].products[19].available %}
+				{% assign sold_out = false %}
+				{% endif %}
+				<div class="grid__item grid-product feat-content-item large--one-quarter medium--one-half small--one-half {% if sold_out %} is-sold-out{% endif %}">
+					<div class="grid-product__wrapper">
+					  <div class="featured-image-wrapper {% if template != 'index' %} non-index-image-height {% endif %}" >
+						<a class="featured-image-link lazy" href="{% if template == 'index' %}/collections/new{{collections['new'].products[19].url}}{% else %}{{ collections['new'].products[19].url | within: collections['new'] }}{% endif %}" data-src="{{ collections['new'].products[19] | img_url: 'large' }}" style="background: center center no-repeat; background-size: cover;">
+						</a>
+						{% if sold_out %}
+						  <div class="grid-product__sold-out">
+							<p>{{ 'products.product.sold_out_html' | t }}</p>
+						  </div>
+						{% elsif on_sale %}
+						  <div class="grid-product__on-sale">
+							{% capture saved_amount %}{{ collections['new'].products[19].compare_at_price | minus: collections['new'].products[19].price | money_without_trailing_zeros }}{% endcapture %}
+							<p>{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p>
+						  </div>
+						{% endif %}
+					  </div>
+					  <div class="product-bottom">
+							  <a class="admin-link" href="https://purcharest.myshopify.com/admin/products/{{ collections['new'].products[19].id }}" target="_blank" style="display: none;">&nbsp;</a>
+						<a href="{{ collections['new'].products[19].url | within: collections['new'] }}" class="grid-product__meta">
+						  <div class="grid-product__title">{{ collections['new'].products[19].title }}</div>
+						  <div class="grid-product__price-wrap">
+							<!-- <span class="long-dash">—</span> -->
+							<div class="grid-product__price">
+							  {% if on_sale %}
+								<span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+							  {% else %}
+								 <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+							  {% endif %}
+							  {% if collections['new'].products[19].price_varies %}
+								{{ collections['new'].products[19].price_min | money_without_trailing_zeros }}
+								<span class="icon-fallback-text">
+								  <span class="icon icon-plus grid-product__price-min" aria-hidden="true"></span>
+								  <span class="fallback-text">+</span>
+								</span>
+							  {% else %}
+								{{ collections['new'].products[19].price | money_without_trailing_zeros }}
+							  {% endif %}
+							</div>
+						  </div>
+						  {% if settings.product_vendor_enable %}
+							<p class="grid-product__vendor">{{ collections['new'].products[19].vendor }}</p>
+						  {% endif %}
+						</a>
+						<span class="shopify-product-reviews-badge" data-id="{{ collections['new'].products[19].id }}"></span>
+					  </div>
+					</div>
+				</div>
+
+
+				{% assign on_sale = false %}
+				{% if collections['new'].products[20].compare_at_price > collections['new'].products[20].price %}
+				{% assign on_sale = true %}
+				{% endif %}
+
+				{% assign sold_out = true %}
+				{% if collections['new'].products[20].available %}
+				{% assign sold_out = false %}
+				{% endif %}
+				<div class="grid__item grid-product feat-content-item large--one-quarter medium--one-half small--one-half {% if sold_out %} is-sold-out{% endif %}">
+					<div class="grid-product__wrapper">
+					  <div class="featured-image-wrapper {% if template != 'index' %} non-index-image-height {% endif %}" >
+						<a class="featured-image-link lazy" href="{% if template == 'index' %}/collections/new{{collections['new'].products[20].url}}{% else %}{{ collections['new'].products[20].url | within: collections['new'] }}{% endif %}" data-src="{{ collections['new'].products[20] | img_url: 'large' }}" style="background: center center no-repeat; background-size: cover;">
+						</a>
+						{% if sold_out %}
+						  <div class="grid-product__sold-out">
+							<p>{{ 'products.product.sold_out_html' | t }}</p>
+						  </div>
+						{% elsif on_sale %}
+						  <div class="grid-product__on-sale">
+							{% capture saved_amount %}{{ collections['new'].products[20].compare_at_price | minus: collections['new'].products[20].price | money_without_trailing_zeros }}{% endcapture %}
+							<p>{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p>
+						  </div>
+						{% endif %}
+					  </div>
+					  <div class="product-bottom">
+							  <a class="admin-link" href="https://purcharest.myshopify.com/admin/products/{{ collections['new'].products[20].id }}" target="_blank" style="display: none;">&nbsp;</a>
+						<a href="{{ collections['new'].products[20].url | within: collections['new'] }}" class="grid-product__meta">
+						  <div class="grid-product__title">{{ collections['new'].products[20].title }}</div>
+						  <div class="grid-product__price-wrap">
+							<!-- <span class="long-dash">—</span> -->
+							<div class="grid-product__price">
+							  {% if on_sale %}
+								<span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+							  {% else %}
+								 <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+							  {% endif %}
+							  {% if collections['new'].products[20].price_varies %}
+								{{ collections['new'].products[20].price_min | money_without_trailing_zeros }}
+								<span class="icon-fallback-text">
+								  <span class="icon icon-plus grid-product__price-min" aria-hidden="true"></span>
+								  <span class="fallback-text">+</span>
+								</span>
+							  {% else %}
+								{{ collections['new'].products[20].price | money_without_trailing_zeros }}
+							  {% endif %}
+							</div>
+						  </div>
+						  {% if settings.product_vendor_enable %}
+							<p class="grid-product__vendor">{{ collections['new'].products[20].vendor }}</p>
+						  {% endif %}
+						</a>
+						<span class="shopify-product-reviews-badge" data-id="{{ collections['new'].products[20].id }}"></span>
+					  </div>
+					</div>
+				</div>
+
+
+				{% assign on_sale = false %}
+				{% if collections['new'].products[21].compare_at_price > collections['new'].products[21].price %}
+				{% assign on_sale = true %}
+				{% endif %}
+
+				{% assign sold_out = true %}
+				{% if collections['new'].products[21].available %}
+				{% assign sold_out = false %}
+				{% endif %}
+				<div class="grid__item grid-product feat-content-item large--one-quarter medium--one-half small--one-half {% if sold_out %} is-sold-out{% endif %}">
+					<div class="grid-product__wrapper">
+					  <div class="featured-image-wrapper {% if template != 'index' %} non-index-image-height {% endif %}" >
+						<a class="featured-image-link lazy" href="{% if template == 'index' %}/collections/new{{collections['new'].products[21].url}}{% else %}{{ collections['new'].products[21].url | within: collections['new'] }}{% endif %}" data-src="{{ collections['new'].products[21] | img_url: 'large' }}" style="background: center center no-repeat; background-size: cover;">
+						</a>
+						{% if sold_out %}
+						  <div class="grid-product__sold-out">
+							<p>{{ 'products.product.sold_out_html' | t }}</p>
+						  </div>
+						{% elsif on_sale %}
+						  <div class="grid-product__on-sale">
+							{% capture saved_amount %}{{ collections['new'].products[21].compare_at_price | minus: collections['new'].products[21].price | money_without_trailing_zeros }}{% endcapture %}
+							<p>{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p>
+						  </div>
+						{% endif %}
+					  </div>
+					  <div class="product-bottom">
+							  <a class="admin-link" href="https://purcharest.myshopify.com/admin/products/{{ collections['new'].products[21].id }}" target="_blank" style="display: none;">&nbsp;</a>
+						<a href="{{ collections['new'].products[21].url | within: collections['new'] }}" class="grid-product__meta">
+						  <div class="grid-product__title">{{ collections['new'].products[21].title }}</div>
+						  <div class="grid-product__price-wrap">
+							<!-- <span class="long-dash">—</span> -->
+							<div class="grid-product__price">
+							  {% if on_sale %}
+								<span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+							  {% else %}
+								 <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+							  {% endif %}
+							  {% if collections['new'].products[21].price_varies %}
+								{{ collections['new'].products[21].price_min | money_without_trailing_zeros }}
+								<span class="icon-fallback-text">
+								  <span class="icon icon-plus grid-product__price-min" aria-hidden="true"></span>
+								  <span class="fallback-text">+</span>
+								</span>
+							  {% else %}
+								{{ collections['new'].products[21].price | money_without_trailing_zeros }}
+							  {% endif %}
+							</div>
+						  </div>
+						  {% if settings.product_vendor_enable %}
+							<p class="grid-product__vendor">{{ collections['new'].products[21].vendor }}</p>
+						  {% endif %}
+						</a>
+						<span class="shopify-product-reviews-badge" data-id="{{ collections['new'].products[21].id }}"></span>
+					  </div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	
+	<div class="grid__item small--one-whole medium--one-half large--one-half">
+		<div id="MoreLove" class="feat-wrapper">
+			<div class="new-arrivals feat-title">More to Love</div>
+			<div class="feat-content grid grid-uniform">
+			{% paginate collections.casual by 15 %}
+				{% assign counter = 0 %}
+				{% assign products = collections.casual.products %}
+				{% for product in products %}
+					{% if counter < 15 and product.available %}
+					{% include 'featured-casual-item' with product %}
+					{% assign counter = counter | plus: 1 %}
+					{% endif %}
+				{% endfor %}
+			{% endpaginate %}
+			</div>
+		</div>
+	</div>
+
+	<div class="grid__item small--one-whole medium--one-half large--one-half">
+		<div class="feat-wrapper">
+			<div class="new-arrivals feat-title">Top Collections</div>
+			<div class="feat-content grid grid-uniform">
+
+				<div class="feat-top-col-item feat-content-item feat-collection grid__item large--one-half medium--one-whole small--one-whole top-col-delete">
+					<div class="prev-next-product">
+						<a href="/collections/women-coats-jackets-and-vests">
+							<div class="feat-top-collections radius15 lazy" data-src="//cdn.shopify.com/s/files/1/1378/8431/products/0_7c7f3bd6-f529-4777-a8ee-e77e496e5792_720x720.jpg">
+								<div class="coll-back-wrapper">
+									<div class="collection-back">Blazers, Bombers, Parkas</div>
+									<div class="coll-back-title">Coats &amp; Jackets</div>
+									<div class="collection-back">Vests, Windbreakers</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="feat-top-col-item feat-content-item feat-collection grid__item large--one-half medium--one-whole small--one-whole top-col-delete">
+					<div class="prev-next-product">
+						<a href="/collections/men-tops-and-tees">
+							<div class="feat-top-collections radius15 lazy" data-src="//cdn.shopify.com/s/files/1/1378/8431/products/HTB13b4NaFuWBuNjSspnq6x1NVXax_720x720.jpg">
+								<div class="coll-back-wrapper">
+									<div class="collection-back">Long-Sleeved Tops, Polos</div>
+									<div class="coll-back-title">Tops & Tees</div>
+									<div class="collection-back">T-Shirts, Tank Tops</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="feat-top-col-item feat-content-item feat-collection grid__item large--one-half medium--one-whole small--one-whole top-col-delete">
+					<div class="prev-next-product">
+						<a href="/collections/men-jeans">
+							<div class="feat-top-collections radius15 lazy" data-src="//cdn.shopify.com/s/files/1/1710/6229/products/product-image-80771602_1024x1024.jpg">
+								<div class="coll-back-wrapper">
+									<div class="collection-back">Regular, Ripped</div>
+									<div class="coll-back-title">Men's Jeans</div>
+									<div class="collection-back">Skinny, Straight</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="feat-top-col-item feat-content-item feat-collection grid__item large--one-half medium--one-whole small--one-whole top-col-delete">
+					<div class="prev-next-product">
+						<a href="/collections/women-pants-and-capris">
+							<div class="feat-top-collections radius15 lazy" data-src="//cdn.shopify.com/s/files/1/1378/8431/products/7_3c75d9a6-010b-4668-b15a-d4bf1d051dea_720x720.jpg">
+								<div class="coll-back-wrapper">
+									<div class="collection-back">Leggings, Joggers</div>
+									<div class="coll-back-title">Women's Pants</div>
+									<div class="collection-back">Capris, Cargo Pants</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="feat-top-col-item feat-content-item feat-collection grid__item large--one-half medium--one-whole small--one-whole top-col-delete">
+					<div class="prev-next-product">
+						<a href="/collections/women-blouses-shirts">
+							<div class="feat-top-collections radius15 lazy" data-src="//cdn.shopify.com/s/files/1/1710/6229/products/product-image-79795923_1024x1024.jpg">
+								<div class="coll-back-wrapper">
+									<div class="collection-back">Casual, Long-Sleeved</div>
+									<div class="coll-back-title">Blouses &amp; Shirts</div>
+									<div class="collection-back">Short-Sleeved, Wear To Work</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="feat-top-col-item feat-content-item feat-collection grid__item large--one-half medium--one-whole small--one-whole top-col-delete">
+					<div class="prev-next-product">
+						<a href="/collections/women-swimwear">
+							<div class="feat-top-collections radius15 lazy" data-src="//cdn.shopify.com/s/files/1/1710/6229/products/HTB1id8viVOWBuNjy0Fiq6xFxVXas_large.jpg">
+								<div class="coll-back-wrapper">
+									<div class="collection-back">Beach Dresses, Bikinis</div>
+									<div class="coll-back-title">Swimwear</div>
+									<div class="collection-back">Cover-Ups, Tunics</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="feat-top-col-item feat-content-item feat-collection grid__item large--one-half medium--one-whole small--one-whole top-col-delete">
+					<div class="prev-next-product">
+						<a href="/collections/men-suits-blazers">
+							<div class="feat-top-collections radius15 lazy" data-src="//cdn.shopify.com/s/files/1/1710/6229/products/product-image-74365074_1024x1024.jpg">
+								<div class="coll-back-wrapper">
+									<div class="collection-back">Blazers, Suits</div>
+									<div class="coll-back-title">Suits &amp; Blazers</div>
+									<div class="collection-back">Vests, Slim Fit</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="feat-top-col-item feat-content-item feat-collection grid__item large--one-half medium--one-whole small--one-whole top-col-delete">
+					<div class="prev-next-product">
+						<a href="collections/men-shirts">
+							<div class="feat-top-collections radius15 lazy" data-src="//cdn.shopify.com/s/files/1/1710/6229/products/HTB1eq8tQxnaK1RjSZFtq6zC2VXaN_1024x1024_070f6c53-d4d8-49c9-9bed-61d66142524f_1024x1024.jpg">
+								<div class="coll-back-wrapper">
+									<div class="collection-back">Casual, Long-Sleeve</div>
+									<div class="coll-back-title">Men's Shirts</div>
+									<div class="collection-back">Short-Sleeve, Formal</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="feat-top-col-item feat-content-item feat-collection grid__item large--one-half medium--one-whole small--one-whole top-col-delete">
+					<div class="prev-next-product">
+						<a href="/collections/shoes-womens-shoes">
+							<div class="feat-top-collections radius15 lazy" data-src="//cdn.shopify.com/s/files/1/1378/8431/products/1_1_de4d7dae-f5de-484d-9a7d-21a3e060cf10_720x720.jpg?v=1584216858">
+								<div class="coll-back-wrapper">
+									<div class="collection-back">Boots, Sneakers, Slippers</div>
+									<div class="coll-back-title">Women's Shoes</div>
+									<div class="collection-back">Flip Flops, Sandals</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="feat-top-col-item feat-content-item feat-collection grid__item large--one-half medium--one-whole small--one-whole top-col-delete">
+					<div class="prev-next-product">
+						<a href="/collections/shoes-mens">
+							<div class="feat-top-collections radius15 lazy" data-src="//cdn.shopify.com/s/files/1/1378/8431/products/1_1_9062e24f-e2bc-4917-894c-79da6e3f3ec2_720x720.jpg">
+								<div class="coll-back-wrapper">
+									<div class="collection-back">Boots, Flats, Oxfords</div>
+									<div class="coll-back-title">Men's Shoes</div>
+									<div class="collection-back">Slippers, Sneakers</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- Random for Top Collections -->
+<script>
+	var randTopArray = [];
+	
+	for(var i = 0; i < 2; i++) {
+		var numberIsInArray = false;
+		var rand = generateRandomNumb(0, 10);
+		for(var j = 0; j < randTopArray.length; j++) {
+			if(rand === randTopArray[j]) {
+				numberIsInArray = true;
+				i--;
+			}
+		}
+		if(!numberIsInArray) {
+			randTopArray.push(rand);
+		}
+	}
+
+	for(let i = 0; i < randTopArray.length; i++) {
+		$($('.feat-top-col-item ')[randTopArray[i]]).removeClass('top-col-delete');
+		$($('.feat-top-col-item ')[randTopArray[i]]).addClass('top-col-visible');
+		// _('RandTop');
+		// _(randTopArray[i]);
+		// _($('.feat-collection').length);
+		// _($('.feat-top-col-item ')[randTopArray[i]]);
+		// $($('.feat-top-col-item ')[randTopArray[i]]).addClass('top-col-visible');
+	}
+	
+	$('.top-col-delete').remove();
+	$('.top-col-visible').randomize();
+</script>
+<!-- End Random for Top Collections -->
+
+<div class="wrapper">
+<!-- End Featured Section and reopened wrapper-->
+
+<!-- Best Sellers and reopen wrapper-->
+</div>
+<!-- <div class="rec-box-divider white-bg">&nbsp;</div> -->
+<div id="RecBestsellers" class="rec-wrapper rec-index-bg">
+	<div class="rec-head-wrap">
+		<span class="new-arrivals">Best Sellers</span>
+		<div class="view-more-mob">
+		    <a href="/collections/bestsellers" class="vm-mob-link-light">view more <strong>⟩</strong></a>
+		</div>
+	</div>
+	<div class="scrollyeah new-arr-home">
+	{% paginate collections.bestsellers.products by 20 %}
+	  {% assign counter = 0 %}
+	  {% assign products = collections.bestsellers.products %}
+	  {% for product in products %}
+	    {% if counter < 20 and product.available %}
+	      {% include 'rec-float-item' with product %}
+	      {% assign counter = counter | plus: 1 %}
+	    {% endif %}
+	  {% endfor %}
+	{% endpaginate %}
+	</div>
+	<script>
+		$('#RecBestsellers').find('.float-item').pick(15);
+		$('#RecBestsellers').find('.float-item').randomize();
+		
+		$('#RecNewArrivals').find('.float-item').pick(15);
+		$('#RecNewArrivals').find('.float-item').randomize();
+		// var parent2 = $('#RecNewArrivals').find('.float-item').parent();
+		// var divs = parent2.children();
+		// while (divs.length) {
+		// 	parent2.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+		// };
+		
+		$('#FeatProd').find('.feat-content-item').pick(4);
+		var parent3 = $('#FeatProd').find('.feat-content-item').parent();
+		var divs = parent3.children();
+		while (divs.length) {
+			parent3.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+		};
+		
+		$('#MoreLove').find('.feat-casual').pick(8);
+		$('.feat-casual').randomize();
+		
+		$(document).ready(function(){
+		  ajaxify({
+    		fade: 'normal',
+				textChange: 'Loading...'
+    	});
+		});
+		
+	</script>
+	<div class="scrollyeah-left">
+		<a href="javascript:void(0);" class="scrollyeah-left-link"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+	</div>
+	<div class="view-more-arr view-more">
+	    <a href="/collections/bestsellers" class="link-button">View more</a>
+	</div>
+	<div class="scrollyeah-right">
+		<a href="javascript:void(0);" class="scrollyeah-right-link"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+	</div>
+</div>
+<!-- <div class="rec-box-divider white-bg">&nbsp;</div> -->
+<div class="wrapper">
+<!-- End Best Sellers and reopened wrapper-->
+
+
+{{ 'scrollyeah-scroll-btns.js' | asset_url | script_tag }}
+
+<script>
+	//Featured Collections flip
+$('.collection-collage__item').flip();
+
+setInterval(function() {
+	let min = 0;
+	let max = $('.collection-collage__item').length;
+	rand = Math.floor(Math.random() * (max - min)) + min;
+	$('.collection-collage__item').eq(rand).flip('toggle');
+}, 5000);
+
+</script>

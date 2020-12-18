@@ -1,7 +1,18 @@
 [
   {
+    "name": "List option",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "list_view",
+        "label": "List view for collections",
+        "default": false
+      }
+    ]
+  },
+  {
     "name": "theme_info",
-    "logo": "https://cdn.shopify.com/s/global/branding/shopify_logo_256x256.png",
+    "logo": "https:\/\/cdn.shopify.com\/s\/global\/branding\/shopify_logo_256x256.png",
     "settings": [
       {
         "type": "header",
@@ -13,7 +24,7 @@
       },
       {
         "type": "paragraph",
-        "content": "This theme is fully supported by Shopify. For support and customizations, read the [theme documentation](https://docs.shopify.com/manual/more/official-shopify-themes/brooklyn) or contact [theme-support@shopify.com](mailto:theme-support@shopify.com?subject=[Brooklyn]+Theme+Support)."
+        "content": "This theme is fully supported by Shopify. For support and customizations, read the [theme documentation](https:\/\/docs.shopify.com\/manual\/more\/official-shopify-themes\/brooklyn) or contact [theme-support@shopify.com](mailto:theme-support@shopify.com?subject=[Brooklyn]+Theme+Support)."
       }
     ]
   },
@@ -1462,7 +1473,7 @@
         "type": "text",
         "id": "newsletter_form_action",
         "label": "MailChimp form action URL",
-        "info": "[Find your MailChimp form action URL](https://docs.shopify.com/manual/configuration/store-customization/communicating-with-customers/accounts-and-newsletters/get-a-mailchimp-form-action-url)."
+        "info": "[Find your MailChimp form action URL](https:\/\/docs.shopify.com\/manual\/configuration\/store-customization\/communicating-with-customers\/accounts-and-newsletters\/get-a-mailchimp-form-action-url)."
       }
     ]
   },
@@ -1477,55 +1488,55 @@
         "type": "text",
         "id": "social_facebook_link",
         "label": "Facebook",
-        "info": "https://www.facebook.com/shopify"
+        "info": "https:\/\/www.facebook.com\/shopify"
       },
       {
         "type": "text",
         "id": "social_twitter_link",
         "label": "Twitter",
-        "info": "https://twitter.com/shopify"
+        "info": "https:\/\/twitter.com\/shopify"
       },
       {
         "type": "text",
         "id": "social_pinterest_link",
         "label": "Pinterest",
-        "info": "https://www.pinterest.com/shopify"
+        "info": "https:\/\/www.pinterest.com\/shopify"
       },
       {
         "type": "text",
         "id": "social_instagram_link",
         "label": "Instagram",
-        "info": "https://instagram.com/shopify"
+        "info": "https:\/\/instagram.com\/shopify"
       },
       {
         "type": "text",
         "id": "social_google_plus_link",
         "label": "Google Plus",
-        "info": "https://plus.google.com/+shopify"
+        "info": "https:\/\/plus.google.com\/+shopify"
       },
       {
         "type": "text",
         "id": "social_tumblr_link",
         "label": "Tumblr",
-        "info": "http://shopify.tumblr.com"
+        "info": "http:\/\/shopify.tumblr.com"
       },
       {
         "type": "text",
         "id": "social_youtube_link",
         "label": "Youtube",
-        "info": "https://www.youtube.com/user/shopify"
+        "info": "https:\/\/www.youtube.com\/user\/shopify"
       },
       {
         "type": "text",
         "id": "social_vimeo_link",
         "label": "Vimeo",
-        "info": "https://vimeo.com/shopify"
+        "info": "https:\/\/vimeo.com\/shopify"
       },
       {
         "type": "text",
         "id": "social_fancy_link",
         "label": "Fancy",
-        "info": "http://fancy.com/Shopify"
+        "info": "http:\/\/fancy.com\/Shopify"
       },
       {
         "type": "header",
