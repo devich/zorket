@@ -1,15 +1,15 @@
 <!-- snippets/featured-collections.liquid -->
 
+
 {% if section_number > 1 and number_of_index_sections > 1 %}
  <hr class="hr--medium hr--clear">
 {% endif %}
 
-<div class="section-header text-center" style="margin-bottom: 25px;margin-top: 10px;">
+<div class="section-header">
   <h1>{{ 'home_page.sections.featured_collections' | t }}</h1>
-  <hr class="hr--small" style="margin: 15px auto;margin-bottom: 5px;">
 </div>
 
-<div class="grid collection-grid">
+<div class="grid home-collection-grid">
 
   {% comment %}
     Show up to 9 collections.

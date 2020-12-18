@@ -1,0 +1,29 @@
+{% paginate collection.products by 9 %}
+  <div id="MainContent" class="container">
+    <div class="row">
+
+      <div class="EndlessClick">
+
+        {% for product in collection.products %}
+          {% include 'product-grid-item' %}
+        {% endfor %}
+
+        {% if paginate.next %}
+          <div class="pagination">
+            <a href="{{ paginate.next.url }}">Gimme More</a>
+          </div>
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+{% endpaginate %}
+
+
+
+<script>
+	$(document).ready(function(){
+	  ajaxify();
+	});
+</script>

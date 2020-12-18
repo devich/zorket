@@ -24,35 +24,45 @@
       <header class="section-header text-center">
         {% if search.performed %}
           {% if search.results_count == 0 %}
-            <h1 class="text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+            <h1 class="text-center search-res-header">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
           {% else %}
-            <h1 class="text-center">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
+            <!-- <h1 class="text-center search-res-header">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1> -->
+						<div class="search-gap"></div>
           {% endif %}
         {% else %}
-          <h1 class="text-center">{{ 'general.search.title' | t }}</h1>
+          <h1 class="text-center search-res-header">{{ 'general.search.title' | t }}</h1>
         {% endif %}
-        <hr class="hr--small">
-        <!-- Facebook Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '709796692516135');
-fbq('track', 'PageView');
-fbq('track', 'Search');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
-/></noscript>
-<!-- DO NOT MODIFY -->
-<!-- End Facebook Pixel Code -->
-      </header>
+				<!-- <hr class="hr--small" style="border-color: transparent;"> -->
+				<!-- Facebook Pixel Code -->
+				<script>
+					!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+					n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+					n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+					t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+					document,'script','https://connect.facebook.net/en_US/fbevents.js');
+					fbq('init', '709796692516135');
+					fbq('track', 'PageView');
+					fbq('track', 'Search');
+				</script>
+				<noscript><img height="1" width="1" style="display:none"
+				src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
+				/></noscript>
+				<!-- DO NOT MODIFY -->
+				<!-- End Facebook Pixel Code -->
+			</header>
+
+
+
+<style>
+	.grid__item {	padding-left: 10px; }
+</style>
+
+
+
 
       {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--page' %}
 {% if settings.collection_products_grid != 'collage' %}
-      <style>
+<style>
   .grid-product__image-wrapper{height:220px !important;}
 </style>
 <script>
@@ -72,7 +82,7 @@ $('.grid-product__image-wrapper').height(220);
               {% assign product = item %}
               {% include 'product-grid-item' %}
             {% else %}
-              <div class="grid__item grid-search large--one-third medium--one-half">
+              <div class="grid__item grid-search large--one-quarter medium--one-half">
                 <div class="grid-search__page">
                   <a href="{{ item.url }}" class="grid-search__page-link">
                     <span class="grid-search__page-content">
@@ -104,3 +114,60 @@ $('.grid-product__image-wrapper').height(220);
   {% include 'respond' %}
   {% layout none %}
 {% endunless %}
+
+
+<!-- Featured Products and reopen wrapper-->
+</div>
+<div id="RecFeatured" class="rec-wrapper">
+	<div class="rec-box-divider white-bg">&nbsp;</div>	
+	<div class="rec-head-wrap">
+		<span class="new-arrivals">Featured Products</span>
+		<div class="view-more-mob">
+		    <a href="/collections/featured" class="vm-mob-link-light">view more <strong>⟩</strong></a>
+		</div>
+	</div>
+	<div class="scrollyeah new-arr-home">
+	  {% assign counter = 0 %}
+	  {% assign products = collections.featured.products %}
+	  {% for product in products %}
+	    {% if counter < 400 and product.available %}
+	      {% include 'rec-float-item' with product %}
+	      {% assign counter = counter | plus: 1 %}
+	    {% endif %}
+	  {% endfor %}
+	</div>
+	<script>
+		$('#RecFeatured').find('.float-item').pick(20);
+		var parent = $('#RecFeatured').find('.float-item').parent();
+		var divs = parent.children();
+		while (divs.length) {
+			parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+		};
+	</script>
+	<div class="scrollyeah-left">
+		<a href="javascript:void(0);" class="scrollyeah-left-link"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+	</div>
+	<div class="view-more-arr view-more">
+	    <a href="/collections/featured?page=2" class="link-button">View more</a>
+	</div>
+	<div class="scrollyeah-right">
+		<a href="javascript:void(0);" class="scrollyeah-right-link"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+	</div>
+</div>
+<!-- <div class="rec-box-divider">&nbsp;</div> -->
+<div class="wrapper">
+<!-- End Featured Products and reopened wrapper-->
+
+<!-- scroll script for recommendation boxes -->
+{{ 'scrollyeah-scroll-btns.js' | asset_url | script_tag }}
+
+
+<!-- Recents and reopened wrapper -->
+</div>
+<div class="rec-wrapper recents-wrap white-bg">
+<div class="rec-box-divider white-bg">&nbsp;</div>	
+<h1 class="new-arrivals">Recently Viewed Products</h1>
+{% include 'recently-viewed' %}
+</div>
+<div class="wrapper">
+<!-- End Recents and reopened wrapper -->
