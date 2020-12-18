@@ -1,4 +1,4 @@
-///////////////////////// Zorket Theme by Devich ///////////////////////////
+/////////////////////////// Zorket Theme by Devich ///////////////////////////
 
 .site-footer a {
 	color: #D4D4D4;
@@ -56,7 +56,7 @@
 }
 
 .grid-product__price {
-	color: #9C1D06;
+	color: #999;
 	letter-spacing: 0;
 	font-size: 16px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -64,13 +64,13 @@
 }
 
 a.grid-product__meta {
-	color: #00418A;
+	color: #777;
 	text-decoration: none;
 	padding: 10px 0px 4px 0px;
 }
 
 a.grid-product__meta:hover {
-	color: #0064D4;
+	color: #39757b;
 	text-decoration: none;
 }
 
@@ -98,24 +98,24 @@ a.grid-product__meta:hover {
     right: 4px;
     width: 9px;
     height: 9px;
-    background-color: #ffa300;
+    background-color: #4c9da5;
 }
 
 
 .site-nav__dropdown a:hover, .site-nav__dropdown a:active {
     background-color: transparent;
-    color: #f34700;
+    color: #39757b;
 }
 
 .site-header {
     padding: 0;
-	position: relative;
-	top: 12px;
+	position: initial;
 }
 
-/*.main-content {
-    padding-top: 40px;
-}*/
+.main-content {
+    /*padding-top: 30px;*/
+/*	margin-top: -50px;*/
+}
 
 .spr-badge {
     margin-top: -22px;
@@ -164,11 +164,11 @@ a.grid-product__meta:hover {
 }
 
 .tags a:hover {
-	color: #f34700;
+	color: #39757b;
 }
 
 li.tag--active {
-	background-color: rgba(236, 80, 16, 0.86);
+	background-color: #39757b;
     border-radius: 42px;
 }
 
@@ -181,7 +181,7 @@ li.tag--active a:hover {
     color: white;
 }
 
-.site-nav__link {
+a.site-nav__link {
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: normal;
     font-style: normal;
@@ -189,4 +189,194 @@ li.tag--active a:hover {
     text-transform: none;
     font-size: 16px;
 	color: black;
+}
+
+a.site-nav__link:hover {
+	color: #39757b;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+    font-style: normal;
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 16px;
+}
+
+.fotorama__thumb-border {
+    border-color: #39757b;
+	border-width: 4px;
+}
+
+.fotorama__stage__shaft {
+	background-color: white;
+}
+
+.product-single__meta {
+    padding-top: 0;
+}
+
+.product-single__title {
+    font-size: 26px;
+}
+
+.product-single__price, .product-single__price--compare-at {
+    font-family: 'Teko',sans-serif;
+    font-style: normal;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: #39757b;
+    font-size: 41px;
+    font-weight: 500;
+}
+
+hr, .hr--small, .hr--medium, .hr--large {
+    border-width: 1px 0 0 0;
+    width: 100%;
+	border-color: #D0D0D0;
+}
+
+.radio-wrapper .single-option-radio label {
+    color: #333;
+    border-radius: 8px;
+    border-color: #D0D0D0 !important;
+    font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    letter-spacing: 0em;
+    text-transform: capitalize;
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    padding: 7px 11px;
+    margin: 3px 4px 1px 3px;
+    font-size: 0.8125em;
+    font-style: normal;
+    background-color: #f9f9f9;
+    border: 1px solid;
+	font-size: 14px;
+}
+
+.radio-wrapper .single-option-radio__label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: default;
+    font-style: normal;
+    font-size: 15px;
+    color: #555;
+    margin-top: 20px;
+}
+
+
+/*.main-content {
+    padding-top: 50px;
+}*/
+
+
+.social-sharing.clean a {
+    background-color: #fff;
+    color: #39757B;
+    height: 30px;
+    line-height: 30px;
+}
+
+.is-loaded {
+    background-color: #fff;
+    color: #39757B;
+    height: 30px;
+    line-height: 30px;
+}
+
+
+.single-option-radio input[type='radio']:checked+label {
+	border-color: #39757b !important;
+    background-color: #EfEfEf;
+    border: 2px solid;
+    color: black;
+    font-size: 14px;
+}
+
+fieldset[name='Size'] > label { 
+    text-transform: uppercase !important;
+}
+
+
+
+#AddToCartForm > a {
+    font-size: 0.9em;
+	color: #f45300;
+	text-decoration: underline;
+}
+
+#sizewrap {
+	display: none;
+}
+	
+.social-sharing {
+    font-family: Arial,Helvetica,sans-serif;
+    padding-top: 15px;
+}
+
+#PageContainer {
+	background-color: #fff;
+}
+
+.site-header .grid--table {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    padding-top: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 15px;
+}
+
+button#AddToCart {
+	width: 100%;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+	padding: 4px 0px 1px 0px;
+    font-size: 0.8125em;	
+	border-radius: 6px;
+	margin-top: 20px;
+}
+
+.single-option-radio {
+    background-color: #fff;
+}
+
+.site-header__logo {
+	padding-bottom: 12px;
+}
+
+#pricewrap {
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #C1C1C1;
+    text-align: center;
+}
+
+#ProductPrice {
+	font-size: 40px;
+    padding: 0px 25px;
+    background-color: white;
+}
+
+#pricebottom {
+	border-width: 0px 0 0 0;
+    width: 100%;
+    border-color: white;
+	margin-top: 40px;
+}
+
+/*#hero {
+	top: 40px;
+	margin-bottom: 80px;
+}*/
+
+#AddToCartText {
+	font-family: 'Teko',sans-serif;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+    font-size: 28px;
 }

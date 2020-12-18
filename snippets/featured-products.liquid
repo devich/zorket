@@ -1,25 +1,30 @@
 <!-- snippets/featured-products.liquid -->
-
 {% if section_number > 1 and number_of_index_sections > 1 %}
  <hr class="hr--medium hr--clear">
 {% endif %}
 
-<div class="section-header text-center" style="margin-top: 55px; position: relative;z-index: 99;{% if settings.collection_products_grid == 'collage' %}margin-bottom: 5px;{% else %}margin-bottom: 25px;{% endif %}">
-  <h1>{{ 'home_page.sections.featured_products' | t }}</h1>
-  <hr class="hr--small" style="margin: 15px auto;margin-bottom: 5px;">
+<div class="section-header featured-header" style="margin-bottom: -10px; margin-top: 20px">
+	<div class="rec-head-wrap">
+			<span class="new-arrivals">New Arrivals</span>
+			<div class="view-more-mob">
+			    <a href="/collections/new" class="vm-mob-link-light">view more <strong>⟩</strong></a>
+			</div>
+		</div>
 </div>
-{% if settings.collection_products_grid != 'collage' %}
+
 <style>
-  .grid-product__image-wrapper{height:220px !important;}
+  .grid-product__image-wrapper{height:200px !important;}
 </style>
-<script>
-  
+<script>  
  $(window).load(function(){
-$('.grid-product__image-wrapper').height(220);
+	$('.grid-product__image-wrapper').height(200);
   });
 </script>
-{% endif %}
-<div class="{% if settings.collection_products_grid == 'collage' %}grid grid-collage{% else %}grid-uniform{% endif %}">
+
+
+{% paginate collections.new.products by 18 %}
+
+<div class="EndlessClick home-featured {% if settings.collection_products_grid == 'collage' %}grid grid-collage{% else %}grid-uniform{% endif %}">
 
   {% comment %}
     Loop through products in your Frontpage collection.
@@ -56,13 +61,13 @@ $('.grid-product__image-wrapper').height(220);
       {% endif %}
       {% assign divisible_by_three__product = collection_product_count__product | modulo:3 %}
 
-      {% for product in collections[settings.home_featured_products].products limit:48 %}
+      {% for product in collections[settings.home_featured_products].products limit:24 %}
         {% include 'product-grid-collage' %}
       {% endfor %}
 
     {% else %}
       {% assign grid_item_width = 'medium--one-half large--one-third' %}
-      {% for product in collections[settings.home_featured_products].products limit:48 %}
+      {% for product in collections[settings.home_featured_products].products limit:24 %}
         	{% include 'product-grid-item' %}
 
       {% endfor %}
@@ -70,4 +75,16 @@ $('.grid-product__image-wrapper').height(220);
     {% endif %}
 
   {% endif %}
+	{% comment %}
+	{% if paginate.next %}
+		<div class="pagination">
+			<a href="{{ paginate.next.url }}"><span class="link-button ajax-button">Load more</span></a>
+		</div>
+	{% endif %}
+	{% endcomment %}
+</div>
+{% endpaginate %}
+
+<div class="view-more">
+    <a href="/collections/new" class="link-button">View more</a><br>
 </div>

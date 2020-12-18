@@ -266,7 +266,12 @@ timber.mobileNavToggle = function () {
     }
 
     // Toggle class that expands/collapses sublist
-    $el.closest('.mobile-nav__has-sublist').toggleClass('mobile-nav--expanded', toggleState);
+    var $curEl = $el.closest('.mobile-nav__has-sublist');
+//     $('.mobile-nav__has-sublist').not($curEl).each(function () {
+// 		$(this).removeClass('mobile-nav--expanded');
+//       	toggleState = true;
+//  	});
+    $curEl.toggleClass('mobile-nav--expanded', toggleState);
   });
 };
 
@@ -294,12 +299,15 @@ timber.productPage = function (options) {
   if (variant) {
 
     // Update variant image, if one is set
-    if (variant.featured_image) {
-      var newImg = variant.featured_image,
-          el = $productImage[0];
-      Shopify.Image.switchImage(newImg, el, theme.showVariantImage);
-    }
-
+// if (variant.featured_image) {
+//   var newImg = variant.featured_image.src;
+//   $( 'div#main-product-image img' ).attr({ src: newImg });
+// }
+	
+	
+	_('Variant selection');
+	_(variant);
+	
     // Select a valid variant if available
     if (variant.available) {
       // Available, enable the submit button, change text, show quantity elements
@@ -335,6 +343,7 @@ timber.productPage = function (options) {
     //   - http://docs.shopify.com/manual/configuration/store-customization/advanced-navigation/linked-product-options
     $addToCart.addClass('disabled').prop('disabled', true);
     $addToCartText.html(translations.unavailable);
+	_('Variant unavailable');
     $quantityElements.hide();
   }
 };
@@ -454,9 +463,10 @@ timber.Drawers = (function () {
   };
 
   Drawer.prototype.open = function (evt) {
-    // Keep track if drawer was opened from a click, or called by another function
+    
+	// Keep track if drawer was opened from a click, or called by another function
     var externalCall = false;
-
+	
     // don't open an opened drawer
     if (this.drawerIsOpen) {
       return;
@@ -507,6 +517,15 @@ timber.Drawers = (function () {
     }
 
     this.bindEvents();
+	
+	console.log("open drawer");
+
+	
+	//$("#IconHamburger").css('color', 'transparent !important');
+	//$("#NavDrawer").dimBackground();
+	$("#IconHamburger").removeClass("icon-hamburger");
+	$("#IconHamburger").addClass("icon-x");
+  
   };
 
   Drawer.prototype.close = function () {
@@ -537,6 +556,13 @@ timber.Drawers = (function () {
     }
 
     this.unbindEvents();
+	
+	console.log("close drawer");
+	// $("#IconHamburger").css('color', 'white !important');
+// 	$("#NavDrawer").undim();
+	$("#IconHamburger").removeClass("icon-x");
+   	$("#IconHamburger").addClass("icon-hamburger");
+	
   };
 
   /**
@@ -697,16 +723,21 @@ var slickTheme = (function(module, $) {
      *   - https://github.com/kenwheeler/slick/#options
      */
     settings.$element.slick({
-      arrows         : settings.arrows,
+      accessibility  : true,
+      arrows         : true, //settings.arrows,
+      //cssEase		 : 'ease',
+      easing 		 : 'linear',
       dots           : settings.dots,
-      adaptiveHeight : settings.fullscreen ? false : settings.adaptiveHeight,
+      adaptiveHeight : false, //settings.fullscreen ? false : settings.adaptiveHeight,
       draggable      : false,
-      fade           : true,
+      fade           : false,
       autoplay       : {{ settings.hero_home_auto }},
       autoplaySpeed  : {{ settings.home_hero_auto_speed }},
       onInit         : this.onInit,
       onBeforeChange : this.beforeChange,
-      onAfterChange  : this.afterChange
+      onAfterChange  : this.afterChange,
+      lazyLoad       : 'progressive',
+      waitForAnimate : false
     });
   };
 
@@ -1044,11 +1075,15 @@ theme.backButton = function () {
   }
 };
 
+           
 theme.setBreakpoints = function () {
   if(!theme.cache.$html.hasClass('lt-ie9')) {
     enquire.register(theme.variables.mediaQuerySmall, {
       match: function () {
-        theme.createImageCarousel();
+        console.log( "go small!" );
+        //$('div.product-single__photos').removeClass('fotorama');
+        //theme.createImageCarousel();
+        //$('.fotorama').fotorama({nav: 'dots'});
         {% if settings.collection_products_grid == 'collage' %}
           theme.clearCollageGridHeights();
         {% endif %}
@@ -1062,7 +1097,10 @@ theme.setBreakpoints = function () {
         {% endif %}
       },
       unmatch: function () {
-        theme.destroyImageCarousel();
+        console.log( "go big!" );
+        //$('div.product-single__photos').addClass('fotorama');
+        //theme.destroyImageCarousel();
+        //$('.fotorama').fotorama({nav: 'thumbs'});
         theme.variables.bpSmall = false;
         theme.initStickyProductMeta();
 

@@ -1,0 +1,677 @@
+<!-- /templates/product.liquid -->
+<script>
+    var primages = {};
+    {% for image in product.images %}
+    	primages[ '{{ image.id }}' ] = {% increment imgindex %} ;
+    {% endfor %}
+    
+    var prod = {{ product | json }};
+</script>
+
+<style>
+  .main-content {
+    background-color: #fff;
+  }
+  #PageContainer {
+	background-color: #fff;
+	}
+</style>
+
+{% comment %}
+{% if customer %}
+{% else %}
+<div class="grid">
+<div class="br-reg-mob grid__item large--hide medium--hide small--one-whole text-center">
+  <span><a href="/account/register" class="reg-now">Create&nbsp;account</a> and&nbsp;get&nbsp;10%&nbsp;discount</span>
+  <span id="popclose"><a href="#">×</a></span>
+</div>
+</div>
+{% endif %}
+{% endcomment %}
+
+<script>
+  if(sessionStorage['closepop']) {
+    $('.br-reg-mob').hide();
+  }
+  
+  $('#popclose').click(function(){
+	$('.br-reg-mob').fadeOut();
+	sessionStorage['closepop'] = 'closed';
+  });
+</script>
+
+
+<div itemscope itemtype="http://schema.org/Product">
+
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: '1024x1024' }}">
+
+  {% include 'breadcrumbs' %}
+  
+  {% assign current_variant = product.selected_or_first_available_variant %}
+
+  <div class="grid product-single">
+    <div class="grid__item item__photo large--eight-twelfths medium--six-twelfths text-center">
+      <div class="fotorama"
+           id="fotorama"
+					 data-auto="false"
+           data-arrows="false"
+           data-nav="thumbs"
+           data-navposition="bottom"
+           data-width="100%"
+           data-ratio="1/1"
+           data-maxheight="100%"
+           data-maxwidth="100%"
+					 data-allowfullscreen="native"
+           data-loop="true"
+           data-trackpad="true"
+           data-fit="scaledown"
+           data-thumbheight="60"
+           data-thumbwidth="70"
+           data-keyboard="true"
+           data-transition="slide"
+					 data-navwidth="85%"
+           >
+     	
+        {% for image in product.images %}
+          {% assign imagefilename = image.src | remove: 'products/' %}
+          {% assign imagenameparts = imagefilename | split: '-' %}
+          {% if imagenameparts[0] == 'zzz'%}
+		      <script>console.log('{{ image.src }}');</script>
+          {% endif %}
+          {% unless imagenameparts[0] == 'zzz' %}
+              <img  id="{{ image.id }}" style="display: none;" class="product-single__photo" src="{{ image.src | img_url: '1024x1024' }}" {% if settings.product_zoom_enable %}data-mfp-src="{{ image.src | img_url: '1024x1024' }}"{% endif %} alt="{{ image.alt | escape }}">
+          {% endunless %}
+        {% endfor %}
+      </div>
+	    <div class="likely likely-small">
+          <div class="twitter" data-via="Zorketofficial" data-url="{{ shop.url }}{{ product.url | within: collection }}">Tweet</div>
+          <div class="facebook" data-url="{{ shop.url }}{{ product.url | within: collection }}">Share</div>
+          <div class="pinterest" data-media="{{ product.featured_image | product_img_url: '1024x1024' }}" data-url="{{ shop.url }}{{ product.url | within: collection }}">Pin</div>
+          <div class="gplus" data-url="{{ shop.url }}{{ product.url | within: collection }}">Plus</div>
+    	</div>
+    </div>
+
+    <div class="grid__item item_descr product-single__meta--wrapper medium--six-twelfths large--four-twelfths">
+      <div class="product-single__meta" style="text-align: left;">
+        
+        <style>
+          .spr-icon-star, .spr-icon-star-empty, .spr-icon-star-half-alt {
+              margin: 0 !important;
+              font-size: 12px !important;
+              top: -1px;
+          }
+          .spr-container {
+              padding: 5px 0 0 0 !important;
+          }
+          .spr-reviews {
+              margin: 0;
+          }
+          .spr-review-header-starratings {
+              margin: 0 0 0.5em 0;
+              display: inline;
+          }
+          .spr-review-header-byline {
+              display: inline;
+              font-size: 13px !important;
+              font-style: normal;
+          }
+          .spr-review-header-title {
+              font-size: 14px;
+          }
+          .spr-review-content-body {
+              font-size: 13px
+              !important;
+          }
+          .spr-review-header-starratings > .spr-icon {
+              font-size: 10px !important;
+          }
+          .spr-review-footer {
+              display: none;
+          }
+          .spr-review {
+              padding: 0;
+              border-top: none;
+          }
+          
+          .site-footer {
+          	display: none;
+          }
+        </style>
+        
+        
+        
+        {% comment %}    
+        <span class="freeship">FREE&nbsp;SHIPPING</span>
+        <div id="pricewrap">
+          <div id="shipprice">Free Shipping</div>
+        </div>
+          <hr class="hr--small" id="pricebottom">
+        <span class="label_title">Price</span>
+        {% endcomment %}
+        
+        
+        
+        {% if settings.product_vendor_enable %}
+        <h2 class="product-single__vendor" itemprop="brand">{{ product.vendor }}</h2>
+        {% endif %}
+
+        <h1 class="product-single__title" itemprop="name">{{ product.title }}</h1>
+		
+        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+          
+          <span id="ProductPrice" class="product-single__price{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+            {{ current_variant.price | money | remove: '.00' }}
+          </span>
+          
+          {% if product.compare_at_price_max > product.price %}
+            <span id="PriceA11y" class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+            <span class="product-single__price--wrapper">
+              <span id="ComparePrice" class="product-single__price--compare-at">
+                {% if current_variant.compare_at_price > current_variant.price %}
+                  {{ current_variant.compare_at_price | money }}
+                {% endif %}
+              </span>
+            </span>
+            <span id="ComparePriceA11y" class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+          {% else %}
+            <span id="PriceA11y" class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+          {% endif %}
+          <span class="product_text">&amp;&nbsp;<strong><span class="freeship">FREE</span> Worldwide Shipping</strong></span>
+		  
+  		<div class="prod-cr-wrap">
+  			<a class="prod-cr-title" href="javascript:void(0);">Get 10% off with cryptocurrency checkout &#9662;</a>
+			<div class="prod-cr-tokens">
+				<div>{{ 'bi-eth.png' | asset_url | img_tag: 'Ethereum', 'prod-cr-logo' }}<span class="prod-cr-price prod-cr-price-eth">...</span></div>
+				<div>{{ 'bi-btc.png' | asset_url | img_tag: 'Bitcoin', 'prod-cr-logo' }}<span class="prod-cr-price prod-cr-price-btc">...</span></div>
+				<div>{{ 'bi-dash.png' | asset_url | img_tag: 'Dash', 'prod-cr-logo' }}<span class="prod-cr-price prod-cr-price-dash">...</span></div>
+				<div>{{ 'bi-ltc.png' | asset_url | img_tag: 'Litecoin', 'prod-cr-logo' }}<span class="prod-cr-price prod-cr-price-ltc">...</span></div>
+				<div>{{ 'bi-xrp.png' | asset_url | img_tag: 'Ripple', 'prod-cr-logo' }}<span class="prod-cr-price prod-cr-price-xrp">...</span></div>
+			</div>
+			<div class="prod-cr-disclaimer">Cryptocurrency prices include <strong>10% OFF!</strong></div>
+		</div>
+		
+		
+		
+		
+		  
+		  <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+		  <div class="id-stars-wrap">
+				<div class="id-top"></div>
+				<a href="#reviews-anchor" class="stars-top">
+					<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+				</a>
+			</div>
+			<hr class="horline-top">
+			<div id="product-buttons"> 
+            <form action="/cart/add" method="post" enctype="multipart/form-data" class="product-single__form" id="AddToCartForm" data-cart-submit>
+              
+				
+				{% if product.available and product.variants.size > 1 %}
+				 {% include 'swatch' with 'Color' %}
+				{% endif %}
+				
+			  <select name="id" id="ProductSelect" class="product-single__variants">
+                {% for variant in product.variants %}
+                  {% if variant.available %}
+                    <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+                  {% else %}
+                    <option disabled="disabled">
+                      {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                    </option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+
+			  <script>
+				  
+				  $("label[for*='swatch-0-']").on('click touchstart click', function() {
+					  var thumbs = $("label[for*='swatch-0-']");
+  					  var current = this;
+  					  for(i = 0; i < thumbs.size(); i++) {
+  						  if(thumbs[i] == current) {
+  							  current = i;
+  						  }
+  					  }
+  					  $("label[for*='ProductSelect-option-Color-']")[current].click();
+				  });
+					
+					$(window).load(function() { 
+						if ($("label[for='ProductSelect-option-0']").text() === 'Color') {
+							$("label[for='ProductSelect-option-0']").hide();
+						}
+						else {
+							$("label[for='ProductSelect-option-0']").addClass('label-show');
+						}
+					});
+				  
+				  // $("label[for*='swatch-0-']").click(function() {
+// 					  var thumbs = $("label[for*='swatch-0-']");
+// 					  var current = this;
+// 					  for(i = 0; i < thumbs.size(); i++) {
+// 						  if(thumbs[i] == current) {
+// 							  current = i;
+// 						  }
+// 					  }
+// 					  $("label[for*='ProductSelect-option-Color-']")[current].click();
+// 				  });
+
+				
+			  </script>
+				  
+				<span class="guide-link"><a href="#sizechart-anchor"><img class="ruler" src="{{ 'ruler.svg' | asset_url }}">Size Guide</a></span>
+              {% comment %}
+              <div class="product-single__quantity">
+                <label for="Quantity" class="product-single__quantity-label js-quantity-selector">{{ 'products.product.quantity' | t }}</label>
+                <input type="number" hidden="hidden" id="Quantity" name="quantity" value="1" min="1" class="js-quantity-selector">
+              </div>
+              {% endcomment %}
+              {% comment %}
+              <a id="showchart" href="#sizechart" class="nav-toggle" >Show size chart</a>
+              <div id="sizechart">
+              </div>
+               {% endcomment %}
+
+							 <div id="reviews-anchor"></div>
+							 <div id="sizechart-anchor"></div>
+
+              <div class="product-single__add-to-cart">
+                <button type="submit" name="add" id="0AddToCart" class="btn" style="display:none;">
+                  <span id="0AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+                </button>
+              </div>
+            </form>
+
+            <div class="product-single__add-to-cart">
+                <button type="button" name="add" id="AddToCart" class="btn">
+                  <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+                </button>
+            </div>
+
+            <div class="product-buy-now">
+              <button id="BuyNow" class="btn">
+                <span id="BuyNowText">Buy Now</span>
+              </button>
+            </div>
+          </div>
+          
+          <div class="prod_tabs">
+            
+            <div data-pws-tab="details" data-pws-tab-name="Details">
+              <div class="descrwrap"></div>
+            </div>
+            
+            <div data-pws-tab="size" data-pws-tab-name="Size Guide">
+              <a class="chartwrap"></a>
+              <div class="sizenote">
+                <span>Size may have 0.4–1.2" inaccuracy due to manual measurement.</span>
+                <span id="sizenote"></span>
+                <br>
+                <span>If you are not sure what size to choose, please <a href="https://www.zorket.com/pages/contact-zorket?msg={{ product.title }}&id={{ product.id }}&handle={{ product.handle }}"><strong>contact&nbsp;us</strong></a>.</span>
+              </div>
+            </div>
+            
+            <div data-pws-tab="reviews" data-pws-tab-name="Reviews">
+              <div class="reviewswrap"></div>
+            </div>
+						 
+          </div>
+                 <hr class="horline">
+        <div class="faq"><a href="https://www.zorket.com/pages/faq">FAQs</a></div> 
+        <div class="question"><a href="https://www.zorket.com/pages/contact-zorket?msg={{ product.title }}&id={{ product.id }}&handle={{ product.handle }}">Ask a question</a></div>
+
+        </div>
+        
+        
+    
+        {% comment %}
+        {% if settings.social_sharing_products %}
+          {% include 'social-sharing' %}
+        {% endif %}
+        {% endcomment %}
+        
+
+        
+        <div class="product-single__description rte" itemprop="description">
+          {{ product.description }}
+        </div>
+        
+        <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+        
+      </div>
+    </div>
+  </div>
+
+  {% if collection %}
+    <div class="text-center">
+      <a href="{{ collection.url }}" class="return-link">&larr; {{ 'products.general.collection_return' | t: collection: collection.title }}</a>
+    </div>
+  {% endif %}
+
+</div>
+
+{% if collection %}
+<div class="grid prev-next-wrapper">
+	<div class="grid__item large--one-third medium--one-third small--one-half text-left">
+		{% if collection.previous_product %}
+			<div class="prev-next-product">
+				<a href="{{ collection.previous_product }}">
+					<div class="image-prev-curr-next radius15" style="background-image: url('{{ collection.previous_product.featured_image | img_url: 'large' }}');">
+						<span class="prev-product-link">⟨ Previous Product</span>
+						<span class="prev-product-link prev-product-link-mob">⟨ Prev.</span>
+					</div>
+				</a>
+			</div>
+		{% endif %}
+	</div>
+	<div class="grid__item large--one-third medium--one-third small--hide text-center">
+			<div class="prev-next-product">
+				<a href="{{ collection.url }}">
+					<div class="image-prev-curr-next radius15" style="background-image: url('{{ collection.image | img_url: 'large' }}');">
+						<div class="coll-back-wrapper">
+							<div class="collection-back">⟨ Back to the</div>
+							<div class="coll-back-title">{{ collection.title }}</div>
+							<div class="collection-back">Collection</div>
+						</div>
+					</div>
+				</a>
+			</div>
+	</div>
+	<div class="grid__item large--one-third medium--one-third small--one-half text-right">
+		{% if collection.next_product %}
+			<div class="prev-next-product">
+				<a href="{{ collection.next_product }}">
+					<div class="image-prev-curr-next radius15" style="background-image: url('{{ collection.next_product.featured_image | img_url: 'large' }}');">
+						<span class="next-product-link">Next Product ⟩</span>
+						<span class="next-product-link next-product-link-mob">Next ⟩</span>
+					</div>
+				</a>
+			</div>
+		{% endif %}
+	</div>
+
+</div>
+{% endif %}
+
+
+	
+{% comment %}
+
+  *IMPORTANT:*
+  This theme uses a customized version of `option_selection.js` to support using radio inputs for
+  color and size variants. The custom version is in `variant_selection.js`.
+
+  If you wish to enable the default dropdowns for size and color
+  you can change the liquid asset tag below from:
+
+  {{ 'variant_selection.js' | asset_url | script_tag }}
+
+  to
+
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+  If you use the default `option_selection.js` the labels for the dropdowns will
+  appear outside the dropdown.
+
+  You will also need to change `.radio-wrapper` to `.selector-wrapper` below.
+
+{% endcomment %}
+{{ 'variant_selection.js' | asset_url | script_tag }}
+
+<script>
+jQuery(document).ready(function($){
+  
+  
+	$(".image-prev-curr-next").hover(
+		function() {$(this).addClass('dim-bg');},
+		function() {$(this).removeClass('dim-bg');}
+	);
+  
+  
+  $('.prod_tabs').pwstabs({
+    defaultTab: 1,
+    effect: 'scale' // You can change effects of your tabs container: scale / slideleft / slideright / slidetop / slidedown / none
+  });
+  
+  //$(".stars-top").html($('.spr-summary-starrating').html());
+  
+	$(document).on('click', 'a[href^="#"]', function (event) {
+	    event.preventDefault();
+
+	    $('html, body').animate({
+	        scrollTop: $($.attr(this, 'href')).offset().top
+	    }, 500);
+	});
+	
+	$( '.stars-top' ).click(function() {
+	  $("a[data-tab-id=reviews]").click();
+	});
+	
+	
+	$( '.guide-link' ).click(function() {
+	  $("a[data-tab-id=size]").click();
+		$('.chartwrap').click();
+	});
+	
+	
+	$('.horline-top').css('display', 'block');
+  var $fotoramaDiv = $('#fotorama').fotorama();
+  var fotorama = $fotoramaDiv.data('fotorama');
+  console.log(fotorama);
+  
+  
+  if($( window ).width() <= 590)
+    fotorama.setOptions({ navwidth: '100%' });
+	
+  if($( window ).width() < 768)
+    fotorama.setOptions({ allowfullscreen: false, arrows: false });
+  else {
+    fotorama.setOptions({ allowfullscreen: "native", arrows: true });
+    $('.fotorama__fullscreen-icon').hide();
+    $('.fotorama__arr').hide();
+  }
+	
+	$( window ).resize(function() {
+	  if ($( window ).width() <= 590)
+	    fotorama.setOptions({ navwidth: '100%' });
+		else
+			fotorama.setOptions({ navwidth: '85%' });
+	});
+	
+  
+  var selectCallback = function(variant, selector) {
+    timber.productPage({
+      money_format: "{{ shop.money_format }}",
+      variant: variant,
+      selector: selector,
+      translations: {
+        addToCart : {{ 'products.product.add_to_cart' | t | json }},
+        soldOut : {{ 'products.product.sold_out' | t | json }},
+        unavailable : {{ 'products.product.unavailable' | t | json }}
+      }
+    });
+
+    fotorama.show(primages[variant.featured_image.id]);
+	
+	var colorVariant = getUrlParameter('variant');
+	_(colorVariant);
+	if(colorVariant) {
+		$("label[variant*='" + colorVariant + "']").click();
+	}
+	
+	_('Some variant selected: {{ product.options.size }}');
+  };
+
+  jQuery(function($) {
+    new Shopify.OptionSelectors('ProductSelect', {
+      product: {{ product | json }},
+      onVariantSelected: selectCallback,
+      enableHistoryState: true
+    });
+	
+    // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      $('.radio-wrapper:eq(0)').prepend('<label for="ProductSelect-option-0" class="single-option-radio__label">{{ product.options.first | escape }}</label>');
+    {% endif %}
+
+    // Hide drop-down selectors if we only have 1 variant and its title contains 'Default'.
+    {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+      $('.selector-wrapper').hide();
+    {% endif %}
+  });
+});
+</script>
+{{ 'product.js' | asset_url | script_tag }}
+
+<!-- Feature multiple random products on your home page -->
+{{ 'jquery.pick.js' | asset_url | script_tag }}
+
+
+
+
+{% assign prods_in_coll = collection.products_count %}
+{% if prods_in_coll > 0 %}
+<!-- This Category Products and reopen wrapper-->
+</div>
+<div id="RecCategory" class="rec-wrapper">
+	<div class="rec-head-wrap">
+		<span class="new-arrivals">Also in This Collection</span>
+		<div class="view-more-mob">
+		    <a href="{{collection.url}}" class="vm-mob-link-light">view more <strong>⟩</strong></a>
+		</div>
+	</div>
+	{% if prods_in_coll > 0 %}
+	{% else %}
+		<div>No prodcts in this collection</div>
+	{% endif %}
+
+	<div class="scrollyeah new-arr-home">
+	  {% assign counter = 0 %}
+	  {% assign products = collection.products %}
+	  {% for product in products %}
+	    {% if counter < 50 and product.available %}
+	      {% include 'rec-float-item' with product %}
+	      {% assign counter = counter | plus: 1 %}
+	    {% endif %}
+	  {% endfor %}
+	</div>
+	<script>
+		$('#RecCategory').find('.float-item').pick(20);
+		var parent = $('#RecCategory').find('.float-item').parent();
+		var divs = parent.children();
+		while (divs.length) {
+			parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+		};
+	</script>
+	<div class="scrollyeah-left">
+		<a href="javascript:void(0);" class="scrollyeah-left-link"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+	</div>
+	<div class="view-more-arr view-more">
+	    <a href="{{collection.url}}" class="link-button">View more</a>
+	</div>
+	<div class="scrollyeah-right">
+		<a href="javascript:void(0);" class="scrollyeah-right-link"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+	</div>
+</div>
+<!-- <div class="rec-box-divider-line">&nbsp;</div> -->
+<div class="wrapper">
+<!-- End This Category Products and reopened wrapper-->
+{% else %}
+<!-- Best Sellers and reopen wrapper-->
+</div>
+<div id="RecBestsellers" class="rec-wrapper">
+	<div class="rec-head-wrap">
+		<span class="new-arrivals">Best Sellers</span>
+		<div class="view-more-mob">
+		    <a href="/collections/bestsellers" class="vm-mob-link-light">view more <strong>⟩</strong></a>
+		</div>
+	</div>
+	<div class="scrollyeah new-arr-home">
+	  {% assign counter = 0 %}
+	  {% assign products = collections.bestsellers.products %}
+	  {% for product in products %}
+	    {% if counter < 100 and product.available %}
+	      {% include 'rec-float-item' with product %}
+	      {% assign counter = counter | plus: 1 %}
+	    {% endif %}
+	  {% endfor %}
+	</div>
+	<script>
+		$('#RecBestsellers').find('.float-item').pick(20);
+		var parent = $('#RecBestsellers').find('.float-item').parent();
+		var divs = parent.children();
+		while (divs.length) {
+			parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+		};
+	</script>
+	<div class="scrollyeah-left">
+		<a href="javascript:void(0);" class="scrollyeah-left-link"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+	</div>
+	<div class="view-more-arr view-more">
+	    <a href="/collections/bestsellers" class="link-button">View more</a>
+	</div>
+	<div class="scrollyeah-right">
+		<a href="javascript:void(0);" class="scrollyeah-right-link"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+	</div>
+</div>
+<!-- <div class="rec-box-divider-line">&nbsp;</div> -->
+<div class="wrapper">
+<!-- End Best Sellers and reopened wrapper-->
+{% endif %}
+
+<!-- Featured Products and reopen wrapper-->
+</div>
+<div id="RecFeatured" class="rec-wrapper">
+	<div class="rec-head-wrap">
+		<span class="new-arrivals">Featured Products</span>
+		<div class="view-more-mob">
+		    <a href="/collections/featured" class="vm-mob-link-light">view more <strong>⟩</strong></a>
+		</div>
+	</div>
+	<div class="scrollyeah new-arr-home">
+	  {% assign counter = 0 %}
+	  {% assign products = collections.featured.products %}
+	  {% for product in products %}
+	    {% if counter < 400 and product.available %}
+	      {% include 'rec-float-item' with product %}
+	      {% assign counter = counter | plus: 1 %}
+	    {% endif %}
+	  {% endfor %}
+	</div>
+	<script>
+		$('#RecFeatured').find('.float-item').pick(20);
+		var parent = $('#RecFeatured').find('.float-item').parent();
+		var divs = parent.children();
+		while (divs.length) {
+			parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+		};
+	</script>
+	<div class="scrollyeah-left">
+		<a href="javascript:void(0);" class="scrollyeah-left-link"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+	</div>
+	<div class="view-more-arr view-more">
+	    <a href="/collections/featured?page=2" class="link-button">View more</a>
+	</div>
+	<div class="scrollyeah-right">
+		<a href="javascript:void(0);" class="scrollyeah-right-link"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+	</div>
+</div>
+<div class="wrapper">
+<!-- End Featured Products and reopened wrapper-->
+
+<!-- scroll script for recommendation boxes -->
+{{ 'scrollyeah-scroll-btns.js' | asset_url | script_tag }}
+
+
+<!-- Recents and reopened wrapper -->
+</div>
+<div class="rec-wrapper recents-wrap white-bg">
+<div class="rec-box-divider white-bg" style="height: 15px">&nbsp;</div>	
+<h1 class="new-arrivals">Recently Viewed Products</h1>
+{% include 'recently-viewed' %}
+</div>
+<div class="wrapper">
+<!-- End Recents and reopened wrapper -->
+
+{{ 'crypto-prod-page.js' | asset_url | script_tag }}
