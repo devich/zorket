@@ -294,11 +294,10 @@ timber.productPage = function (options) {
   if (variant) {
 
     // Update variant image, if one is set
-    if (variant.featured_image) {
-      var newImg = variant.featured_image,
-          el = $productImage[0];
-      Shopify.Image.switchImage(newImg, el, theme.showVariantImage);
-    }
+// if (variant.featured_image) {
+//   var newImg = variant.featured_image.src;
+//   $( 'div#main-product-image img' ).attr({ src: newImg });
+// }
 
     // Select a valid variant if available
     if (variant.available) {
@@ -1044,11 +1043,15 @@ theme.backButton = function () {
   }
 };
 
+           
 theme.setBreakpoints = function () {
   if(!theme.cache.$html.hasClass('lt-ie9')) {
     enquire.register(theme.variables.mediaQuerySmall, {
       match: function () {
-        theme.createImageCarousel();
+        console.log( "go small!" );
+        //$('div.product-single__photos').removeClass('fotorama');
+        //theme.createImageCarousel();
+        //$('.fotorama').fotorama({nav: 'dots'});
         {% if settings.collection_products_grid == 'collage' %}
           theme.clearCollageGridHeights();
         {% endif %}
@@ -1062,7 +1065,10 @@ theme.setBreakpoints = function () {
         {% endif %}
       },
       unmatch: function () {
-        theme.destroyImageCarousel();
+        console.log( "go big!" );
+        //$('div.product-single__photos').addClass('fotorama');
+        //theme.destroyImageCarousel();
+        //$('.fotorama').fotorama({nav: 'thumbs'});
         theme.variables.bpSmall = false;
         theme.initStickyProductMeta();
 

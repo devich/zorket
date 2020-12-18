@@ -1,3 +1,7 @@
+{% comment %}
+{% layout 'cart-no-footer' %}
+{% endcomment %}
+
 <!-- /templates/cart.liquid -->
 {% comment %}
 
@@ -11,7 +15,6 @@
     {% if cart.item_count > 0 %}
       <header class="section-header text-center">
         <h1 class="text-center">{{ 'cart.general.title' | t }}</h1>
-        <hr class="hr--small">
         <!-- Facebook Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -146,37 +149,136 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                 - Your theme settings can turn this on or off. Default is on.
                 - Make sure you have name="note" for the message to be submitted properly
             {% endcomment %}
+            
             {% if settings.cart_notes_enable %}
-              <div class="grid__item large--seven-twelfths">
+              <div class="grid__item large--five-twelfths">
+                {% comment %}
                 <div class="cart__note">
                   <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
                   <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
                 </div>
+                {% endcomment %}
               </div>
             {% endif %}
-            <div class="grid__item large--five-twelfths text-center large--text-right{% unless settings.cart_notes_enable %} push--large--seven-twelfths{% endunless %}">
+            <div class="grid__item large--seven-twelfths text-center large--text-right{% unless settings.cart_notes_enable %} push--large--seven-twelfths{% endunless %}">
               <div class="grid--full cart__row--table">
                 <div class="grid__item one-half large--two-thirds large--text-center">
-                  <p class="cart__subtotal">{{ 'cart.general.subtotal' | t }}</p>
+                  <p class="cart__subtotal subtottitle">{{ 'cart.general.subtotal' | t }}</p>
                 </div>
                 <div class="grid__item one-half large--one-third">
-                  <p class="cart__subtotal">{{ cart.total_price | money }}</p>
+                  <p class="cart__subtotal subtotmon">{{ cart.total_price | money }}</p>
                 </div>
               </div>
               
+              
+              <div class="grid--full cart__row--table">
+                <div class="grid__item one-half large--two-thirds large--text-center">
+                  <p id="dicsnote">
+                    {% comment %}{{ 'cart.general.shipping_at_checkout' | t }}{% endcomment %}
+                    <strong>Free shipping</strong><br>
+                    Discounts (if any) will be calculated at checkout
+                  </p>
+                </div>
+                <div class="grid__item one-half large--one-third">
+                  <div style="text-align: right;"><input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}"></div>              
+                </div>
+              </div>
+              
+              
+              
+              
+              
+              
+              
+              
+              {% comment %} 
               {% if cart.total_discounts > 0 %}
                 {% assign cartTotalDiscounts = cart.total_discounts | money %}
                 <p class="cart__savings">{{ 'cart.general.savings_html' | t: savings: cartTotalDiscounts }}</p>
               {% endif %}
-              <p><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
-              <input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}">
-              <button type="submit" name="checkout" class="btn cart__checkout">
-                {{ 'cart.general.checkout' | t }} <span class="icon icon-arrow-right" aria-hidden="true"></span>
-              </button>
+              {% endcomment %}
+              
+              
 
+         	
+           <div id="payanycard">
+              
+              
+             <p>Pay with any Debit or Credit Card through PayPal&nbsp;Guest&nbsp;Checkout<br>
+                (no PayPal account or registration needed)</p>
+             
+              <ul class="inline-list payment-icons">
+
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'visa.svg' | asset_url | img_tag: 'Visa', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+                
+                 <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'mastercard.svg' | asset_url | img_tag: 'Master Card', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+                 <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'amex.svg' | asset_url | img_tag: 'American Express', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+               
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'discover.svg' | asset_url | img_tag: 'Discover', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+               
+                
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'paypal.svg' | asset_url | img_tag: 'PayPal Guest Checkout', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+                
+              </ul>
+              
+              
+              <button type="submit" name="checkout" class="btn cart__checkout">
+                {{ 'cart.general.checkout' | t }}<span>&nbsp;with credit/debit card</span>
+              </button>
+             </div>
+              <div id="paypaypal">
+				<p>Or, if you have a PayPal account you can pay with PayPal&nbsp;Express&nbsp;Checkout</p>                
+                <ul class="inline-list payment-icons">
+
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'pplogo.svg' | asset_url | img_tag: 'Paypal', 'paypalicon' }}
+                        </span>
+                      </span>
+                    </li>
+                </ul>
+
+                
+                
               {% if additional_checkout_buttons %}
                 <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
               {% endif %}
+              </div>
             </div>
           </div>
 
@@ -198,3 +300,8 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
     {% endif %}
   </div>
 </div>
+
+
+
+
+

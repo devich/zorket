@@ -5,8 +5,50 @@
 {% paginate collection.products by 24 %}
 
 <header class="section-header text-center" style="margin-bottom:-20px;">
-  <h1>{{ collection.title }}</h1>
-  <hr class="hr--small">
+  <div class="grid-uniform">
+    <div class="grid__item large--one-half left-title">
+	  <h1>{{ collection.title }}</h1>
+    </div>
+    
+    <div class="grid__item large--one-half sort-dropdown">
+
+      
+<div class="search-wrap">
+  <label for="sort-by">Sort by</label> 
+  <select id="sort-by">
+    <option value="manual">Featured</option>
+    <option value="price-ascending">Price: Low to High</option>
+    <option value="price-descending">Price: High to Low</option>
+    <option value="title-ascending">A-Z</option>
+    <option value="title-descending">Z-A</option>
+    <option value="created-ascending">Oldest to Newest</option>
+    <option value="created-descending">Newest to Oldest</option>
+    <option value="best-selling">Best Selling</option>
+  </select>
+</div>
+<script>
+Shopify.queryParams = {};
+if (location.search.length) {
+  for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+    aKeyValue = aCouples[i].split('=');
+    if (aKeyValue.length > 1) {
+      Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+    }
+  }
+}
+jQuery('#sort-by')
+  .val('{{ collection.sort_by | default: collection.default_sort_by | escape }}')
+  .bind('change', function() {
+    Shopify.queryParams.sort_by = jQuery(this).val();
+    location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+  });
+</script>
+      
+      
+      
+    </div>
+  </div>
+  <hr class="hr--small sort-hr">
   {% if collection.description != blank %}
     <div class="grid">
       <div class="grid__item">
@@ -26,6 +68,13 @@ $('.grid-product__image-wrapper').height(220);
   });
 </script>
 {% endif %}
+  
+
+
+
+
+  
+
   {% if settings.collection_tags_enable %}
     {% if collection.all_tags.size > 0 %}
       {% comment %}
@@ -83,6 +132,11 @@ $('.grid-product__image-wrapper').height(220);
     <hr class="hr--small hr--clear">
   {% endif %}
 </header>
+
+<script>
+  if($('.left-title > h1').text() == 'Trending Products')
+	$('.tags--collection').css('display','none');
+</script>
 
 {% if settings.collection_products_grid == 'collage' %}
   <div class="grid grid-collage">

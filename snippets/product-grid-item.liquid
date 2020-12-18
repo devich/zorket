@@ -36,7 +36,9 @@
   <div class="grid-product__wrapper">
     <div class="grid-product__image-wrapper">
       <a class="grid-product__image-link" href="{{ product.url | within: collection }}">
-        <img src="{{ product | img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}" class="grid-product__image">
+        <div class="pr-image-wrap">
+        	<img src="{{ product | img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}" class="grid-product__image">
+        </div>
       </a>
       {% if sold_out %}
         <div class="grid-product__sold-out">
@@ -49,8 +51,6 @@
         </div>
       {% endif %}
     </div>
-    <br>
-<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
     <a href="{{ product.url | within: collection }}" class="grid-product__meta">
       <div class="grid-product__title">{{ product.title }}</div>
       
@@ -77,6 +77,6 @@
         <p class="grid-product__vendor">{{ product.vendor }}</p>
       {% endif %}
     </a>
-    
+    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
   </div>
 </div>

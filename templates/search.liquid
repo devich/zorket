@@ -72,7 +72,7 @@ $('.grid-product__image-wrapper').height(220);
               {% assign product = item %}
               {% include 'product-grid-item' %}
             {% else %}
-              <div class="grid__item grid-search large--one-third medium--one-half">
+              <div class="grid__item grid-search large--one-quarter medium--one-half">
                 <div class="grid-search__page">
                   <a href="{{ item.url }}" class="grid-search__page-link">
                     <span class="grid-search__page-content">
@@ -104,3 +104,8 @@ $('.grid-product__image-wrapper').height(220);
   {% include 'respond' %}
   {% layout none %}
 {% endunless %}
+
+
+{% include 'limespot-most-popular' %}
+
+{% include 'limespot-trending' %}
