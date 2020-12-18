@@ -3,15 +3,15 @@
 ==============================================================================*/
 
 /*================ Variables, theme settings, and Sass mixins from Timber ================*/
-/*============================================================================
+/*=============================================================================
   #Sass Mixins
 ==============================================================================*/
 .clearfix {
-  &:after {
+  &:after { 
     content: '';
     display: table;
     clear: both;
-  }
+  }  
 }
 
 @mixin clearfix() {
@@ -2499,7 +2499,7 @@ $slick-opacity-not-active: 0.25;
   @include transition('color 0.2s, opacity 0.1s');
   @include accentFontStack;
   font-size: em(14px);
-
+  
   .is-light & {
     color: #fff;
   }
@@ -2585,7 +2585,12 @@ display:block;}
   display: block;
   white-space: nowrap;
   padding: 5px 15px;
-  font-size: em(16px);
+  font-size: em(14px);
+  
+  //dev
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  
 }
 
 /*================ Compressed nav if too many links ================*/
@@ -2986,7 +2991,13 @@ button.mfp-arrow {
 
 .grid-product__title {
   @include bodyFontItalic;
-  font-size: em(floor($baseFontSize * 1.25));  //20px based on 16px base font size
+  //font-size: em(floor($baseFontSize * 1.25));  //20px based on 16px base font size
+  
+  //dev
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-size: em(floor($baseFontSize * 1));
+  
 }
 
 .grid-product__vendor {
@@ -2998,7 +3009,12 @@ button.mfp-arrow {
 
 .grid-product__price {
   @include accentFontStack;
-  font-size: em(14px);
+  //font-size: em(14px);
+  
+  //dev
+  font-size: em(18px);
+  font-weight: bold;
+  
 }
 
 .grid-product__price-min {
@@ -3439,3 +3455,7 @@ button.mfp-arrow {
       padding: 12px 12px !important;}
 
 .hr--medium.hr--clear{display:none;}
+
+
+
+

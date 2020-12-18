@@ -1,0 +1,111 @@
+///////////////////////// Zorket Theme by Devich ///////////////////////////
+
+/* hide zero rating badge 
+.spr-badge[data-rating="0.0"] {
+    display: none;
+}
+*/
+
+/* hide zero rating No Reviews text */
+.spr-badge[data-rating="0.0"] > span.spr-badge-caption {
+    display: none;
+}
+
+.spr-starrating {
+  font-size: 12px;
+}
+
+
+
+.site-footer a {
+	color: #D4D4D4;
+}
+
+.site-footer a:hover {
+	color: white;
+}
+
+.site-footer {
+  background-color: #333;
+  color: #D4D4D4;
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-size: 13px;
+  padding-top: 40px;
+}
+
+.hr--large {
+  display: none;
+}
+
+/*.newsletter {
+	margin-top: 0px !important;
+    margin-bottom: 20px !important;
+}
+
+.newsletter__input {
+	border-color: lightgray;
+    border-width: 1px;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+#email {
+    font-size: 10px !important;
+}
+*/
+
+.grid-product__title {
+	color: #004EA5;
+}
+
+.spr-badge-caption {
+	color: #2D2D2D;
+ 	font-family: Geneva, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+.cart-link {
+	font-size: 18px;
+}
+
+.icon-customer {
+	font-size: 14px;
+}
+
+.icon-search {
+	font-size: 16px;
+}
+
+
+.cart-link__bubble--visible {
+    top: 16px;
+    right: 4px;
+    width: 9px;
+    height: 9px;
+    background-color: #ffa300;
+    //background-color: #0078bd;
+}
+
+
+.site-nav__dropdown a:hover, .site-nav__dropdown a:active {
+    background-color: transparent;
+    color: #f34700;
+}
+
+.site-header {
+    padding: 0;
+}
+
+.spr-badge {
+    margin-top: -22px;
+    margin-bottom: -16px;
+}
+
+.grid-product__wrapper {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.grid-product__price {
+	font-size: 1.25em;
+}

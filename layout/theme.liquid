@@ -18,6 +18,8 @@
   <title>
   {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
   </title>
+  
+  {% include 'twitter-card' %}
 
   {% if page_description %}
   <meta name="description" content="{{ page_description | escape }}">
@@ -32,6 +34,8 @@
   <!-- CSS ================================================== -->
   {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'zorket.css' | asset_url | stylesheet_tag }}
+  {{ 'fotorama.css' | asset_url | stylesheet_tag }}
   {% include 'google-fonts' %}
 
   <!-- Header hook for plugins ================================================== -->
@@ -50,6 +54,8 @@
 
   {% include 'buddha-megamenu-before' %}
   
+  {{ 'fotorama.js' | shopify_asset_url | script_tag }}
+  
   <!-- Facebook Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -65,6 +71,8 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 /></noscript>
 <!-- DO NOT MODIFY -->
 <!-- End Facebook Pixel Code -->
+ 
+  
 </head>
 
 {% comment %}
@@ -657,7 +665,7 @@ form.value = '';
           {% endif %}
 
           <div class="grid__item {{ footer_column_width }} {% if num_footer_columns == 1 %}text-center{% else %}large--text-right{% endif %}">
-            <p>&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: '/' }}<br>{{ powered_by_link }}</p>
+            <p>&copy; {{ 'now' | date: '%Y' }} Zorket<br></p>
             {% unless shop.enabled_payment_types == empty %}
               {% assign payment_icons_available = 'amazon_payments,american_express,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,jcb,litecoin,maestro,master,paypal,visa' | split: ',' %}
               <ul class="inline-list payment-icons">
@@ -683,7 +691,7 @@ form.value = '';
 
 
   {{ 'theme.js' | asset_url | script_tag }}
-
+  
   {% comment %}
     Template-specific js
   {% endcomment %}
@@ -723,5 +731,8 @@ form.value = '';
   {% endif %}
 
   {% include 'buddha-megamenu' %}
+  
+  {{ 'zorket.js' | asset_url | script_tag }}
+
 </body>
 </html>

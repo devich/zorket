@@ -1,0 +1,192 @@
+///////////////////////// Zorket Theme by Devich ///////////////////////////
+
+.site-footer a {
+	color: #D4D4D4;
+}
+
+.site-footer a:hover {
+	color: white;
+}
+
+.site-footer {
+  background-color: #333;
+  color: #D4D4D4;
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-size: 13px;
+  padding-top: 40px;
+}
+
+.hr--large {
+  display: none;
+}
+
+/*.newsletter {
+	margin-top: 0px !important;
+    margin-bottom: 20px !important;
+}
+
+.newsletter__input {
+	border-color: lightgray;
+    border-width: 1px;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+#email {
+    font-size: 10px !important;
+}
+*/
+
+/*.main-content {
+	background-color: #F5F5F1;
+}
+*/
+
+.grid-product__title {
+	font-size: 14px;
+	line-height: 19px;
+	padding-left: 8px;
+	padding-right: 8px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: -3px;
+	margin-top: 5px;
+}
+
+.grid-product__price {
+	color: #9C1D06;
+	letter-spacing: 0;
+	font-size: 16px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+}
+
+a.grid-product__meta {
+	color: #00418A;
+	text-decoration: none;
+	padding: 10px 0px 4px 0px;
+}
+
+a.grid-product__meta:hover {
+	color: #0064D4;
+	text-decoration: none;
+}
+
+.spr-badge-caption {
+	color: #555;
+ 	font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+.cart-link {
+	font-size: 18px;
+}
+
+.icon-customer {
+	font-size: 14px;
+}
+
+.icon-search {
+	font-size: 16px;
+}
+
+
+.cart-link__bubble--visible {
+    top: 16px;
+    right: 4px;
+    width: 9px;
+    height: 9px;
+    background-color: #ffa300;
+}
+
+
+.site-nav__dropdown a:hover, .site-nav__dropdown a:active {
+    background-color: transparent;
+    color: #f34700;
+}
+
+.site-header {
+    padding: 0;
+	position: relative;
+	top: 12px;
+}
+
+/*.main-content {
+    padding-top: 40px;
+}*/
+
+.spr-badge {
+    margin-top: -22px;
+    margin-bottom: -16px;
+	padding-left: 8px;
+}
+
+.grid-product__wrapper {
+	text-align: left;
+	margin-bottom: 30px;
+	border: 1px solid #ddd;
+	background-color: rgba(255, 255, 255, 0.92)
+}
+
+.grid-product__price {
+	font-size: 1.25em;
+	padding-left: 8px;
+}
+
+.spr-starrating {
+  font-size: 12px;
+}
+
+.site-footer a {
+	color: #ccc;
+}
+
+.tags--collection {
+    max-width: 100%;
+    margin: 0 auto 25px;
+}
+
+.tags a {
+	padding: 4px 15px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	letter-spacing: 0;
+	text-transform: none;
+	font-size: 15px;
+	color: #222;
+}
+
+.tag--active a {
+    color: white;
+}
+
+.tags a:hover {
+	color: #f34700;
+}
+
+li.tag--active {
+	background-color: rgba(236, 80, 16, 0.86);
+    border-radius: 42px;
+}
+
+
+.tags--collection li {
+    display: inline-block;
+}
+
+li.tag--active a:hover {
+    color: white;
+}
+
+.site-nav__link {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+    font-style: normal;
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 16px;
+	color: black;
+}

@@ -56,13 +56,13 @@ $('.grid-product__image-wrapper').height(220);
       {% endif %}
       {% assign divisible_by_three__product = collection_product_count__product | modulo:3 %}
 
-      {% for product in collections[settings.home_featured_products].products %}
+      {% for product in collections[settings.home_featured_products].products limit:48 %}
         {% include 'product-grid-collage' %}
       {% endfor %}
 
     {% else %}
       {% assign grid_item_width = 'medium--one-half large--one-third' %}
-      {% for product in collections[settings.home_featured_products].products %}
+      {% for product in collections[settings.home_featured_products].products limit:48 %}
         	{% include 'product-grid-item' %}
 
       {% endfor %}

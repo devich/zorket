@@ -67,6 +67,8 @@
 {% comment %}
   This snippet renders meta data needed to create a Twitter card.
 {% endcomment %}
+
+{% comment %}
 {% if template contains 'article' and article.image %}
   <meta name="twitter:card" content="summary_large_image">
 {% elsif template == 'index' and hero_enabled %}
@@ -100,3 +102,5 @@
     <meta property="twitter:image" content="https:{{ article | img_url: '1024x1024' }}">
   {% endif %}
 {% endif %}
+
+{% endcomment %}
