@@ -1,3 +1,7 @@
+{% comment %}
+{% layout 'cart-no-footer' %}
+{% endcomment %}
+
 <!-- /templates/cart.liquid -->
 {% comment %}
 
@@ -11,7 +15,6 @@
     {% if cart.item_count > 0 %}
       <header class="section-header text-center">
         <h1 class="text-center">{{ 'cart.general.title' | t }}</h1>
-        <hr class="hr--small">
         <!-- Facebook Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -124,7 +127,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                     {% endif %}
                     
                     <span class="cart__price">{{ item.line_price | money }}</span>
-                  
+                    
                     {% assign discounts_size = item.discounts | size %}
                     {% if discounts_size > 0 %}
                       {% for discount in item.discounts %}
@@ -146,37 +149,141 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                 - Your theme settings can turn this on or off. Default is on.
                 - Make sure you have name="note" for the message to be submitted properly
             {% endcomment %}
+            
             {% if settings.cart_notes_enable %}
-              <div class="grid__item large--seven-twelfths">
+              <div class="grid__item large--five-twelfths">
+                {% comment %}
                 <div class="cart__note">
                   <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
                   <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
                 </div>
+                {% endcomment %}
               </div>
             {% endif %}
-            <div class="grid__item large--five-twelfths text-center large--text-right{% unless settings.cart_notes_enable %} push--large--seven-twelfths{% endunless %}">
+            <div class="grid__item large--seven-twelfths text-center large--text-right{% unless settings.cart_notes_enable %} push--large--seven-twelfths{% endunless %}">
               <div class="grid--full cart__row--table">
                 <div class="grid__item one-half large--two-thirds large--text-center">
-                  <p class="cart__subtotal">{{ 'cart.general.subtotal' | t }}</p>
+                  <p class="cart__subtotal subtottitle"><span id="bk-cart-subtotal-label">{{ 'cart.general.subtotal' | t }}</span></p>
                 </div>
                 <div class="grid__item one-half large--one-third">
-                  <p class="cart__subtotal">{{ cart.total_price | money }}</p>
+                  <p class="cart__subtotal subtotmon"><span id="bk-cart-subtotal-price">{{ cart.total_price | money }}</span></p>
                 </div>
               </div>
               
+              
+              <div class="grid--full cart__row--table">
+                <div class="grid__item one-half large--two-thirds large--text-center">
+                  <p id="dicsnote">
+                    {% comment %}{{ 'cart.general.shipping_at_checkout' | t }}{% endcomment %}
+                    <strong>Free shipping</strong><br>
+                    Discounts (if any) will be calculated at checkout
+                  </p>
+                </div>
+                <div class="grid__item one-half large--one-third">
+                  <div style="text-align: right;"><input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}"></div>              
+                </div>
+              </div>
+              
+              
+              
+              
+              
+              
+              
+              
+              {% comment %} 
               {% if cart.total_discounts > 0 %}
                 {% assign cartTotalDiscounts = cart.total_discounts | money %}
                 <p class="cart__savings">{{ 'cart.general.savings_html' | t: savings: cartTotalDiscounts }}</p>
               {% endif %}
-              <p><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
-              <input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}">
-              <button type="submit" name="checkout" class="btn cart__checkout">
-                {{ 'cart.general.checkout' | t }} <span class="icon icon-arrow-right" aria-hidden="true"></span>
-              </button>
+              {% endcomment %}
+              
+              
+			<div id="paypaypal">
+				<p>Pay with PayPal&nbsp;Express&nbsp;Checkout if you have PayPal account</p>                
+                
+                {% comment %}
+                <ul class="inline-list payment-icons">
 
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'pplogo.svg' | asset_url | img_tag: 'Paypal', 'paypalicon' }}
+                        </span>
+                      </span>
+                    </li>
+                </ul>
+				{% endcomment %}
+                
+                
               {% if additional_checkout_buttons %}
                 <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
               {% endif %}
+              </div>
+         	
+           <div id="payanycard">
+              
+              
+             <p>Select Skrill on the Checkout Page to pay with Debit or Credit Card 
+                (easy 1-step Skrill registration)</p>
+        
+              
+              
+              <button type="submit" name="checkout" class="btn cart__checkout">
+                     
+              <ul class="inline-list payment-icons">
+
+                   
+                
+                
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'skrill-logo.svg' | asset_url | img_tag: 'Skrill', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+                
+                
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'visa.svg' | asset_url | img_tag: 'Visa', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+                
+                 <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'mastercard.svg' | asset_url | img_tag: 'Master Card', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+                 <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'amex.svg' | asset_url | img_tag: 'American Express', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+               
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'discover.svg' | asset_url | img_tag: 'Discover', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+              </ul>    
+              </button>
+             </div>
+              
             </div>
           </div>
 
@@ -189,12 +296,23 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
         The cart is empty
       {% endcomment %}
       <header class="section-header text-center">
-        <h1 class="text-center">{{ 'cart.general.title' | t }}</h1>
+        <h1 class="text-center" style="text-align: center !important;">{{ 'cart.general.title' | t }}</h1>
         <hr class="hr--small">
-        <p>{{ 'cart.general.empty' | t }}</p>
-        <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
+        <p>Your cart is currently empty</p>
+        <p><a href="/">Go to Home Page</a></p>
       </header>
 
     {% endif %}
   </div>
 </div>
+
+
+<!-- Recents and reopened wrapper -->
+</div>
+<div class="rec-wrapper recents-wrap white-bg">
+<div class="rec-box-divider white-bg">&nbsp;</div>	
+<h1 class="new-arrivals">Recently Viewed Products</h1>
+{% include 'recently-viewed' %}
+</div>
+<div class="wrapper">
+<!-- End Recents and reopened wrapper -->

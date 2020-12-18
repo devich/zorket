@@ -1,0 +1,69 @@
+{% unless template == 'index' or template == 'cart' or template == 'list-collections' %}
+<div class="grid">
+<nav class="breadcrumb grid__item large--eight-twelfths medium--eight-twelfths small--one-whole text-left" role="navigation" aria-label="breadcrumbs">
+  <a href="https://www.zorket.com/" title="Home"><i class="fa fa-home homecrumb"></i></a>
+  {% if template contains 'page' %}
+    <span aria-hidden="true">&rsaquo;</span>
+    <span>{{ page.title }}</span>
+  {% elsif template contains 'product' %}
+    {% if collection.url %}
+  
+  	{% assign curhandle = collection.handle %}
+    {% assign handleparts = curhandle | split: '-' %}
+    {% assign current_category = handleparts[0] %}
+      {% if current_category and current_category != 'featured' and current_category != 'summer' %}
+  		{% assign cur_link = 'https://zorket.com/pages/' | append: current_category %}
+  		{{ curcatlink }}
+        <span aria-hidden="true">&rsaquo;</span>
+        <span class="product_category">
+          {{ current_category | link_to: cur_link }}
+        </span>
+  
+      {% endif %}
+  
+      <span aria-hidden="true">&rsaquo;</span>
+      {{ collection.title | link_to: collection.url }}
+    {% endif %}
+    <span aria-hidden="true">&rsaquo;</span>
+    <span class="bread-title">{{ product.title }}</span>
+  {% elsif template contains 'collection' and collection.handle %}
+    <span aria-hidden="true">&rsaquo;</span>
+    {% if current_tags %}
+      {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+      {{ collection.title | link_to: url }}
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{{ current_tags | join: " + " }}</span>
+    {% else %}
+      <span>{{ collection.title }}</span>
+    {% endif %}
+  {% elsif template == 'blog' %}
+    <span aria-hidden="true">&rsaquo;</span>
+    {% if current_tags %}
+      {{ blog.title | link_to: blog.url }}
+      <span aria-hidden="true">&rsaquo;</span>
+      <span>{{ current_tags | join: " + " }}</span>
+    {% else %}
+    <span>{{ blog.title }}</span>
+    {% endif %}
+  {% elsif template == 'article' %}
+    <span aria-hidden="true">&rsaquo;</span>
+    {{ blog.title | link_to: blog.url }}
+    <span aria-hidden="true">&rsaquo;</span>
+    <span>{{ article.title }}</span>
+  {% else %}
+   <span aria-hidden="true">&rsaquo;</span>
+   <span>{{ page_title }}</span>
+  {% endif %}
+</nav>
+{% comment %}
+{% if customer %}{% else %}
+<div class="breadcrumb br-reg grid__item large--four-twelfths medium--four-twelfths small--hide text-right">
+  <a href="/account/register" class="reg-now">Create&nbsp;account</a> and&nbsp;get&nbsp;10%&nbsp;discount
+</div>
+{% endif %}
+{% endcomment %}
+</div>
+{% endunless %}
+<script>
+	$('.product_category > a').attr('href', $('a.link-first-collection').attr('href'));
+</script>

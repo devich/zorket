@@ -152,3 +152,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 <div class="text-center">
   <a href="{{ blog.url }}" class="return-link">&larr; {{ 'blogs.article.back_to_blog' | t: title: blog.title }}</a>
 </div>
+
+{% include 'limespot-recently-viewed' %}
+{% include 'limespot-trending' %}
+{% include 'limespot-new-arrival' %}

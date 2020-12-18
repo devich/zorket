@@ -26,7 +26,7 @@
   </div>
 {% endif %}
 
-  <div class="hero{% if hero_full_height %} hero--full-height{% endif %}{% if hero_first_on_page %} hero--first{% endif %}" id="Hero"{% if hero_full_height %} data-fullscreen="true"{% endif %}{% if hero_parallax %}data-parallax="true"{% endif %}>
+  <div style="max-height: 600px;" class="hero{% if hero_full_height %} hero--full-height{% endif %}{% if hero_first_on_page %} hero--first{% endif %}" id="Hero"{% if hero_full_height %} data-fullscreen="true"{% endif %}{% if hero_parallax %}data-parallax="true"{% endif %}>
     {% for i in (1..6) %}
       {% capture slide %}hero_slide_{{ i }}_enable{% endcapture %}
       {% capture slide_img %}hero_slide_{{ i }}.jpg{% endcapture %}
@@ -36,7 +36,7 @@
       {% capture slide_cta %}hero_slide_{{ i }}_cta{% endcapture %}
       {% capture slide_link %}hero_slide_{{ i }}_link{% endcapture %}
       {% if settings[slide] %}
-        <div class="hero__slide {{ settings[slide_text_color] }}" data-color="{{ settings[slide_text_color] }}">
+        <div class="hero__slide {{ settings[slide_text_color] }}" data-color="{{ settings[slide_text_color] }}" onclick="window.location.href = ' {{ settings[slide_link] }} ';">
           {% if hero_full_height %}
             {% comment %}
               Full-screen styles use CSS background images
@@ -89,5 +89,6 @@
 
 <!-- Reopen .wrapper after full-width hero -->
 {% if hero_full_width %}
-  <div class="wrapper">
+<!-- Reopen .wrapper after full-width hero -->
+<div class="wrapper">
 {% endif %}

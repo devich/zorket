@@ -311,9 +311,9 @@ $collageImageSmall: 230px;
 // Collection Collage Grid
 // These heights are used to determine the row height for the
 // collection grid.
-$collectionCollageRowHeightFull: 450px;
-$collectionCollageRowHeightLarge: 310px;
-$collectionCollageRowHeightSmall: 280px;
+$collectionCollageRowHeightFull: 250px;
+$collectionCollageRowHeightLarge: 350px;
+$collectionCollageRowHeightSmall: 400px;
 
 // Password page
 $passwordPageUseBgImage: true;
@@ -806,7 +806,7 @@ tr:first-child td {
     bottom: 0;
     left: -15px;
     right: 15px;
-    border-bottom: 1px solid $colorBorder;
+//    border-bottom: 1px solid $colorBorder;
   }
 
   &:first-child:after {
@@ -1357,13 +1357,13 @@ height:38px;padding: 10px 10px 10px;
     // calculate height for single item rows for
     // mobile breakpoint only
     &.one-whole {
-      height: $collectionCollageRowHeightLarge - 120px;
+      height: $collectionCollageRowHeightLarge;
     }
 
     // calculate height for single item rows
     // mobile breakpoint only
     &.one-half {
-      height: $collectionCollageRowHeightSmall - 150px;
+      height: $collectionCollageRowHeightSmall;
     }
   }
 

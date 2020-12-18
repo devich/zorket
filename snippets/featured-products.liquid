@@ -1,25 +1,22 @@
 <!-- snippets/featured-products.liquid -->
-
 {% if section_number > 1 and number_of_index_sections > 1 %}
  <hr class="hr--medium hr--clear">
 {% endif %}
 
-<div class="section-header text-center" style="margin-top: 55px; position: relative;z-index: 99;{% if settings.collection_products_grid == 'collage' %}margin-bottom: 5px;{% else %}margin-bottom: 25px;{% endif %}">
+<div class="section-header" style="margin-bottom: 0px;">
   <h1>{{ 'home_page.sections.featured_products' | t }}</h1>
-  <hr class="hr--small" style="margin: 15px auto;margin-bottom: 5px;">
 </div>
-{% if settings.collection_products_grid != 'collage' %}
+
 <style>
   .grid-product__image-wrapper{height:220px !important;}
 </style>
-<script>
-  
+<script>  
  $(window).load(function(){
-$('.grid-product__image-wrapper').height(220);
+	$('.grid-product__image-wrapper').height(220);
   });
 </script>
-{% endif %}
-<div class="{% if settings.collection_products_grid == 'collage' %}grid grid-collage{% else %}grid-uniform{% endif %}">
+
+<div class="home-featured {% if settings.collection_products_grid == 'collage' %}grid grid-collage{% else %}grid-uniform{% endif %}">
 
   {% comment %}
     Loop through products in your Frontpage collection.
@@ -56,13 +53,13 @@ $('.grid-product__image-wrapper').height(220);
       {% endif %}
       {% assign divisible_by_three__product = collection_product_count__product | modulo:3 %}
 
-      {% for product in collections[settings.home_featured_products].products limit:48 %}
+      {% for product in collections[settings.home_featured_products].products limit:24 %}
         {% include 'product-grid-collage' %}
       {% endfor %}
 
     {% else %}
       {% assign grid_item_width = 'medium--one-half large--one-third' %}
-      {% for product in collections[settings.home_featured_products].products limit:48 %}
+      {% for product in collections[settings.home_featured_products].products limit:24 %}
         	{% include 'product-grid-item' %}
 
       {% endfor %}
@@ -70,4 +67,8 @@ $('.grid-product__image-wrapper').height(220);
     {% endif %}
 
   {% endif %}
+</div>
+
+<div class="view-more">
+    <a href="/collections/featured?page=2" class="link-button">See more</a><br>
 </div>
