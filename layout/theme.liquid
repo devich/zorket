@@ -79,6 +79,7 @@
 	{{ 'ajaxify.min.js' | asset_url | script_tag }}
 	{{ 'jquery.goTop.js' | asset_url | script_tag }}
 	{{ 'tooltipster.bundle.js' | asset_url | script_tag }}
+	{{ 'js-cookie.js' | asset_url | script_tag }}
   
   
   {% comment %}
@@ -1050,6 +1051,16 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
         });
       console.log("Ajax Cart by CartJS");
     });
+		
+		listView = Cookies.get('list-view');
+		$('a').each(function() {
+			if(listView == 'true') {
+				if($(this).attr('href').indexOf("collections/") >= 0) {
+					$(this).attr('href', updateURLParameter($(this).attr('href'), 'view', 'list'));
+				}
+			}
+		});
+		
   </script>
   
   

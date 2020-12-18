@@ -31,17 +31,30 @@
 
 
 <div class="grid grid__list-view">
-	<div class="grid__item grid-product list__item one-quarter">
+	<div class="grid__item grid-product list__item one-fifth small--three-eighths">
 		<a class="list__item-link" href="{{ product.url | within: collection }}" >
 			<div class="grid__item-img" style="background-image:url({{ product | img_url: 'large' }})"></div>
 		</a>
 	</div>
-	<div class="grid__item one-half">
-		<div class="grid-product__title">{{ product.title }}</div>
-		<div>{{ product.description }}</div>
-	</div>
-	<div class="grid__item grid-product one-quarter">
-		<div>{{ product.price | money_without_trailing_zeros }}</div>
+	<div class="grid__item three-fifths small--four-eighths">
+		<a href="{{ product.url | within: collection }}" >
+			<h1 class="product-single__title list-product__title">{{ product.title }}</h1>
+		</a>
+		
+		<div class="id-top"><strong>Item #</strong> <span class="id-top-prod-id">{{ product.id }}</span></div>
+	  
+		<div class="id-top">
+		{% for product_option in product.options_with_values %}
+			{% if product_option.name == 'Size' %}
+		    <div>
+					<span><strong>Sizes:</strong></span>
+		      {% for value in product_option.values %}
+		        <span class="list-view-sizes">{{ value }}&nbsp;</span>
+		      {% endfor %}
+		    </div>
+			{% endif %}
+		{% endfor %}
+		</div>
 	  <div class="home-colors">
 	  	
 		{% assign color_counter = 0 %}
@@ -89,31 +102,24 @@
 		{% endif %}
 	  
 		</div>
+	</div>
+	<div class="grid__item grid-product one-fifth small--one-eighth">
+		<div class='product-single__price'>{{ product.price | money_without_trailing_zeros }}</div>
+    {% if product.compare_at_price_max > product.price %}
+      <span class="product-single__price--wrapper">
+        <span class="product-single__price--compare-at">
+          {% if product.compare_at_price_max > product.price %}
+            {{ product.compare_at_price_max | money }}
+          {% endif %}
+        </span>
+      </span>
+    {% endif %}
+		<div class="product_text">FREE Shipping</div>
+		<a href="{{ product.url | within: collection }}" class="btn">View & Buy</a>
 	</div>	
 </div>
 
-<style>
 	
-	.list-product__title {
-		
-	}
-	
-	.grid__item-img {
-		background: center center no-repeat;
-		background-size: cover;
-		height: 100px;
-		width: 100%;
-	}
-	
-	.grid__list-view{
-		
-	}
-	
-	.list__item {
-		float: left;
-	}
-
-</style>	
 
 
 {% comment %}

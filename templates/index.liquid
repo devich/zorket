@@ -161,45 +161,45 @@ $('.season').hover(
 
 <!-- Random for banners -->
 <script>
-	/* Returns a random number between min (inclusive) and max (exclusive) */
-	function generateRandomNumb(min, max) {
-	    return Math.floor(Math.random() * (max - min) + min);
-	}
-	
-	var randArray = [];
+/* Returns a random number between min (inclusive) and max (exclusive) */
+function generateRandomNumb(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
 
-	for(var i = 0; i < 3; i++) {
-	    var numberIsInArray = false;
-	    var rand = generateRandomNumb(0, 8);
-	    for(var j = 0; j < randArray.length; j++) {
-	        if(rand === randArray[j]) {
-	            numberIsInArray = true;
-	            i--;
-	        }
-	    }
-	    if(!numberIsInArray) {
-	       randArray.push(rand);
-	    }
-	}
-	
-    for(var i = 0; i < randArray.length; i++){
-		$($('.banner')[randArray[i]]).removeClass('banner-delete');
-		$($('.banner')[randArray[i]]).addClass('banner-visible');
+var randArray = [];
+
+for(var i = 0; i < 3; i++) {
+    var numberIsInArray = false;
+    var rand = generateRandomNumb(0, 8);
+    for(var j = 0; j < randArray.length; j++) {
+        if(rand === randArray[j]) {
+            numberIsInArray = true;
+            i--;
+        }
     }
-	
-	$('.banner-delete').remove();
-	
-	$.fn.randomize = function(selector){
-	    (selector ? this.find(selector) : this).parent().each(function(){
-	        $(this).children(selector).sort(function(){
-	            return Math.random() - 0.5;
-	        }).detach().appendTo(this);
-	    });
+    if(!numberIsInArray) {
+       randArray.push(rand);
+    }
+}
 
-	    return this;
-	};
-	
-	$('.banner-visible').randomize();
+  for(var i = 0; i < randArray.length; i++){
+	$($('.banner')[randArray[i]]).removeClass('banner-delete');
+	$($('.banner')[randArray[i]]).addClass('banner-visible');
+  }
+
+$('.banner-delete').remove();
+
+$.fn.randomize = function(selector){
+    (selector ? this.find(selector) : this).parent().each(function(){
+        $(this).children(selector).sort(function(){
+            return Math.random() - 0.5;
+        }).detach().appendTo(this);
+    });
+
+    return this;
+};
+
+$('.banner-visible').randomize();
 </script>
 <!-- End Random for banners -->
 

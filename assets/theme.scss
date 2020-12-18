@@ -335,11 +335,11 @@ $accentFontWeight: 700;
 
 @font-face {
   font-family: 'icons';
-  src: url('//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/icons.eot?6764');
-  src: url('//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/icons.eot?6764#iefix') format("embedded-opentype"),
-       url('//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/icons.woff?6764') format("woff"),
-       url('//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/icons.ttf?6764') format("truetype"),
-       url('//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/icons.svg?6764#timber-icons') format("svg");
+  src: url('//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/icons.eot?9527');
+  src: url('//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/icons.eot?9527#iefix') format("embedded-opentype"),
+       url('//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/icons.woff?9527') format("woff"),
+       url('//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/icons.ttf?9527') format("truetype"),
+       url('//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/icons.svg?9527#timber-icons') format("svg");
   font-weight: normal;
   font-style: normal;
 };
@@ -2090,7 +2090,7 @@ $slick-opacity-not-active: 0.25;
 
 // Only called once so make sure proper file is grabbed
 @function slick-image-url($url) {
-  @return url(//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/ajax-loader.gif?6764);
+  @return url(//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/ajax-loader.gif?9527);
 }
 
 // Unused intentionally
@@ -3194,7 +3194,7 @@ button.mfp-arrow {
   width: 100%;
 
   @if $passwordPageUseBgImage {
-    background-image: url(//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/password-page-background.jpg?6764);
+    background-image: url(//cdn.shopify.com/s/files/1/1378/8431/t/6/assets/password-page-background.jpg?9527);
     background-size: cover;
     background-repeat: no-repeat;
     color: #ffffff;

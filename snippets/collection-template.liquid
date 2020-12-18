@@ -174,20 +174,14 @@
     </ul>
   </div>
   
-  <div class="grid__item {% if currentcategory == 'spring' or currentcategory == 'bestsellers' or currentcategory == 'new' or currentcategory == 'sales' or currentcategory == 'winter' or currentcategory == 'featured' or currentcategory == 'summer' or currentcategory == 'autumn' or currentcategory == 't' or currentcategory == 'shoe' %} large--one-whole {% else %} large--four-fifths {% endif %} medium--one-whole small--one-whole">  
+  <div class="grid__item {% if currentcategory == 'spring' or currentcategory == 'bestsellers' or currentcategory == 'new' or currentcategory == 'sales' or currentcategory == 'winter' or currentcategory == 'featured' or currentcategory == 'summer' or currentcategory == 'autumn' or currentcategory == 't' or currentcategory == 'shoe' %} large--one-whole {% else %} large--four-fifths {% if template == 'collection.list' %} list-view-column {% endif %} {% endif %} medium--one-whole small--one-whole">  
     <div class="grid-uniform">
-      <div class="grid__item large--two-quarters left-title">
+      <div class="grid__item large--one-whole left-title">
         <h1 class="collection_title" {% if currentcategory == 'spring' or currentcategory == 'bestsellers' or currentcategory == 'new' or currentcategory == 'sales' or currentcategory == 'winter' or currentcategory == 'featured' or currentcategory == 'summer' or currentcategory == 'autumn' or currentcategory == 't' or currentcategory == 'shoe' %} style="left: 116px;" {% endif %} >{{ collection.title }}</h1>
 			</div>
-			
-			<div class="mob-categoty-title medium--hide large--hide small--hide" {% if currentcategory == 'accessories' %} style="font-size: 60px;" {% endif %} >{{ currentcategory }}</div>
-      <div class="grid__item sorting large--two-quarters small--hide medium--hide">
-				<strong>Sorting:</strong>
-				<a class="sorting-item" value="created-descending" href="javascript:void(0);">New</a>&nbsp;|
-				<a class="sorting-item" value="price-ascending" href="javascript:void(0);">Low&nbsp;Price</a>&nbsp;|
-				<a class="sorting-item" value="price-descending" href="javascript:void(0);">High&nbsp;Price</a>
-      </div>
     </div>
+		
+		
 		
     
     
@@ -370,12 +364,24 @@
     {% endif %}
 
     
-		<div class='sorting small--one-whole large--hide'>
-			<strong>Sorting:</strong>
-			<a class="sorting-item" value="created-descending" href="javascript:void(0);">New</a>&nbsp;|
-			<a class="sorting-item" value="price-ascending" href="javascript:void(0);">Low&nbsp;Price</a>&nbsp;|
-			<a class="sorting-item" value="price-descending" href="javascript:void(0);">High&nbsp;Price</a>
-			
+		<div class='grid sort-view'>
+			<div class="grid__item sorting-wrapper one-half small--one-whole">
+				<strong>Sorting:</strong>
+				<a class="sorting-item" value="created-descending" href="javascript:void(0);">New</a>&nbsp;|
+				<a class="sorting-item" value="price-ascending" href="javascript:void(0);">Low&nbsp;Price</a>&nbsp;|
+				<a class="sorting-item" value="price-descending" href="javascript:void(0);">High&nbsp;Price</a>
+			</div>
+			<div class="grid__item one-half small--one-whole">
+				<div class="view-mode-wrapper">
+					<strong>View:</strong>
+					<a class="view-link {% if template != 'collection.list' %}view-link-active{% endif %}" href="javascript:goToGrid();"><div class="view-icon view-grid-icon">
+						<svg id="icon-grid" viewBox="0 0 1024 1024"><path d="M409.6 411.733333a2.133333 2.133333 0 0 0 2.133333-2.133333V204.8a2.133333 2.133333 0 0 0-2.133333-2.133333H204.8a2.133333 2.133333 0 0 0-2.133333 2.133333v204.8c0 1.152 0.981333 2.133333 2.133333 2.133333h204.8z m0 64H204.8A66.133333 66.133333 0 0 1 138.666667 409.6V204.8c0-36.522667 29.610667-66.133333 66.133333-66.133333h204.8c36.522667 0 66.133333 29.610667 66.133333 66.133333v204.8a66.133333 66.133333 0 0 1-66.133333 66.133333zM819.2 411.733333a2.133333 2.133333 0 0 0 2.133333-2.133333V204.8a2.133333 2.133333 0 0 0-2.133333-2.133333h-204.8a2.133333 2.133333 0 0 0-2.133333 2.133333v204.8c0 1.152 0.981333 2.133333 2.133333 2.133333h204.8z m0 64h-204.8a66.133333 66.133333 0 0 1-66.133333-66.133333V204.8c0-36.522667 29.610667-66.133333 66.133333-66.133333h204.8c36.522667 0 66.133333 29.610667 66.133333 66.133333v204.8a66.133333 66.133333 0 0 1-66.133333 66.133333zM409.6 821.333333a2.133333 2.133333 0 0 0 2.133333-2.133333v-204.8a2.133333 2.133333 0 0 0-2.133333-2.133333H204.8a2.133333 2.133333 0 0 0-2.133333 2.133333v204.8c0 1.152 0.981333 2.133333 2.133333 2.133333h204.8z m0 64H204.8a66.133333 66.133333 0 0 1-66.133333-66.133333v-204.8c0-36.522667 29.610667-66.133333 66.133333-66.133333h204.8c36.522667 0 66.133333 29.610667 66.133333 66.133333v204.8a66.133333 66.133333 0 0 1-66.133333 66.133333zM819.2 821.333333a2.133333 2.133333 0 0 0 2.133333-2.133333v-204.8a2.133333 2.133333 0 0 0-2.133333-2.133333h-204.8a2.133333 2.133333 0 0 0-2.133333 2.133333v204.8c0 1.152 0.981333 2.133333 2.133333 2.133333h204.8z m0 64h-204.8a66.133333 66.133333 0 0 1-66.133333-66.133333v-204.8c0-36.522667 29.610667-66.133333 66.133333-66.133333h204.8c36.522667 0 66.133333 29.610667 66.133333 66.133333v204.8a66.133333 66.133333 0 0 1-66.133333 66.133333z"></path></svg>
+					</div>Gallery</a>&nbsp;|
+					<a class="view-link {% if template == 'collection.list' %}view-link-active{% endif %}" href="javascript:goToList();"><div class="view-icon view-list-icon">
+						<svg id="icon-list" viewBox="0 0 1024 1024"><path d="M128 236.8v-64h768v64zM128 544v-64h768v64zM128 851.2v-64h768v64z"></path></svg>
+					</div>List</a>
+				</div>
+			</div>
 		</div>
 		
     
@@ -519,5 +525,23 @@ var getUrlParameter = function getUrlParameter(sParam) {
 var sortParam = getUrlParameter('sort_by');
 $('a[value=' + sortParam +']').css('font-weight', 'bold').css('color', '#444');
 console.log(sortParam);
+
+$('.view-link').mouseover(function() {
+	if($(this).hasClass('view-link-active')) ; else	$(this).find('.view-icon').css('fill', '#4c9da5');
+});
+
+$('.view-link').mouseout(function() {
+	if($(this).hasClass('view-link-active')) ; else	$(this).find('.view-icon').css('fill', '#39757b');
+});
+
+function goToGrid() {
+	Cookies.set('list-view', 'false');
+	window.location.href = updateURLParameter(window.location.href, 'view', '');
+};
+
+function goToList() {
+	Cookies.set('list-view', 'true');
+	window.location.href = updateURLParameter(window.location.href, 'view', 'list');
+};
 
 </script>	
