@@ -1,0 +1,106 @@
+<!-- /templates/search.liquid -->
+{% comment %}
+
+  To return only products or pages in results:
+    - http://docs.shopify.com/manual/configuration/store-customization/return-only-product-in-storefront-search-results
+    - Or manually add type=product or type=page to the search URL as a parameter
+
+{% endcomment %}
+
+{% comment %}
+  Check to enforce respond.js
+{% endcomment %}
+{% assign respond_js_secret_key = shop.domain | md5 %}
+{% unless search.terms == respond_js_secret_key %}
+
+{% comment %}
+  Avoid accessing search.results before the opening paginate tag.
+  If you do, the pagination of results will be broken.
+{% endcomment %}
+{% paginate search.results by 12 %}
+
+  <div class="grid">
+    <div class="grid__item">
+      <header class="section-header text-center">
+        {% if search.performed %}
+          {% if search.results_count == 0 %}
+            <h1 class="text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+          {% else %}
+            <h1 class="text-center">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
+          {% endif %}
+        {% else %}
+          <h1 class="text-center">{{ 'general.search.title' | t }}</h1>
+        {% endif %}
+        <hr class="hr--small">
+        <!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '709796692516135');
+fbq('track', 'PageView');
+fbq('track', 'Search');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+      </header>
+
+      {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--page' %}
+{% if settings.collection_products_grid != 'collage' %}
+      <style>
+  .grid-product__image-wrapper{height:220px !important;}
+</style>
+<script>
+ $(window).load(function(){
+$('.grid-product__image-wrapper').height(220);
+  });
+</script>
+{% endif %}
+      {% if search.performed %}
+
+        <hr class="hr--medium hr--clear">
+
+        <div class="grid-uniform">
+          {% for item in search.results %}
+
+            {% if item.object_type == 'product' %}
+              {% assign product = item %}
+              {% include 'product-grid-item' %}
+            {% else %}
+              <div class="grid__item grid-search large--one-third medium--one-half">
+                <div class="grid-search__page">
+                  <a href="{{ item.url }}" class="grid-search__page-link">
+                    <span class="grid-search__page-content">
+                      <span class="h4 text-center">{{ item.title }}</span>
+                      {{ item.content | strip_html | truncatewords: 60 }}
+                    </span>
+                  </a>
+                </div>
+              </div>
+            {% endif %}
+
+          {% endfor %}
+        </div>
+
+        {% if paginate.pages > 1 %}
+          <div class="pagination">
+            {{ paginate | default_pagination | replace: '&laquo; Previous', '<span class="icon icon-arrow-left" aria-hidden="true"></span>' | replace: 'Next &raquo;', '<span class="icon icon-arrow-right" aria-hidden="true"></span>' }}
+          </div>
+        {% endif %}
+
+      {% endif %}
+
+    </div>
+  </div>
+
+{% endpaginate %}
+
+{% else %}
+  {% include 'respond' %}
+  {% layout none %}
+{% endunless %}
