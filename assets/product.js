@@ -84,3 +84,4 @@ $('#BuyNow').one('click', function() {
 		$pressedBuyNow = true;
 	}
 });
+

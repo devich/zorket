@@ -38,9 +38,9 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 
         <div class="cart__row medium-down--hide cart__header-labels">
           <div class="grid--full">
-            <div class="grid__item large--two-fifths push--large--three-fifths">
+            <div class="grid__item large--one-quarter push--large--three-quarters">
               <div class="grid--full">
-                <div class="grid__item one-third medium-down--half text-center">
+                <div class="grid__item one-third medium-down--half text-left">
                   {{ 'cart.label.quantity' | t }}
                 </div>
                 <div class="grid__item two-thirds medium-down--half text-right">
@@ -56,12 +56,12 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
         {% endcomment %}
         {% for item in cart.items %}
           <div class="cart__row">
+			<div class="cart__row-wrapper">
             <div class="grid--full cart__row--table-large">
-
-              <div class="grid__item large--three-fifths">
+			  <div class="grid__item large--three-quarters">
                 <div class="grid">
 
-                  <div class="grid__item one-third">
+                  <div class="grid__item one-quarter">
                     <a href="{{ item.url | within: collections.all }}" class="cart__image">
 
                       {% comment %}
@@ -72,7 +72,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                     </a>
                   </div>
 
-                  <div class="grid__item two-thirds">
+                  <div class="grid__item three-quarters cart__product-column">
                     <a href="{{ item.url }}" class="h4 cart__product-name">
                       {{ item.product.title }}
                     </a>
@@ -103,25 +103,44 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                         {% endunless %}
                       {% endfor %}
                     {% endif %}
-
+					<!-- <br class="cart_name_br">
                     <p class="cart__product-meta">
                       <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">
                         {{ 'cart.general.remove' | t }}
                       </a>
-                    </p>
+                    </p> -->
                   </div>
 
                 </div>
               </div>
-
-              <div class="grid__item large--two-fifths">
+              <div class="grid__item large--one-quarter cart__price-quantity">
                 <div class="grid--full cart__row--table">
 
-                  <div class="grid__item one-third text-center">
-                    <input type="number" name="updates[]" id="updates_{{ item.id }}" class="cart__product-qty" value="{{ item.quantity }}" min="0">
+                  <div class="grid__item two-thirds text-left cart__quantity-column">
+                    <div class="quantity-cart-wrapper">
+                      <div class="input-group plus-minus-input">
+                        <div class="input-group-button">
+                          <button type="button" class="circle" data-quantity="minus" data-field="quantity_{{ item.id }}">
+                            –
+                          </button>
+                        </div>
+                        <input class="input-group-field quantity-input quantity-input-cart" readonly="readonly" type="number" input-id="quantity_{{ item.id }}" name="updates[]" min="0" pattern="[0-9]*" max="100" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="cart__product-qty js-quantity-selector" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0';}">
+                        <div class="input-group-button">
+                          <button type="button" class="circle" data-quantity="plus" data-field="quantity_{{ item.id }}">
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      
+                        <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">
+                          <div class="cart-remove-button"><span class="cart-remove-button-text">{{ 'cart.general.remove' | t }}</span></div>
+                        </a>
+                     
+                    </div>
+                    <!-- <input type="number" name="updates[]" id="updates_{{ item.id }}" class="cart__product-qty" value="{{ item.quantity }}" min="0"> -->
                   </div>
 
-                  <div class="grid__item two-thirds text-right">
+                  <div class="grid__item one-third text-right cart__price-column">
                     {% if item.original_line_price != item.line_price %}
                       <small class="cart__price cart__price--strikethrough">{{ item.original_line_price | money }}</small>
                     {% endif %}
@@ -137,7 +156,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                   </div>
                 </div>
               </div>
-
+			</div>
             </div>
           </div>
         {% endfor %}
@@ -180,7 +199,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                   </p>
                 </div>
                 <div class="grid__item one-half large--one-third">
-                  <div style="text-align: right;"><input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}"></div>              
+                  <!-- <div style="text-align: right;"><input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}"></div>               -->
                 </div>
               </div>
               
@@ -333,7 +352,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 	
 	
 <style>
-	.additional-checkout-button--paypal-express {
+	.paypal-button {
 	    font-family: 'Teko', Arial, sans-serif !important;
 	    letter-spacing: 0.05em;
 	    font-weight: 400 !important;
@@ -342,8 +361,8 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 	    padding: 2px 10px 3px 10px !important;
 		  border: 3px solid rgba(37, 59, 128, 1) !important;
 	    text-transform: uppercase !important;
-		  width: 100%;
-		  height: 50px;
+		  width: 100% !important;
+		  height: 50px !important;
 			background-color: #fff !important;
 	    &:hover {
 		  	background-color: #fff !important;
@@ -361,29 +380,75 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 		background: rgba(255, 196, 57, 0.85);
 	}
 	
-	
-	.cart__subtotal, .cart__price {
-		color: #333;
-		text-transform: capitalize;
-		font-size: 24px;
-	    margin-bottom: 5px;
-	    margin-top: 0px;
-		font-weight: bold;
+	._3TUeZPsTWjDxakSmeDcA4D {
+		min-width: 100%;
+		padding-right: 10px;
 	}
 	
-	a.cart__product-name {
-	    font-size: 19px;
-		padding-bottom: 21px;
+	#dynamic-checkout-cart {
+		padding-top: 0;
 	}
+</style>
 	
-	.cart__product-qty {
-		height: 40px;
-	}
+<script>
+	jQuery(document).ready(function($){
 
-	.cart__image {
-		width: 100%;
-		height: 100%;
-	}
-	
-	
-	</style>
+     // This button will increment the value
+     $('[data-quantity="plus"]').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('data-field');
+        // Get its current value
+        var currentVal = parseInt($('input[input-id='+fieldName+']').val());
+        // If is not undefined
+        if (!isNaN(currentVal) && currentVal < 100) {
+            // Increment
+            $('input[input-id='+fieldName+']').val(currentVal + 1);
+            this.form.submit();
+        } else {
+            // Otherwise put a 1000 there
+            $('input[input-id='+fieldName+']').val(100);
+        }
+    });
+    // This button will decrement the value till 1
+    $('[data-quantity="minus"]').click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('data-field');
+        // Get its current value
+        var currentVal = parseInt($('input[input-id='+fieldName+']').val());
+        // If it isn't undefined or its greater than 1
+        if (!isNaN(currentVal) && currentVal > 0) {
+            // Decrement one
+            $('input[input-id='+fieldName+']').val(currentVal - 1);
+            this.form.submit();
+        } else {
+            // Otherwise put a 1 there
+            $('input[input-id='+fieldName+']').val(0);
+        }
+    });
+
+
+    // $("input[name='updates[]']").on('input change blur', function() {
+    //   $( "input[name='update']" ).trigger( "click" );
+    // });
+
+
+		waitForEl('.paypalLight', function() {
+			var head = $(".paypalLight").contents().find("head");
+			// var button = $(".paypalLight").contents().find("div[id*='zoid-paypal-button']");
+// 			$(button).css("border", "3px solid navy");
+// 			_(button);
+			var css = `<style type="text/css">
+			
+			div[id*='zoid-paypal-button'] {
+			    ;
+			}
+			
+			</style>`;
+			jQuery(head).append(css);
+		});	
+	});
+</script>

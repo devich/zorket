@@ -53,13 +53,13 @@ setInterval(function() {
 
 
 waitForEl('fieldset[name~="Size"]', function() {
+	$('.size-name-span').insertBefore($('fieldset[name~="Size"]').last());
 	$('.guide-link').insertBefore($('fieldset[name~="Size"]').last());
 	$('.guide-link').css('display', 'block');
 });
 
 // console.log($('.guide-link'));
 // console.log($('single-option-radio__label'));
-
 
 fotorama.onmouseenter=function() {
 	$('.fotorama__fullscreen-icon').show();
@@ -128,6 +128,7 @@ $('#product-buttons').show();
 $('.site-footer').css('display', 'block');
 $('.site-footer').show();
 
+
 $(".stars-top").html($('.spr-summary-starrating').html());
 var reviewsCount = $('.spr-summary-starrating > meta[itemprop="reviewCount"]').attr('content');
 if (reviewsCount) {
@@ -138,6 +139,26 @@ if (reviewsCount) {
 	$(".stars-top").append(htmlToAppend);
 	$("a[data-tab-id=reviews]").append(' (' + reviewsCount + ')');
 }
+
+_('OLD TYPE REVIEWS: ' + reviewsCount);
+
+if(!reviewsCount) {
+	waitForEl('script[type="application/ld+json"]', function() {
+		_('NEW REVIEWS TYPE: YES');
+		let jsonld = JSON.parse(document.querySelector('script[type="application/ld+json"]').innerText);
+		let rwCount = jsonld.reviewCount;
+		_('REVIEWS: ' + rwCount);
+		if (rwCount) {
+			if (rwCount > 1)
+				rwToAppend = '<span class="reviews-count">' + rwCount + '&nbsp;reviews</span>';
+			else
+				rwToAppend = '<span class="reviews-count">' + rwCount + '&nbsp;review</span>';
+			$(".stars-top").append(rwToAppend);
+			$("a[data-tab-id=reviews]").append(' (' + rwCount + ')');
+		}
+	});
+}
+
 
 //$('.chartwrap > img').attr('id', 'imagelightbox'); // style="border: 0;"
 var imgsrc = $('.chartwrap > img').attr('src');

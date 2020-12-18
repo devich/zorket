@@ -1,7 +1,7 @@
 {% unless template == 'index' or template == 'cart' or template == 'list-collections' %}
 <div class="grid">
 <nav class="breadcrumb grid__item large--eight-twelfths medium--eight-twelfths small--one-whole text-left" role="navigation" aria-label="breadcrumbs">
-  <a href="https://www.zorket.com/" title="Home"><i class="fa fa-home homecrumb"></i></a>
+  <a href="https://www.zorket.com/" title="Home"><img class="home-icon" src="{{ 'home-icon.png' | | asset_url }}"></a>
   {% if template contains 'page' %}
     <span aria-hidden="true">&rsaquo;</span>
     <span>{{ page.title }}</span>

@@ -11,6 +11,7 @@
   
   <!-- Google Search Console confirmation tag -->
   <meta name="google-site-verification" content="ybmyCxktiuogNl-2dJ8BwvQyMoDgMiVksn_jAwk3f5E" />
+  <meta name="p:domain_verify" content="214c535cd084d41ebea3bffad4cb1626"/>
 
   {% if settings.favicon_enable %}
   <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
@@ -37,49 +38,60 @@
 	<meta name="p:domain_verify" content="c3a92c14aafc6ce9f29f5ef3f224cfdd"/>
 
   {% include 'google-fonts' %}
-  {{ '//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' | stylesheet_tag }}
-	{{ '//fonts.googleapis.com/css?family=PT+Sans:400,700' | stylesheet_tag }}
-  
+ 
   <!-- CSS ================================================== -->
-  {{ '//use.fontawesome.com/releases/v5.0.13/css/all.css' | stylesheet_tag }}
+  {% comment %}{{ '//use.fontawesome.com/releases/v5.0.13/css/all.css' | stylesheet_tag }}{% endcomment %}
   {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
-  {{ 'fotorama.css' | asset_url | stylesheet_tag }}
-  {{ 'likely.css' | asset_url | stylesheet_tag }}
-  {{ 'jquery.pwstabs.css' | asset_url | stylesheet_tag }}
-  {{ 'smk-accordion.css' | asset_url | stylesheet_tag }}
-  {{ 'payment-webfont.css'  | asset_url | stylesheet_tag }}
-  {{ 'magnific-popup.css' | asset_url | stylesheet_tag }}
+  
+  {% comment %}{{ 'payment-webfont.css'  | asset_url | stylesheet_tag }}{% endcomment %}
+  
   {{ 'scrollyeah.css' | asset_url | stylesheet_tag }}
   {{ 'tooltipster.bundle.css' | asset_url | stylesheet_tag }}
-  {{ 'zorket.scss.css' | asset_url | stylesheet_tag }}
+  
 
-
-
-  <!-- Header hook for plugins ================================================== -->
+    <!-- Header hook for plugins ================================================== -->
   {{ content_for_header }}
-  {% include 'oldIE-js' %}
-  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
-  {{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
-	{{ 'zorket.trimlist.js' | asset_url | script_tag }}
-	{{ 'zorket.stoplist.js' | asset_url | script_tag }}
-	{{ 'zorket.whitelist.js' | asset_url | script_tag }}
-	{{ 'zorket-functions.js' | asset_url | script_tag }}
+  {% comment %}{% include 'oldIE-js' %}{% endcomment %}
+  {{ 'jquery.min.js' | asset_url | script_tag }}
+  {{ 'jquery.tmpl.min.js' | asset_url | script_tag }}
+	
+	
   {{ 'modernizr.min.js' | asset_url | script_tag }}
-  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
-  {{ 'cart.js' | asset_url | script_tag }}
-  {{ 'likely.js' | asset_url | script_tag }}
-  {{ 'jquery.pwstabs.js' | asset_url | script_tag }}
-  {{ 'magnific-popup.js' | asset_url | script_tag }}
+ 
   {{ 'scrollyeah.js' | asset_url | script_tag }}
-  {{ 'dim-background.js' | asset_url | script_tag }}
+  {{ 'cart.js' | asset_url | script_tag }}
+  {% comment %}{{ 'dim-background.js' | asset_url | script_tag }}{% endcomment %}
   {{ 'jquery.products.min.js' | asset_url | script_tag }}
 	{{ 'jquery.flip.js' | asset_url | script_tag }}
 	{{ 'jquery.pick.js' | asset_url | script_tag }}
 	{{ 'ajaxify.min.js' | asset_url | script_tag }}
 	{{ 'jquery.goTop.js' | asset_url | script_tag }}
 	{{ 'tooltipster.bundle.js' | asset_url | script_tag }}
-	{{ 'js-cookie.js' | asset_url | script_tag }}
+  {{ 'js-cookie.js' | asset_url | script_tag }}
+  {{ 'jquery.lazy.min.js' | asset_url | script_tag }}
+  {{ 'zorket-functions.js' | asset_url | script_tag }}
+  <script>Shopify.money_format = "{{ shop.money_format }}";</script>
+
+  <!-- Only for Product Page ================================================== -->
+  {% if template == 'product' or template == 'product.2' %}
+  {{ 'fotorama.css' | asset_url | stylesheet_tag }}
+  {{ 'likely.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.pwstabs.css' | asset_url | stylesheet_tag }}
+  {{ 'smk-accordion.css' | asset_url | stylesheet_tag }}
+  {{ 'magnific-popup.css' | asset_url | stylesheet_tag }}
+  {{ 'fotorama.js' | asset_url | script_tag }}
+  {{ 'magnific-popup.js' | asset_url | script_tag }}
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+  {{ 'jquery.pwstabs.js' | asset_url | script_tag }}
+  {{ 'zorket.trimlist.js' | asset_url | script_tag }}
+	{{ 'zorket.stoplist.js' | asset_url | script_tag }}
+  {{ 'zorket.whitelist.js' | asset_url | script_tag }}
+  {{ 'likely.js' | asset_url | script_tag }}
+  {% endif %}
+
+   <!-- Main CSS ================================================== -->
+  {{ 'zorket.scss.css' | asset_url | stylesheet_tag }}
   
   
   {% comment %}
@@ -89,26 +101,7 @@
   {% if template contains 'customers' %}
     {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
   {% endif %}
-	
-<!-- Facebook Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '709796692516135');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
-/></noscript>
-<!-- DO NOT MODIFY -->
-<!-- End Facebook Pixel Code -->
-  
-<link href="https://fonts.googleapis.com/css?family=Teko:400,500" rel="stylesheet">
-
-  
+	  
 {% if template == 'index' %}
   <style>
     .site-header {
@@ -130,94 +123,13 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 
 <script>var closepop = localStorage['closepop'];</script>
   
-  
-<!-- Yandex.Metrika counter -->
-
-<!--<script type="text/javascript">
-    (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
-            try {
-                w.yaCounter42941059 = new Ya.Metrika({
-                    id:42941059,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true,
-                    webvisor:true
-                });
-            } catch(e) { }
-        });
-
-        var n = d.getElementsByTagName("script")[0],
-            s = d.createElement("script"),
-            f = function () { n.parentNode.insertBefore(s, n); };
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-        if (w.opera == "[object Opera]") {
-            d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
-    })(document, window, "yandex_metrika_callbacks");
-</script> -->
-
-<!-- <noscript><div><img src="https://mc.yandex.ru/watch/42941059" style="position:absolute; left:-9999px;" alt="" /></div></noscript> -->
-<!-- /Yandex.Metrika counter -->
-  
-  
-  
-  
   <div id="NavDrawer" class="drawer drawer--left no-dim">
-    <!-- <div class="drawer__fixed-header">
-      <div class="drawer__header">
-        <div class="drawer__close drawer__close--left">
-          <button type="button" class="icon-fallback-text drawer__close-button js-drawer-close">
-            <span class="icon icon-x" aria-hidden="true"></span>
-            <span class="fallback-text">{{ 'general.drawers.close_menu' | t }}</span>
-          </button>
-        </div>
-      </div>
-    </div> -->
+
     <div class="drawer__inner">
 
-      {% comment %}
-        Remove comment tags below to add a search box at the top of your pull-out menu.
-      {% endcomment %}
-
-      {% comment %}
-      {% include 'search-bar', search_btn_style: 'btn--secondary', search_bar_location: 'search-bar--drawer' %}
-      {% endcomment %}
-	  
-	  
-	  <!-- <button type="button" id="CloseButton" class="icon-fallback-text site-nav__link js-drawer-open-left" aria-controls="NavDrawer" aria-expanded="true">
-	                    <span id="IconClose" class="icon icon-x" aria-hidden="true" style=""></span>
-	                    <span class="fallback-text">Site navigation</span>
-	  </button> -->
-
-      <!-- begin mobile-nav -->
+      
       <ul class="mobile-nav">
-        <!-- <li class="mobile-nav__item" style="padding: 10px 10px;">
-        <div id="SearchModal" class=""> -->
-      <!-- /snippets/search-bar.liquid -->
-
-
-
-
-
-<!-- <form action="/search" method="get" class="input-group search-bar search-bar--modal" role="search">
-
-  <input type="search" name="q" value="" placeholder="Search" class="input-group-field" aria-label="Search our store">
-  <input type="hidden" name="type" value="product" />
-  <span class="input-group-btn">
-    <button type="submit" class="btn icon-fallback-text" style="border:none !important;">
-      <span class="icon icon-search" aria-hidden="true"></span>
-      <span class="fallback-text">Search</span>
-    </button>
-  </span>
-</form>
-
-    </div>
-        </li> -->
-        
+       
         
         {% for link in linklists.main-menu.links %}
           {% comment %}
@@ -259,12 +171,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
           {% endif %}
         {% endfor %}
 
-        {% comment %}
-          Spacer element         
-        {% endcomment %}
-        <!-- <li class="mobile-nav__spacer"> -->
-        	<!-- <hr class="mobile-nav-hr"> -->
-        <!-- </li> -->
+        
 				<div class="mobile-nav__menu-spacer"></div>
 
         {% comment %}
@@ -417,10 +324,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                   - http://docs.shopify.com/themes/liquid-variables/linklists
               {% endcomment %}
               
-              
-              
-              
-              
+        
               
               <!-- begin site-nav -->
               <ul class="site-nav">
@@ -625,16 +529,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
             </div>
           </div>
 
-          {% comment %}
-            Remove comment tags below to add a search box to your header.
-          {% endcomment %}
-
-          {% comment %}
-          <div class="grid--full large--right medium-down--hide ">
-            {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--header' %}
-          </div>
-          {% endcomment %}
-
+         
         </div>
       </header>
 	  <div class="search-popup{%if template == 'index' %} search-popup-index{%endif%}">
@@ -977,28 +872,23 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
               </p>
 							{% endcomment %}
 			  			<p class="footerpayment">
-								<i class="pw pw-paypal"></i>
-                <i class="pw pw-visa"></i>
-                <i class="pw pw-mastercard"></i>
-                <i class="pw pw-american-express"></i>
+								{{ 'pw-pp.png' | asset_url | img_tag: 'PayPal', 'pw-foot-icon lazy' }}
+                {{ 'pw-visa.png' | asset_url | img_tag: 'Visa', 'pw-foot-icon lazy' }}
+                {{ 'pw-mc.png' | asset_url | img_tag: 'MasterCard', 'pw-foot-icon lazy' }}
+                {{ 'pw-amex.png' | asset_url | img_tag: 'American Express', 'pw-foot-icon lazy' }}
                 {% comment %}<i class="pw pw-discover"></i>{% endcomment %}
               </p>
 			  <p class="foot-crypto">
-				 {{ 'bwi-eth.png' | asset_url | img_tag: 'Ethereum', 'cr-foot-icon' }}
-				 {{ 'bwi-btc.png' | asset_url | img_tag: 'Bitcoin', 'cr-foot-icon' }}
-				 {{ 'bwi-dash.png' | asset_url | img_tag: 'Dash', 'cr-foot-icon' }}
-				 {{ 'bwi-ltc.png' | asset_url | img_tag: 'Litecoin', 'cr-foot-icon' }}
-				 {{ 'bwi-xrp.png' | asset_url | img_tag: 'Ripple', 'cr-foot-icon' }} 
+				 {{ 'bwi-eth.png' | asset_url | img_tag: 'Ethereum', 'cr-foot-icon lazy' }}
+				 {{ 'bwi-btc.png' | asset_url | img_tag: 'Bitcoin', 'cr-foot-icon lazy' }}
+				 {{ 'bwi-dash.png' | asset_url | img_tag: 'Dash', 'cr-foot-icon lazy' }}
+				 {{ 'bwi-ltc.png' | asset_url | img_tag: 'Litecoin', 'cr-foot-icon lazy' }}
+				 {{ 'bwi-xrp.png' | asset_url | img_tag: 'Ripple', 'cr-foot-icon lazy' }} 
 			  </p>
           </div>
         </div>
         
-        
-        
-        
-        
        
-        
 
       </div>
     </footer>
@@ -1011,8 +901,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 		$('#go-top').goTop({scrollTop: 500});
 	</script>
 
-
-  {{ 'theme.js' | asset_url | script_tag }}
+    {{ 'theme.js' | asset_url | script_tag }}
   
   {% comment %}
     Template-specific js
@@ -1073,9 +962,8 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 
   {% endif %}
   
+   {{ 'zorket.js' | asset_url | script_tag }}
   
-  {{ 'fotorama.js' | asset_url | script_tag }}
-  {{ 'zorket.js' | asset_url | script_tag }}
 	<script>
 	$('a[href*="collection"]').each(function() {
 	  if(this.href.indexOf('products') === -1
@@ -1086,7 +974,18 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 			else
 				this.href = this.href + "?sort_by=created-descending";
 	  }
-	});
+  });
+  
+  $('.lazy').Lazy({
+    // your configuration goes here
+    effect: 'fadeIn',
+    visibleOnly: true,
+    threshold: 200
+  });
+
+  $('.lazy-delay').lazy({
+    delay: 2000
+  });
 	</script>
 
 </html>

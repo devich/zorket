@@ -412,7 +412,7 @@
 </div>
 {% endif %}
 <div class="wrapper">
-<!-- End Best Sellers and reopened wrapper-->
+<!-- End Pagination and reopened wrapper-->
 
 {% endpaginate %}
 
@@ -428,22 +428,25 @@
 		</div>
 	</div>
 	<div class="scrollyeah new-arr-home">
+  {% paginate collections.bestsellers.products by 25 %}
 	  {% assign counter = 0 %}
 	  {% assign products = collections.bestsellers.products %}
 	  {% for product in products %}
-	    {% if counter < 100 and product.available %}
+	    {% if counter < 25 and product.available %}
 	      {% include 'rec-float-item' with product %}
 	      {% assign counter = counter | plus: 1 %}
 	    {% endif %}
-	  {% endfor %}
+    {% endfor %}
+  {% endpaginate %}
 	</div>
 	<script>
-		$('#RecBestsellers').find('.float-item').pick(20);
-		var parent = $('#RecBestsellers').find('.float-item').parent();
-		var divs = parent.children();
-		while (divs.length) {
-			parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
-		};
+		$('#RecBestsellers').find('.float-item').pick(15);
+    $('#RecBestsellers').find('.float-item').randomize();
+		// var parent = $('#RecBestsellers').find('.float-item').parent();
+		// var divs = parent.children();
+		// while (divs.length) {
+		// 	parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+		// };
 		
 		// $(document).ready(function(){
 // 		  ajaxify({
@@ -554,5 +557,7 @@ $('.collection_title').text($('.collection_title').text().replace("Women's ", ''
 $('.collection_title').text($('.collection_title').text().replace("Men's ", ''));
 
 $('h1.collection_title:contains("New Arrivals")').addClass('new-arr-h1');
+
+// $('.pagination .page').last().hide();
 
 </script>	

@@ -1,0 +1,14 @@
+<!-- /snippets/featured-casual-item.liquid -->
+
+<div class="feat-content-item feat-casual feat-collection grid__item large--one-quarter medium--one-whole small--one-quarter">
+    <div class="prev-next-product">
+        <a href="{{product.url}}">
+            <div class="image-prev-curr-next radius15 feat-moretolove-img lazy" data-src="{{ product | img_url: 'medium' }}">
+                <div class="coll-back-wrapper feat-moretolove-wrapper">
+                    <div class="coll-back-title feat-price">{{ product.price | money_without_trailing_zeros }}</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+

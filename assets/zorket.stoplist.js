@@ -1,7 +1,7 @@
 var stopList = [
 
   'Brand Name', 'Sale by Pack', 'model number', 'Hooded', 'Occasion',
-  'Gender', 'Closure Type', 'Thickness', 'Detachable Part', 'Color',
+  'Gender', 'Closure Type', 'Detachable Part', 'Color',
   'Origin', 'Weight', 'Printing', 'Suit', 'Features', 'Clothing Length',
   'Fashion Hoodies', 'Clothing Long', 'Size', 'For The Crowd', 'Season',
   'Please Note', 'Height', 'Drop Ship', 'Harajuku', 'Fashion Tops Jacket',

@@ -33,7 +33,7 @@
   <div class="rec-prod-wrapper">
     <div class="rec-prod-image-wrapper">
       <a class="rec-prod-image-link" href="{{ product.url | within: collection }}">
-        <div class="rec-prod-image" style="background:url({{ product | img_url: '400x400' }}) center center no-repeat; background-size: cover;">
+        <div class="rec-prod-image lazy lazy-delay" data-src="{{ product | img_url: '400x400' }}" style="background: center center no-repeat; background-size: cover;">
           &nbsp;
         </div>
       </a>

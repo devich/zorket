@@ -35,7 +35,7 @@
 <div class="grid__item grid-product one-half medium--one-half {% if template == 'search' or currentcategory == 'spring' or currentcategory == 'new' or currentcategory == 'bestsellers' or currentcategory == 'sales' or currentcategory == 'winter' or currentcategory == 'featured' or currentcategory == 'summer' or currentcategory == 'autumn' or currentcategory == 't' or currentcategory == 'shoe' %} large--one-quarter {% else %} {% if template == 'index' %} large--one-sixth {% else %} large--one-third {% endif %}{% endif %} {% if sold_out %} is-sold-out{% endif %}">
   <div class="grid-product__wrapper">
     <div class="grid-product__image-wrapper {% if template != 'index' %} non-index-image-height {% endif %}" >
-      <a class="grid-product__image-link" href="{% if template == 'index' %}/collections/featured{{product.url}}{% else %}{{ product.url | within: collection }}{% endif %}" style="background:url({{ product | img_url: 'large' }}) center center no-repeat; background-size: cover;">
+      <a class="grid-product__image-link lazy" href="{% if template == 'index' %}/collections/featured{{product.url}}{% else %}{{ product.url | within: collection }}{% endif %}" data-src="{{ product | img_url: 'large' }}" style="background: center center no-repeat; background-size: cover;">
         {% comment %}
         <div class="pr-image-wrap" style="background:url({{ product | img_url: 'medium' }}) center center no-repeat; background-size: cover;">
         	<img src="{{ product | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" class="grid-product__image">
@@ -101,11 +101,11 @@
 				{% if color_counter <= 6 %}
 					<a href="{{ variant.url }}">
 					<!-- <a href="{{ product.url }}"> -->
-					<div class="home-color-wrapper"> 
-						<div class="home-color-swatch home-color-tooltip"
-						title="{{ color_tooltip }}"
-						style="background-color: {{ color_text }};
-						background-image: url({{ color_text | append: '.png' | asset_url }});">
+					<div class="home-color-wrapper lazy" data-src="{{ 'nocolor.png' | asset_url }}"> 
+						<div class="home-color-swatch home-color-tooltip lazy"
+            title="{{ color_tooltip }}"
+            data-src="{{ color_text | append: '.png' | asset_url }}"
+						style="background-color: {{ color_text }};">
 					 	</div>
 					</div>
 					</a>

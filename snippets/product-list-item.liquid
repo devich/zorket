@@ -33,7 +33,7 @@
 <div class="grid grid__list-view">
 	<div class="grid__item grid-product list__item one-fifth small--three-eighths">
 		<a class="list__item-link" href="{{ product.url | within: collection }}" >
-			<div class="grid__item-img" style="background-image:url({{ product | img_url: 'large' }})"></div>
+			<div class="grid__item-img lazy" data-src="{{ product | img_url: 'large' }}"></div>
 		</a>
 	</div>
 	<div class="grid__item three-fifths small--four-eighths">
@@ -75,11 +75,11 @@
 				{% if color_counter <= 6 %}
 					<a href="{{ variant.url }}">
 					<!-- <a href="{{ product.url }}"> -->
-					<div class="home-color-wrapper"> 
-						<div class="home-color-swatch home-color-tooltip"
+					<div class="home-color-wrapper lazy" data-src="{{ 'nocolor.png' | asset_url }}"> 
+						<div class="home-color-swatch home-color-tooltip lazy"
 						title="{{ color_tooltip }}"
-						style="background-color: {{ color_text }};
-						background-image: url({{ color_text | append: '.png' | asset_url }});">
+						data-src="{{ color_text | append: '.png' | asset_url }}"
+						style="background-color: {{ color_text }};">
 					 	</div>
 					</div>
 					</a>
