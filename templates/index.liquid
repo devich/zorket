@@ -1,5 +1,11 @@
 <!-- /templates/index.liquid -->
 
+
+<style>
+	.grid__item {	padding-left: 10px; }
+</style>
+
+
 {% comment %}
   Track how many sections are shown
 {% endcomment %}
@@ -10,17 +16,271 @@
   {% include settings.home_section_1, section_number: 1 %}
 {% endif %}
 
+<!-- Seasons and reopen wrapper-->
+</div>
+<div class="seasons grid grid-uniform">
+	<div class="season season1 grid__item small--one-half medium--one-quarter large--one-quarter text-center">
+		<a href="collections/winter">
+			<div>
+				<img class="season-img" src="{{ 'winter-title.svg' | asset_url }}">
+			</div>
+		</a>
+	</div>
+	<div class="season season2 grid__item small--one-half medium--one-quarter large--one-quarter text-center">
+		<a href="collections/spring">
+			<div>
+				<img class="season-img" src="{{ 'spring-title.svg' | asset_url }}">
+			</div>
+		</a>
+	</div>
+	<div class="season season3 grid__item small--one-half medium--one-quarter large--one-quarter text-center">
+		<a href="collections/summer">
+			<div>
+				<img class="season-img" src="{{ 'summer-title.svg' | asset_url }}">
+			</div>
+		</a>
+	</div>
+	<div class="season season4 grid__item small--one-half medium--one-quarter large--one-quarter text-center">
+		<a href="collections/autumn">
+			<div>
+				<img class="season-img" src="{{ 'autumn-title.svg' | asset_url }}">
+			</div>
+		</a>
+	</div>
+</div>  
+<div class="wrapper">
+	
+<script>
+$('.season').hover(
+  function() {
+		_('HOVER');
+    $( this ).addClass('season-hover');
+  }, function() {
+		_('UNHOVER');
+    $( this ).removeClass('season-hover');
+  }
+);
+</script>
+
+<!-- End Seasons Collections and reopened wrapper-->
+	
+	
+
+<!-- New Arrivals and reopen wrapper-->
+</div>
+<div id="RecNewArrivals" class="rec-wrapper black-bg">
+	<div class="rec-head-wrap">
+		<span class="new-arrivals black-bg">Featured Products</span>
+		<div class="view-more-mob">
+		    <a href="/collections/featured" class="vm-mob-link-dark">view more <strong>⟩</strong></a>
+		</div>
+	</div>
+	<div class="scrollyeah new-arr-home">
+	  {% assign counter = 0 %}
+	  {% assign products = collections.featured.products %}
+	  {% for product in products %}
+	    {% if counter < 100 and product.available %}
+	      {% include 'rec-float-item' with product %}
+	      {% assign counter = counter | plus: 1 %}
+	    {% endif %}
+	  {% endfor %}
+	</div>
+	<div class="scrollyeah-left">
+		<a href="javascript:void(0)" class="scrollyeah-left-link dark-btn no-border"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+	</div>
+	<div class="view-more-arr view-more">
+	    <a href="/collections/featured" class="link-button dark-btn">View more</a>
+	</div>
+	<div class="scrollyeah-right">
+		<a href="javascript:void(0)" class="scrollyeah-right-link dark-btn no-border"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+	</div>
+</div>
+<div class="wrapper">
+<!-- End New Arrivals and reopened wrapper-->
+
+
+<!-- Featured Collections and reopen wrapper-->
+<!-- <div class="collections-head"><span class="new-arrivals">Featured Collections</span></div> -->
+</div>
+<div class="home-section-2">
 {% if settings.home_section_2 != blank %}
   {% assign number_of_index_sections = number_of_index_sections | plus: 1 %}
   {% include settings.home_section_2, section_number: 2 %}
 {% endif %}
+</div>  
+<div class="wrapper">
+<!-- End Featured Collections and reopened wrapper-->
 
+
+<!-- Banners and reopen wrapper-->
+</div>
+<div class="banners grid grid-uniform">
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/men-suits-blazer">
+			<img src="{{ 'z-ban-suits.png' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/women-dresses">
+			<img src="{{ 'z-ban-dresses.png' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/men-tops-and-tees">
+			<img src="{{ 'z-ban-tshirts.png' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/women-tops">
+			<img src="{{ 'z-ban-tops.jpg' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/sales">
+			<img src="{{ 'z-ban-sales.jpg' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/men-shirts">
+			<img src="{{ 'z-ban-shirts.jpg' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/men-jeans">
+			<img src="{{ 'z-ban-jeans.jpg' | asset_url }}">
+		</a>
+	</div>
+	<div class="banner banner-delete grid__item small--one-whole medium--one-third large--one-third">
+		<a href="collections/women-blouses-shirts">
+			<img src="{{ 'z-ban-blouses.jpg' | asset_url }}">
+		</a>
+	</div>
+</div>  
+<div class="wrapper">
+<!-- End Banners and reopened wrapper-->
+
+<!-- Random for banners -->
+<script>
+	/* Returns a random number between min (inclusive) and max (exclusive) */
+	function generateRandomNumb(min, max) {
+	    return Math.floor(Math.random() * (max - min) + min);
+	}
+	
+	var randArray = [];
+
+	for(var i = 0; i < 3; i++) {
+	    var numberIsInArray = false;
+	    var rand = generateRandomNumb(0, 8);
+	    for(var j = 0; j < randArray.length; j++) {
+	        if(rand === randArray[j]) {
+	            numberIsInArray = true;
+	            i--;
+	        }
+	    }
+	    if(!numberIsInArray) {
+	       randArray.push(rand);
+	    }
+	}
+	
+    for(var i = 0; i < randArray.length; i++){
+		$($('.banner')[randArray[i]]).removeClass('banner-delete');
+		$($('.banner')[randArray[i]]).addClass('banner-visible');
+    }
+	
+	$('.banner-delete').remove();
+	
+	$.fn.randomize = function(selector){
+	    (selector ? this.find(selector) : this).parent().each(function(){
+	        $(this).children(selector).sort(function(){
+	            return Math.random() - 0.5;
+	        }).detach().appendTo(this);
+	    });
+
+	    return this;
+	};
+	
+	$('.banner-visible').randomize();
+</script>
+<!-- End Random for banners -->
+
+
+<!-- Products and reopen wrapper-->
+</div>
+<div class="home-section-3 home-prod-wrapper">
 {% if settings.home_section_3 != blank %}
   {% assign number_of_index_sections = number_of_index_sections | plus: 1 %}
   {% include settings.home_section_3, section_number: 3 %}
 {% endif %}
+</div>
+<div class="wrapper">
+<!-- End Products and reopened wrapper-->
 
+
+<div class="home-section-4">
 {% if settings.home_section_4 != blank %}
   {% assign number_of_index_sections = number_of_index_sections | plus: 1 %}
   {% include settings.home_section_4, section_number: 4 %}
 {% endif %}
+</div>
+
+
+<!-- Best Sellers and reopen wrapper-->
+</div>
+<!-- <div class="rec-box-divider white-bg">&nbsp;</div> -->
+<div id="RecBestsellers" class="rec-wrapper rec-index-bg">
+	<div class="rec-head-wrap">
+		<span class="new-arrivals">Best Sellers</span>
+		<div class="view-more-mob">
+		    <a href="/collections/bestsellers" class="vm-mob-link-light">view more <strong>⟩</strong></a>
+		</div>
+	</div>
+	<div class="scrollyeah new-arr-home">
+	  {% assign counter = 0 %}
+	  {% assign products = collections.bestsellers.products %}
+	  {% for product in products %}
+	    {% if counter < 100 and product.available %}
+	      {% include 'rec-float-item' with product %}
+	      {% assign counter = counter | plus: 1 %}
+	    {% endif %}
+	  {% endfor %}
+	</div>
+	<script>
+		$('#RecBestsellers').find('.float-item').pick(20);
+		var parent = $('#RecBestsellers').find('.float-item').parent();
+		var divs = parent.children();
+		while (divs.length) {
+			parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+		};
+		
+		$('#RecNewArrivals').find('.float-item').pick(20);
+		var parent2 = $('#RecNewArrivals').find('.float-item').parent();
+		var divs = parent2.children();
+		while (divs.length) {
+			parent2.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+		};
+		
+		
+		$(document).ready(function(){
+		  ajaxify({
+    		fade: 'normal',
+				textChange: 'Loading...'
+    	});
+		});
+		
+	</script>
+	<div class="scrollyeah-left">
+		<a href="javascript:void(0);" class="scrollyeah-left-link"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+	</div>
+	<div class="view-more-arr view-more">
+	    <a href="/collections/bestsellers" class="link-button">View more</a>
+	</div>
+	<div class="scrollyeah-right">
+		<a href="javascript:void(0);" class="scrollyeah-right-link"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+	</div>
+</div>
+<!-- <div class="rec-box-divider white-bg">&nbsp;</div> -->
+<div class="wrapper">
+<!-- End Best Sellers and reopened wrapper-->
+
+
+{{ 'scrollyeah-scroll-btns.js' | asset_url | script_tag }}

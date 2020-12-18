@@ -2,9 +2,8 @@
 <div class="grid">
   <div class="grid__item large--five-sixths push--large--one-twelfth">
 
-    <header class="section-header text-center">
-      <h1>{{ page.title }}</h1>
-      <hr class="hr--small">
+    <header class="section-header text-center page-header" style="display: none;">
+      
       <!-- Facebook Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -25,6 +24,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 
     <div class="grid">
       <div class="grid__item large--four-fifths push--large--one-tenth">
+        <h1 class="page-h1">{{ page.title }}</h1>
         <div class="rte rte--nomargin rte--indented-images">
           {{ page.content }}
         </div>

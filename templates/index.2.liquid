@@ -1,0 +1,122 @@
+<!-- /templates/index.liquid -->
+
+{% comment %}
+  Track how many sections are shown
+{% endcomment %}
+{% assign number_of_index_sections = 0 %}
+
+{% if settings.home_section_1 != blank %}
+  {% assign number_of_index_sections = number_of_index_sections | plus: 1 %}
+  {% include settings.home_section_1, section_number: 1 %}
+{% endif %}
+
+<!-- New Arrivals and reopen wrapper-->
+</div>
+<div id="RecNewArrivals" class="rec-wrapper black-bg">
+	<h1 class="new-arrivals black-bg">New Arrivals {{template}} </h1>
+	<div class="scrollyeah new-arr-home">
+	  {% assign counter = 5 %}
+	  {% assign products = collections.new.products %}
+	  {% for product in products %}
+	    {% if counter < 30 and product.available %}
+	      {% include 'rec-float-item' with product %}
+	      {% assign counter = counter | plus: 1 %}
+	    {% endif %}
+	  {% endfor %}
+	</div>
+	<div class="scrollyeah-left">
+		<a href="javascript:void(0)" class="scrollyeah-left-link dark-btn no-border"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+	</div>
+	<div class="view-more-arr view-more">
+	    <a href="/collections/new?page=2" class="link-button dark-btn">View more</a>
+	</div>
+	<div class="scrollyeah-right">
+		<a href="javascript:void(0)" class="scrollyeah-right-link dark-btn no-border"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+	</div>
+</div>
+<div class="wrapper">
+<!-- End New Arrivals and reopened wrapper-->
+
+<!-- Featured Collections and reopen wrapper-->
+</div>
+<div class="home-section-2">
+{% if settings.home_section_2 != blank %}
+  {% assign number_of_index_sections = number_of_index_sections | plus: 1 %}
+  {% include settings.home_section_2, section_number: 2 %}
+{% endif %}
+</div>
+<div class="wrapper">
+{% if template == 'index.2' %}
+<style>
+.home-section-2 > .section-header {
+	/* display: none; */
+}
+.collection-collage__item {
+	height: 250px !important;
+}
+</style>
+{% endif %}
+{% capture imageUrl %}//cdn.shopify.com/s/images/themes/product-{{ i }}.png{% endcapture %}
+{{ imageUrl | img_tag }}
+<!-- End Featured Collections and reopened wrapper-->
+
+  
+<div class="home-section-3">
+{% if settings.home_section_3 != blank %}
+  {% assign number_of_index_sections = number_of_index_sections | plus: 1 %}
+  {% include settings.home_section_3, section_number: 3 %}
+{% endif %}
+</div>
+
+
+
+<div id="bk-rec">
+	
+</div>
+
+<div class="home-section-4">
+{% if settings.home_section_4 != blank %}
+  {% assign number_of_index_sections = number_of_index_sections | plus: 1 %}
+  {% include settings.home_section_4, section_number: 4 %}
+{% endif %}
+</div>
+
+<!-- Best Sellers and reopen wrapper-->
+</div>
+<div class="rec-box-divider white-bg">&nbsp;</div>
+<div id="RecBestsellers" class="rec-wrapper">
+	<h1 class="new-arrivals">Best Sellers</h1>
+	<div class="scrollyeah new-arr-home">
+	  {% assign counter = 0 %}
+	  {% assign products = collections.bestsellers.products %}
+	  {% for product in products %}
+	    {% if counter < 100 and product.available %}
+	      {% include 'rec-float-item' with product %}
+	      {% assign counter = counter | plus: 1 %}
+	    {% endif %}
+	  {% endfor %}
+	</div>
+	<script>
+		$('#RecBestsellers').find('.float-item').pick(20);
+		var parent = $('#RecBestsellers').find('.float-item').parent();
+		var divs = parent.children();
+		while (divs.length) {
+			parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+		};
+	</script>
+	<div class="scrollyeah-left">
+		<a href="javascript:void(0);" class="scrollyeah-left-link"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+	</div>
+	<div class="view-more-arr view-more">
+	    <a href="/collections/bestsellers" class="link-button">View more</a>
+	</div>
+	<div class="scrollyeah-right">
+		<a href="javascript:void(0);" class="scrollyeah-right-link"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+	</div>
+</div>
+<!-- <div class="rec-box-divider white-bg">&nbsp;</div> -->
+<div class="wrapper">
+<!-- End Best Sellers and reopened wrapper-->
+
+
+{{ 'scrollyeah-scroll-btns.js' | asset_url | script_tag }}

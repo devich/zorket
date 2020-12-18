@@ -374,7 +374,9 @@ Shopify.OptionSelectors.prototype.buildSelectors = function() {
     // create label if more than 1 option (ie: more than one drop down)
     if (optionNames.length > 1) {
       var label = document.createElement('label');
-      label.setAttribute('class', 'single-option-radio__label');
+	  if(selector.name == 'Color')
+		label.setAttribute('style','display: none !important;');
+	  label.setAttribute('class', 'single-option-radio__label');
 
       // create and append a label into div
       label.htmlFor = selector.element.id;

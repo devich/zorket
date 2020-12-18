@@ -1,0 +1,389 @@
+{% comment %}
+{% layout 'cart-no-footer' %}
+{% endcomment %}
+
+<!-- /templates/cart.liquid -->
+{% comment %}
+
+  For info on test orders:
+    - General http://docs.shopify.com/manual/your-store/orders/test-orders
+    - Shopify Payments - http://docs.shopify.com/manual/more/shopify-payments/testing-shopify-payments
+
+{% endcomment %}
+<div class="grid">
+  <div class="grid__item large--five-sixths push--large--one-twelfth">
+    {% if cart.item_count > 0 %}
+      <header class="section-header text-center">
+        <h1 class="cart-h1">{{ 'cart.general.title' | t }}</h1>
+        <!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '709796692516135');
+fbq('track', 'PageView');
+fbq('track', 'Purchase', {value: '1.00', currency:'USD'});
+fbq('track', 'InitiateCheckout');  
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
+/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+      </header>
+
+      <form action="/cart" method="post" novalidate class="cart">
+
+        <div class="cart__row medium-down--hide cart__header-labels">
+          <div class="grid--full">
+            <div class="grid__item large--two-fifths push--large--three-fifths">
+              <div class="grid--full">
+                <div class="grid__item one-third medium-down--half text-center">
+                  {{ 'cart.label.quantity' | t }}
+                </div>
+                <div class="grid__item two-thirds medium-down--half text-right">
+                  {{ 'cart.label.total' | t }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% comment %}
+          Loop through products in the cart
+        {% endcomment %}
+        {% for item in cart.items %}
+          <div class="cart__row">
+            <div class="grid--full cart__row--table-large">
+
+              <div class="grid__item large--three-fifths">
+                <div class="grid">
+
+                  <div class="grid__item one-third">
+                    <a href="{{ item.url | within: collections.all }}" class="cart__image">
+
+                      {% comment %}
+                        More image size options at:
+                          - http://docs.shopify.com/themes/filters/product-img-url
+                      {% endcomment %}
+                      <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
+                    </a>
+                  </div>
+
+                  <div class="grid__item two-thirds">
+                    <a href="{{ item.url }}" class="h4 cart__product-name">
+                      {{ item.product.title }}
+                    </a>
+                    {% unless item.variant.title contains 'Default' %}
+                      <p class="cart__product-meta">
+                        {{ item.variant.title }}
+                      </p>
+                    {% endunless %}
+
+                    {% if settings.product_vendor_enable %}
+                      <p class="cart__product-meta">{{ item.vendor }}</p>
+                    {% endif %}
+
+                    {% assign property_size = item.properties | size %}
+                    {% if property_size > 0 %}
+                      {% for p in item.properties %}
+                        {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                        {% unless p.last == blank or first_character_in_key == '_' %}
+                          {{ p.first }}:
+
+                          {% if p.last contains '/uploads/' %}
+                            <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                          {% else %}
+                            {{ p.last }}
+                          {% endif %}
+
+                          <br>
+                        {% endunless %}
+                      {% endfor %}
+                    {% endif %}
+
+                    <p class="cart__product-meta">
+                      <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">
+                        {{ 'cart.general.remove' | t }}
+                      </a>
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="grid__item large--two-fifths">
+                <div class="grid--full cart__row--table">
+
+                  <div class="grid__item one-third text-center">
+                    <input type="number" name="updates[]" id="updates_{{ item.id }}" class="cart__product-qty" value="{{ item.quantity }}" min="0">
+                  </div>
+
+                  <div class="grid__item two-thirds text-right">
+                    {% if item.original_line_price != item.line_price %}
+                      <small class="cart__price cart__price--strikethrough">{{ item.original_line_price | money }}</small>
+                    {% endif %}
+                    
+                    <span class="cart__price">{{ item.line_price | money }}</span>
+                    
+                    {% assign discounts_size = item.discounts | size %}
+                    {% if discounts_size > 0 %}
+                      {% for discount in item.discounts %}
+                        <small class="cart__discount">{{ discount.title }}</small>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        {% endfor %}
+
+        <div class="cart__row">
+          <div class="grid--full cart__row--table-large">
+            {% comment %}
+              Optional, add a textarea for special notes
+                - Your theme settings can turn this on or off. Default is on.
+                - Make sure you have name="note" for the message to be submitted properly
+            {% endcomment %}
+            
+            {% if settings.cart_notes_enable %}
+              <div class="grid__item large--five-twelfths">
+                {% comment %}
+                <div class="cart__note">
+                  <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
+                  <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+                </div>
+                {% endcomment %}
+              </div>
+            {% endif %}
+            <div class="grid__item large--seven-twelfths text-center large--text-right{% unless settings.cart_notes_enable %} push--large--seven-twelfths{% endunless %}">
+              <div class="grid--full cart__row--table">
+                <div class="grid__item one-half large--two-thirds large--text-center">
+                  <p class="cart__subtotal subtottitle"><span id="bk-cart-subtotal-label">{{ 'cart.general.subtotal' | t }}</span></p>
+                </div>
+                <div class="grid__item one-half large--one-third">
+                  <p class="cart__subtotal subtotmon"><span id="bk-cart-subtotal-price">{{ cart.total_price | money }}</span></p>
+                </div>
+              </div>
+              
+              
+              <div class="grid--full cart__row--table">
+                <div class="grid__item one-half large--two-thirds large--text-center">
+                  <p id="dicsnote">
+                    {% comment %}{{ 'cart.general.shipping_at_checkout' | t }}{% endcomment %}
+                    <strong>Free shipping</strong><br>
+                    Discounts (if any) will be calculated at checkout
+                  </p>
+                </div>
+                <div class="grid__item one-half large--one-third">
+                  <div style="text-align: right;"><input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}"></div>              
+                </div>
+              </div>
+              
+              
+              
+              
+              
+              
+              
+              
+              {% comment %} 
+              {% if cart.total_discounts > 0 %}
+                {% assign cartTotalDiscounts = cart.total_discounts | money %}
+                <p class="cart__savings">{{ 'cart.general.savings_html' | t: savings: cartTotalDiscounts }}</p>
+              {% endif %}
+              {% endcomment %}
+              
+              
+			  <div id="paypaypal">
+				<p>Pay with PayPal&nbsp;Express&nbsp;Checkout if you have PayPal account</p>                
+                
+                {% comment %}
+                <ul class="inline-list payment-icons">
+
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'pplogo.svg' | asset_url | img_tag: 'Paypal', 'paypalicon' }}
+                        </span>
+                      </span>
+                    </li>
+                </ul>
+				{% endcomment %}
+                
+                
+              {% if additional_checkout_buttons %}
+                <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
+              {% endif %}
+              </div>
+         	
+           <div id="payanycard">
+              
+              
+             <p>Pay with any Debit or Credit Card through PayPal Guest Checkout<br>
+                (easy 1-step PayPal registration)</p>
+        
+              
+              
+              <button type="submit" name="checkout" class="btn cart__checkout">
+                     
+              <ul class="inline-list payment-icons">
+								<li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'pplogo.svg' | asset_url | img_tag: 'Pay With Card', 'carticons paypal-logo' }}
+                        </span>
+                      </span>
+                    </li>
+           		<li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'visa.svg' | asset_url | img_tag: 'Visa', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+                
+                 <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'mastercard.svg' | asset_url | img_tag: 'Master Card', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+                 <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'amex.svg' | asset_url | img_tag: 'American Express', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+               
+                <li>
+                      <span class="icon-fallback-text">
+                        <span class="icon" aria-hidden="true">
+                          {{ 'discover.svg' | asset_url | img_tag: 'Discover', 'carticons' }}
+                        </span>
+                      </span>
+                    </li>
+                
+              </ul>    
+              </button>
+             </div>
+              
+			  
+			  
+			  
+			  
+			  
+              <div id="paycrypto">
+				  <p>Pay with Cryptocurrencies — ETH BTC DASH LTC XRP</p>
+				  <a href="pages/cryptocurrency" id="paycrypro-button">
+           {{ 'ethereum.png' | asset_url | img_tag: 'Ethereum', 'etherimg' }}
+					 {{ 'bitcoin.png' | asset_url | img_tag: 'Bitcoin', 'etherimg' }}
+					 {{ 'dash.png' | asset_url | img_tag: 'Dash', 'etherimg' }}
+					 {{ 'litecoin.png' | asset_url | img_tag: 'Litecoin', 'etherimg' }}
+					 {{ 'ripple.png' | asset_url | img_tag: 'Ripple', 'etherimg' }}
+					 <span class="cart-cr-off">10%&nbsp;OFF!</span>
+				  </a>
+              </div>
+			  
+			  
+			  
+			  
+			  
+            </div>
+          </div>
+
+        </div>
+
+      </form>
+
+    {% else %}
+      {% comment %}
+        The cart is empty
+      {% endcomment %}
+      <header class="section-header text-center">
+        <h1 class="text-center" style="text-align: center !important;">{{ 'cart.general.title' | t }}</h1>
+        <hr class="hr--small">
+        <p>Your cart is currently empty</p>
+        <p><a href="/">Go to Home Page</a></p>
+      </header>
+
+    {% endif %}
+  </div>
+</div>
+
+
+<!-- Recents and reopened wrapper -->
+</div>
+<div class="rec-wrapper recents-wrap white-bg">
+<div class="rec-box-divider white-bg">&nbsp;</div>	
+<h1 class="new-arrivals">Recently Viewed Products</h1>
+{% include 'recently-viewed' %}
+</div>
+<div class="wrapper">
+<!-- End Recents and reopened wrapper -->
+	
+	
+<style>
+	.additional-checkout-button--paypal-express {
+	    font-family: 'Teko', Arial, sans-serif !important;
+	    letter-spacing: 0.05em;
+	    font-weight: 400 !important;
+	    font-size: 21px !important;
+	    border-radius: 4px !important;
+	    padding: 2px 10px 3px 10px !important;
+		  border: 3px solid rgba(37, 59, 128, 1) !important;
+	    text-transform: uppercase !important;
+		  width: 100%;
+		  height: 50px;
+			background-color: #fff !important;
+	    &:hover {
+		  	background-color: #fff !important;
+		  	border: 3px solid rgba(24, 155, 215, 1) !important;
+	    }
+	}
+	
+	.additional-checkout-button {
+		border: 3px solid #253b80 !important;
+		width: 100%;
+	}
+	
+	.paypal-button {
+		border-radius: 0px;
+		background: rgba(255, 196, 57, 0.85);
+	}
+	
+	
+	.cart__subtotal, .cart__price {
+		color: #333;
+		text-transform: capitalize;
+		font-size: 24px;
+	    margin-bottom: 5px;
+	    margin-top: 0px;
+		font-weight: bold;
+	}
+	
+	a.cart__product-name {
+	    font-size: 19px;
+		padding-bottom: 21px;
+	}
+	
+	.cart__product-qty {
+		height: 40px;
+	}
+
+	.cart__image {
+		width: 100%;
+		height: 100%;
+	}
+	
+	
+	</style>

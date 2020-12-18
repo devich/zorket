@@ -5,14 +5,18 @@
 <!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-
   <!-- Basic page needs ================================================== -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+  <!-- Google Search Console confirmation tag -->
+  <meta name="google-site-verification" content="ybmyCxktiuogNl-2dJ8BwvQyMoDgMiVksn_jAwk3f5E" />
 
   {% if settings.favicon_enable %}
   <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
   {% endif %}
+  
+  {% assign list_view = "LIST" %}
 
   <!-- Title and description ================================================== -->
   <title>
@@ -30,33 +34,62 @@
   <link rel="canonical" href="{{ canonical_url }}">
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <meta name="theme-color" content="{{ settings.color_primary }}">
+	<meta name="p:domain_verify" content="c3a92c14aafc6ce9f29f5ef3f224cfdd"/>
 
+  {% include 'google-fonts' %}
+  {{ '//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' | stylesheet_tag }}
+	{{ '//fonts.googleapis.com/css?family=PT+Sans:400,700' | stylesheet_tag }}
+  
   <!-- CSS ================================================== -->
+  {{ '//use.fontawesome.com/releases/v5.0.13/css/all.css' | stylesheet_tag }}
   {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
-  {{ 'zorket.css' | asset_url | stylesheet_tag }}
   {{ 'fotorama.css' | asset_url | stylesheet_tag }}
-  {% include 'google-fonts' %}
+  {{ 'likely.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.pwstabs.css' | asset_url | stylesheet_tag }}
+  {{ 'smk-accordion.css' | asset_url | stylesheet_tag }}
+  {{ 'payment-webfont.css'  | asset_url | stylesheet_tag }}
+  {{ 'magnific-popup.css' | asset_url | stylesheet_tag }}
+  {{ 'scrollyeah.css' | asset_url | stylesheet_tag }}
+  {{ 'tooltipster.bundle.css' | asset_url | stylesheet_tag }}
+  {{ 'zorket.scss.css' | asset_url | stylesheet_tag }}
+
+
 
   <!-- Header hook for plugins ================================================== -->
   {{ content_for_header }}
   {% include 'oldIE-js' %}
-
   {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
+  {{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
+	{{ 'zorket.trimlist.js' | asset_url | script_tag }}
+	{{ 'zorket.stoplist.js' | asset_url | script_tag }}
+	{{ 'zorket.whitelist.js' | asset_url | script_tag }}
+	{{ 'zorket-functions.js' | asset_url | script_tag }}
   {{ 'modernizr.min.js' | asset_url | script_tag }}
-
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+  {{ 'cart.js' | asset_url | script_tag }}
+  {{ 'likely.js' | asset_url | script_tag }}
+  {{ 'jquery.pwstabs.js' | asset_url | script_tag }}
+  {{ 'magnific-popup.js' | asset_url | script_tag }}
+  {{ 'scrollyeah.js' | asset_url | script_tag }}
+  {{ 'dim-background.js' | asset_url | script_tag }}
+  {{ 'jquery.products.min.js' | asset_url | script_tag }}
+	{{ 'jquery.flip.js' | asset_url | script_tag }}
+	{{ 'jquery.pick.js' | asset_url | script_tag }}
+	{{ 'ajaxify.min.js' | asset_url | script_tag }}
+	{{ 'jquery.goTop.js' | asset_url | script_tag }}
+	{{ 'tooltipster.bundle.js' | asset_url | script_tag }}
+  
+  
   {% comment %}
     If you store has customer accounts disabled, you can remove the following JS file
   {% endcomment %}
+  
   {% if template contains 'customers' %}
     {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
   {% endif %}
-
-  {% include 'buddha-megamenu-before' %}
-  
-  {{ 'fotorama.js' | shopify_asset_url | script_tag }}
-  
-  <!-- Facebook Pixel Code -->
+	
+<!-- Facebook Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -71,8 +104,22 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 /></noscript>
 <!-- DO NOT MODIFY -->
 <!-- End Facebook Pixel Code -->
- 
   
+<link href="https://fonts.googleapis.com/css?family=Teko:400,500" rel="stylesheet">
+
+  
+{% if template == 'index' %}
+  <style>
+    .site-header {
+    	background: none !important;
+      box-shadow: none !important;
+			-webkit-box-shadow: none !important;
+			-moz-box-shadow: none !important;
+    }
+  </style>
+{% endif %}
+
+<meta name="viewport" content="width=device-width, maximum-scale=2.0, user-scalable=1">
 </head>
 
 {% comment %}
@@ -80,8 +127,46 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 {% endcomment %}
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
 
-  <div id="NavDrawer" class="drawer drawer--left">
-    <div class="drawer__fixed-header">
+<script>var closepop = localStorage['closepop'];</script>
+  
+  
+<!-- Yandex.Metrika counter -->
+
+<!--<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter42941059 = new Ya.Metrika({
+                    id:42941059,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script> -->
+
+<!-- <noscript><div><img src="https://mc.yandex.ru/watch/42941059" style="position:absolute; left:-9999px;" alt="" /></div></noscript> -->
+<!-- /Yandex.Metrika counter -->
+  
+  
+  
+  
+  <div id="NavDrawer" class="drawer drawer--left no-dim">
+    <!-- <div class="drawer__fixed-header">
       <div class="drawer__header">
         <div class="drawer__close drawer__close--left">
           <button type="button" class="icon-fallback-text drawer__close-button js-drawer-close">
@@ -90,7 +175,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="drawer__inner">
 
       {% comment %}
@@ -100,20 +185,27 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
       {% comment %}
       {% include 'search-bar', search_btn_style: 'btn--secondary', search_bar_location: 'search-bar--drawer' %}
       {% endcomment %}
+	  
+	  
+	  <!-- <button type="button" id="CloseButton" class="icon-fallback-text site-nav__link js-drawer-open-left" aria-controls="NavDrawer" aria-expanded="true">
+	                    <span id="IconClose" class="icon icon-x" aria-hidden="true" style=""></span>
+	                    <span class="fallback-text">Site navigation</span>
+	  </button> -->
 
       <!-- begin mobile-nav -->
       <ul class="mobile-nav">
-        <li class="mobile-nav__item" style="padding: 10px 10px;">
-        <div id="SearchModal" class="">
+        <!-- <li class="mobile-nav__item" style="padding: 10px 10px;">
+        <div id="SearchModal" class=""> -->
       <!-- /snippets/search-bar.liquid -->
 
 
 
 
 
-<form action="/search" method="get" class="input-group search-bar search-bar--modal" role="search">
-  
+<!-- <form action="/search" method="get" class="input-group search-bar search-bar--modal" role="search">
+
   <input type="search" name="q" value="" placeholder="Search" class="input-group-field" aria-label="Search our store">
+  <input type="hidden" name="type" value="product" />
   <span class="input-group-btn">
     <button type="submit" class="btn icon-fallback-text" style="border:none !important;">
       <span class="icon icon-search" aria-hidden="true"></span>
@@ -123,7 +215,8 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 </form>
 
     </div>
-        </li>
+        </li> -->
+        
         
         {% for link in linklists.main-menu.links %}
           {% comment %}
@@ -136,15 +229,15 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
           {% if linklists[child_list_handle].links != blank %}
             <li class="mobile-nav__item{% unless template == 'index' %}{% if link.active %} mobile-nav__item--active{% endif %}{% endunless %}">
               <div class="mobile-nav__has-sublist">
-                <a href="{{ link.url }}" class="mobile-nav__link" id="Label-{{ child_list_handle }}">{{ link.title }}</a>
+                <a href="#" class="mobile-nav__link" id="Label-{{ child_list_handle }}">{{ link.title }}</a>
                 <div class="mobile-nav__toggle">
                   <button type="button" class="mobile-nav__toggle-btn icon-fallback-text" data-aria-controls="Linklist-{{ child_list_handle }}">
                     <span class="icon-fallback-text mobile-nav__toggle-open">
-                      <span class="icon icon-plus" aria-hidden="true"></span>
+                      <span class="mobile-nav__plus" aria-hidden="true"><i class="fas fa-angle-right"></i></span>
                       <span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }}</span>
                     </span>
                     <span class="icon-fallback-text mobile-nav__toggle-close">
-                      <span class="icon icon-minus" aria-hidden="true"></span>
+                      <span class="mobile-nav__plus" aria-hidden="true"><i class="fas fa-minus"></i></span>
                       <span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }}</span>
                     </span>
                   </button>
@@ -166,9 +259,12 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
         {% endfor %}
 
         {% comment %}
-          Spacer element
+          Spacer element         
         {% endcomment %}
-        <li class="mobile-nav__spacer"></li>
+        <!-- <li class="mobile-nav__spacer"> -->
+        	<!-- <hr class="mobile-nav-hr"> -->
+        <!-- </li> -->
+				<div class="mobile-nav__menu-spacer"></div>
 
         {% comment %}
           If customer accounts are enabled, provide login and create account links
@@ -194,6 +290,19 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
           <li class="mobile-nav__item mobile-nav__item--secondary"><a href="{{ link.url }}">{{ link.title }}</a></li>
         {% endfor %}
       </ul>
+      
+      
+      <script>
+          $('.mobile-nav__link').click(function(evt) {
+              	//evt.preventDefault();
+              	console.log(evt.target);
+				$(evt.target).next().find('button').click();
+            	console.log($(evt.target).next());
+          });
+        </script>
+      
+      
+      
       <!-- //mobile-nav -->
     </div>
   </div>
@@ -220,15 +329,54 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
       <header class="site-header" role="banner">
         <div class="wrapper">
           <div class="grid--full grid--table">
-            <div class="grid__item large--hide one-quarter" style="overflow:hidden;">
+            <div class="grid__item large--hide one-half" style="overflow:hidden;">
               <div class="site-nav--mobile">
-                <button type="button" class="icon-fallback-text site-nav__link js-drawer-open-left" aria-controls="NavDrawer">
-                  <span class="icon icon-hamburger" aria-hidden="true"></span>
+				  
+                <button type="button" id="HamButton" class="icon-fallback-text site-nav__link js-drawer-open-left" aria-controls="NavDrawer">
+                  <span id="IconHamburger" class="icon icon-hamburger" aria-hidden="true"></span>
                   <span class="fallback-text">{{ 'general.drawers.navigation' | t }}</span>
                 </button>
-              </div>
+								
+								
+								
+								<!-- LOGO for mobile -->
+	              {% comment %}
+	                Use the uploaded logo from theme settings if enabled.
+	                Site name gets precedence with H1 tag on homepage, div on other pages.
+	              {% endcomment %}
+	              {% if template == 'index' %}
+	                <h1 class="logo-mob site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
+	              {% else %}
+	                <div class="logo-mob h1 site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
+	              {% endif %}
+	                {% if settings.logo_use_image %}
+	                  {% comment %}
+	                    .logo--has-inverted is only applied to the default logo if the inverted logo exists. That way it'll only be hidden on the slider when it has a backup.
+	                  {% endcomment %}
+	                  {% assign logo_inverted_url = 'logo-inverted.png' | asset_url %}
+	                  <a href="/" itemprop="url" class="site-header__logo-link{% if settings.logo_use_inverted %} logo--has-inverted{% endif %}">
+	                    <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+	                  </a>
+	                  {% if settings.logo_use_inverted %}
+	                    <a href="/" itemprop="url" class="logo--inverted">
+	                      <img src="{{ 'logo-inverted.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+	                    </a>
+	                  {% endif %}
+	                {% else %}
+	                  <a href="/" itemprop="url">{{ shop.name }}</a>
+	                {% endif %}
+	              {% if template == 'index' %}
+	                </h1>
+	              {% else %}
+	                </div>
+	              {% endif %}
+								<!-- END LOGO for mobile -->
+								
+								
+				
+              </div>  
             </div>
-            <div class="grid__item large--one-third medium-down--one-half" style="margin: 0 auto;">
+            <div class="grid__item large--one-tenth medium-down--hide" style="margin: 0 auto;">
               {% comment %}
                 Use the uploaded logo from theme settings if enabled.
                 Site name gets precedence with H1 tag on homepage, div on other pages.
@@ -260,21 +408,21 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                 </div>
               {% endif %}
             </div>
-            <div class="grid__item large--two-thirds large--text-right medium-down--hide">
+            <div class="grid__item large--nine-tenths large--text-right medium-down--hide">
               {% comment %}
                 List out your main-menu linklist (default)
 
                 More info on linklists:
                   - http://docs.shopify.com/themes/liquid-variables/linklists
               {% endcomment %}
+              
+              
+              
+              
+              
+              
               <!-- begin site-nav -->
-              <ul class="site-nav" id="AccessibleNav">
-                <li class="site-nav__item site-nav--compress__menu">
-                  <button type="button" class="icon-fallback-text site-nav__link site-nav__link--icon js-drawer-open-left" aria-controls="NavDrawer">
-                    <span class="icon icon-hamburger" aria-hidden="true"></span>
-                    <span class="fallback-text">{{ 'general.drawers.navigation' | t }}</span>
-                  </button>
-                </li>
+              <ul class="site-nav">
                 {% for link in linklists.main-menu.links %}
                   {% comment %}
                     Create a dropdown menu by naming a linklist the same as a link in the parent nav
@@ -282,18 +430,30 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                     More info on dropdowns:
                       - http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu
                   {% endcomment %}
+                
+                {% assign curhandle = collection.handle %}
+                {% assign handleparts = curhandle | split: '-' %}
+                {% assign current_category = handleparts[0] %}
+			    {% assign currentcategory = current_category | downcase %}
+                {% assign linktitle = link.title | downcase %}
+                
                   {% assign child_list_handle = link.title | handleize %}
                   {% if linklists[child_list_handle].links != blank %}
-                    <li class="site-nav__item site-nav__expanded-item site-nav--has-dropdown{% unless template == 'index' %}{% if link.active %} site-nav--active{% endif %}{% endunless%}" aria-haspopup="true">
-                      <a href="{{ link.url }}" class="site-nav__link">
+                	
+                	{% if linktitle == currentcategory  %}
+                        {% assign curcatlink = linklists[child_list_handle].links[0].url %}
+                	{% endif %}
+                	
+                    <li class="menu-toggle site-nav__item site-nav__expanded-item site-nav--has-dropdown{% if linktitle == currentcategory  %} active-menu{% endif %}" aria-haspopup="true">
+                      <a href="{{ linklists[child_list_handle].links[0].url }}" class="{% if linktitle == currentcategory  %} link-first-collection {% endif %} site-nav__link">
                         {{ link.title }}
-                        <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                        <span class="icon icon-arrow-down"></span>
                       </a>
                       
                         {% if linklists[child_list_handle].links.size <= 11 %}
                       <ul class="site-nav__dropdown text-left new_class_nav">
                           {% for childlink in linklists[child_list_handle].links %}
-                            <li{% if childlink.active %} class="site-nav--active"{% endif %}>
+                            <li{% if childlink.active %} class="menu-toggle site-nav--active"{% endif %}>
                               <a href="{{ childlink.url }}" class="site-nav__dropdown-link">{{ childlink.title | escape }}</a>
                             </li>
                           {% endfor %}
@@ -301,7 +461,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                         {% else %}
                         <ul class="site-nav__dropdown text-left">
                         	{% for childlink in linklists[child_list_handle].links %}
-                              <li{% if childlink.active %} class="site-nav--active"{% endif %}>
+                              <li{% if childlink.active %} class="menu-toggle site-nav--active"{% endif %}>
                                 <a href="{{ childlink.url }}" class="site-nav__dropdown-link">{{ childlink.title | escape }}</a>
                               </li>
                           	{% endfor %}
@@ -310,93 +470,151 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
                       
                     </li>
                   {% else %}
-                    <li class="site-nav__item site-nav__expanded-item{% unless template == 'index' %}{% if link.active %} site-nav--active{% endif %}{% endunless%}">
+                    <li class="menu-toggle site-nav__item site-nav__expanded-item{% unless template == 'index' %}{% if link.active %} site-nav--active{% endif %}{% endunless%}">
                       <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
                     </li>
                   {% endif %}
                 {% endfor %}
-
-                {% if shop.customer_accounts_enabled %}
-                  <li class="site-nav__item site-nav__expanded-item">
-                    <a class="site-nav__link site-nav__link--icon" href="/account">
-                      <span class="icon-fallback-text">
-                        <span class="icon icon-customer" aria-hidden="true"></span>
-                        <span class="fallback-text">
-                          {% if customer %}
-                            {{ 'layout.customer.account' | t }}
-                          {% else %}
-                            {{ 'layout.customer.log_in' | t }}
-                          {% endif %}
-                        </span>
-                      </span>
-                    </a>
-                  </li>
-                {% endif %}
-
-                {% comment %}
-                  Change search_modal to false if you'd prefer the search icon
-                  to link to the search page.
-                {% endcomment %}
-
+           
+                
+                <li class="site-nav__item">
+                <form id="forma-top" style="display:none;z-index:0;margin-top: 0;max-width:183px;" action="/search" method="get" class="input-group search-bar search-bar--modal" role="search">
+                <input id="search-field" type="search" name="q" value="" placeholder="Search" class="input-group-field" aria-label="Search our store" style="width:155px;height:33px;">
+                <input type="hidden" name="type" value="product" />
+                <span class="input-group-btn" style="display:none">
+                  <button type="submit" class="btn icon-fallback-text" style="border:none !important;padding: 9px 9.35px;height:33px;">
+                    <span class="icon icon-search" aria-hidden="true"></span>
+                    <span class="fallback-text">Search</span>
+                  </button>
+                </span>
+                </form>
+                </li>
+                
+                
                 {% if settings.header_search_enable %}
                   {% assign search_modal = true %}
-                  <li class="site-nav__item" style="position:relative;">
-                    <span onclick="toggle()">
-                    <a href="#" class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal2{% endif %}" data-mfp-src="#SearchModal">
+                  <li class="site-nav__item" style="position:relative;" >
+                    <span class="search-button">
+                    <a href="javascript:toggle()" id="toggle-link" class="site-nav__link site-nav__link--icon" data-mfp-src="#SearchModal">
                       <span class="icon-fallback-text">
-                        <span class="icon icon-search" aria-hidden="true"></span>
+                        <span id="search-toggle" class="icon icon-search" aria-hidden="true"></span>
                         <span class="fallback-text">{{ 'general.search.title' | t }}</span>
                       </span>
                     </a>
                     </span>
-                     <form id="forma-top" style="display:none;position:absolute;z-index:999;right: -250%;top: 85%;margin-top: 0;max-width:183px;" action="/search" method="get" class="input-group search-bar search-bar--modal" role="search">
-  
-  <input type="search" name="q" value="" placeholder="Search" class="input-group-field" aria-label="Search our store" style="width:155px;height:33px;">
-  <span class="input-group-btn">
-    <button type="submit" class="btn icon-fallback-text" style="border:none !important;padding: 9px 9.35px;height:33px;">
-      <span class="icon icon-search" aria-hidden="true"></span>
-      <span class="fallback-text">Search</span>
-    </button>
-  </span>
-</form>
                   </li>
                
                 <script>
+                function toggle() {
+                  $('.menu-toggle').each(function() {
+                    if($(this).is(':visible'))
+                      $(this).hide();
+                    $('#forma-top').fadeIn(500);
+                    $('#search-field').focus();
+                    $('#toggle-link').css("color","#39757B");
+                    $('#toggle-link').attr('href', "javascript:submithide()");
+                  });
+                };
+                  
+                $('body').mouseup(function(evt) {
+                  if(evt.target.id == "search-toggle" || evt.target.id == "search-field")
+                  	return;
+                  $('#forma-top').hide();
+                  $('.menu-toggle').each(function() {
+                    $(this).show();
+                  });
+                  $('#toggle-link').css("color","white");
+                  $('#toggle-link').attr('href', "javascript:toggle()");
+                });
+                  
+                  function submithide() {
+                  	
+                    console.log("submitto");
+                    if($('#search-field').val()) {
+                    	$('#forma-top').submit();     
+                    }
+                    else {  
+                      $('#forma-top').hide();
+                      $('.menu-toggle').each(function() {
+                      	$(this).show();
+                      });
+                      $('#toggle-link').attr('href', "javascript:toggle()");
+                      $('#toggle-link').css("color","white");
+                      $('#toggle-link').attr('href', "javascript:toggle()");
+                  	}
+                  };
+     			</script>
+                {% endif %}
                 
-function toggle(){
-var form = document.getElementById('forma-top');
- 
-form.style.display = form.style.display == 'inline-table' ? 'none' : 'inline-table';
-form.value = '';
-}
-    $(document).mouseup(function (e) {
-    var container = $("#forma-top");
-    if (container.has(e.target).length === 0){
-        container.hide();
-    }
-});
-                </script>
+                
+                
+
+                {% if shop.customer_accounts_enabled %}
+                  <li class="site-nav__item">
+                    {% if customer %}
+                    <a class="site-nav__link site-nav__link--icon" href="/account">
+                      <span class="icon-fallback-text">
+                        <span class="icon icon-customer"></span>
+                        <span class="fallback-text">
+                            {{ 'layout.customer.account' | t }}
+                          </span>
+                      </span>
+                    </a>
+                    {% else %}
+                    <span class='sign-in'>
+                    	<a class="sign-in-link site-nav__link site-nav__link--icon" href="/account">Sign In</a>
+                    </span>
+                    {% endif %}
+                  </li>
                 {% endif %}
 
-                <li class="site-nav__item">
+              
+				
+				<li class="site-nav__item">
                   <a href="/cart" class="site-nav__link site-nav__link--icon cart-link js-drawer-open-right" aria-controls="CartDrawer">
-                    <span class="icon-fallback-text">
-                      <span class="icon icon-cart" aria-hidden="true"></span>
-                      <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
-                    </span>
-                    <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
+                    <span class="icon icon-cart" aria-hidden="true"></span>
+	                {% if cart.total_price > 0 %}
+                    <span class="cart-total"> {{ cart.total_price | money }} </span>
+                    {% else %}
+                    <span class="cart-total" style="display:none"> {{ cart.total_price | money }} </span>
+                    {% endif %}
                   </a>
                 </li>
 
               </ul>
               <!-- //site-nav -->
             </div>
-            <div class="grid__item large--hide one-quarter" style=" margin-right: 20px;">
+            <div class="grid__item large--hide one-half" style=" margin-right: 20px;">
               <div class="site-nav--mobile text-right" >
-             
+                
+                <a href="javascript:searchPopupToggle()" class="site-nav__link search-popup-link js-drawer-open-right">
+                  <span class="icon-fallback-text">
+                    <span id="search-popup-toggle" class="icon icon-search search-link-mob" aria-hidden="true"></span>
+                    <span class="fallback-text">Search</span>
+                  </span>
+                </a>
+                <script>
+									function searchPopupToggle() {
+										if($('.search-popup').is(':visible'))
+					                		$('.search-popup').hide();
+										else {
+											$('.search-popup').slideDown(200);
+											$('#search-popup-field').focus();
+										}
+									};
+								</script>
+								
+								
+                <a href="/account" class="site-nav__link user-link js-drawer-open-right">
+                  <span class="icon-fallback-text">
+                    <span class="icon icon-customer user-link-mob" aria-hidden="true"></span>
+                    <span class="fallback-text">User Account</span>
+                  </span>
+                </a>
+				
                 <a href="/cart" class="site-nav__link cart-link js-drawer-open-right" aria-controls="CartDrawer">
                   <span class="icon-fallback-text">
-                    <span class="icon icon-cart" aria-hidden="true"></span>
+                    <span class="icon icon-cart cart-link-mob" aria-hidden="true"></span>
                     <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
                   </span>
                   <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
@@ -418,16 +636,26 @@ form.value = '';
 
         </div>
       </header>
+	  <div class="search-popup{%if template == 'index' %} search-popup-index{%endif%}">
+          <form id="search-popup-form" action="/search" method="get" role="search">
+            <input id="search-popup-field" type="search" name="q" value="" placeholder="Search" class="input-group-field" aria-label="Search our store">
+            <input type="hidden" name="type" value="product" />
+			<button type="submit" class="search-popup-btn icon-fallback-text">
+			  <span id="search-popup-button" class="icon icon-search" aria-hidden="true"></span>
+			  <span class="fallback-text">Search</span>
+			</button>
+          </form>
+	  </div>
     </div>
 
-    <main class="main-content" role="main">
+    <main class="main-content{% if template == 'index' %} index-bg{% endif %}" role="main">
       <div class="wrapper" >
         {{ content_for_layout }}
       </div>
     </main>
 
     {% if settings.footer_newsletter_enable %}
-      <div class="newsletter" style="margin-top:30px;padding:30px 0;">
+      <div class="newsletter">
         <div class="wrapper" style="text-align: center;">
           {% comment %}
 
@@ -444,13 +672,15 @@ form.value = '';
             <form  action="{{ form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
               <label for="Email" class="newsletter__label hidden-label">{{ 'general.newsletter_form.newsletter_email' | t }}</label>
               <div class="newsletter--form" style="padding:0;background-color:#f6f6f6;">
-                <div class="input-group" style="width:100%;">
+				<div class="newsletter-title">Sign up to our Newsletter:</div>
+                <div class="input-group" style="width:100%; display:inline-flex;">
                   <input type="email" style="background-color: #f5f5ed;" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="Email" class="input-group-field newsletter__input" autocorrect="off" autocapitalize="off">
                   <span class="input-group-btn2" style="">
                     <button type="submit" class="btn newsletter__submit" name="subscribe" id="Subscribe" style="">
                       <span class="newsletter__submit-text--large">{{ 'general.newsletter_form.submit' | t }}</span>
                       <span class="newsletter__submit-text--small">
-                        <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                        <!-- <span class="icon icon-arrow-right" aria-hidden="true"></span> -->
+												Sign&nbsp;Up
                       </span>
                     </button>
                   </span>
@@ -491,6 +721,79 @@ form.value = '';
     <hr class="hr--large" style="margin: 40px auto;">
     <footer class="site-footer small--text-center" role="contentinfo">
       <div class="wrapper">
+        
+        
+           <!-- socials for mobile -->
+        <div class="grid-uniform socials-mob">
+          	<div class="grid__item medium--hide large--hide small--one-whole">
+                <ul class="inline-list social-icons">
+                  {% if settings.social_facebook_link != blank %}
+                    <li>
+                      <a href="{{ settings.social_facebook_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+                        <span class="icon icon-facebook" aria-hidden="true"></span>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if settings.social_twitter_link != blank %}
+                    <li>
+                      <a href="{{ settings.social_twitter_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+                        <span class="icon icon-twitter" aria-hidden="true"></span>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if settings.social_pinterest_link != blank %}
+                    <li>
+                      <a href="{{ settings.social_pinterest_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
+                        <span class="icon icon-pinterest" aria-hidden="true"></span>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if settings.social_instagram_link != blank %}
+                    <li>
+                      <a href="{{ settings.social_instagram_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+                        <span class="icon icon-instagram" aria-hidden="true"></span>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if settings.social_google_plus_link != blank %}
+                    <li>
+                      <a href="{{ settings.social_google_plus_link }}" rel="publisher" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Google Plus' }}">
+                        <span class="icon icon-google_plus" aria-hidden="true"></span>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if settings.social_tumblr_link != blank %}
+                    <li>
+                      <a href="{{ settings.social_tumblr_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
+                        <span class="icon icon-tumblr" aria-hidden="true"></span>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if settings.social_youtube_link != blank %}
+                    <li>
+                      <a href="{{ settings.social_youtube_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}">
+                        <span class="icon icon-youtube" aria-hidden="true"></span>
+                        YouTube
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if settings.social_vimeo_link != blank %}
+                    <li>
+                      <a href="{{ settings.social_vimeo_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Vimeo' }}">
+                        <span class="icon icon-vimeo" aria-hidden="true"></span>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if settings.social_fancy_link != blank %}
+                    <li>
+                      <a href="{{ settings.social_fancy_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Fancy' }}">
+                        <span class="icon icon-fancy" aria-hidden="true"></span>
+                      </a>
+                    </li>
+                  {% endif %}
+                </ul>
+            </div>
+        </div>
 
         <div class="grid-uniform">
 
@@ -586,7 +889,7 @@ form.value = '';
           {% endif %}
 
           {% if footer_social_enable %}
-            <div class="grid__item {{ footer_column_width }}">
+            <div class="grid__item large--one-quarter medium--one-half small--hide">
                 <ul class="no-bullets social-icons">
                   {% if settings.social_facebook_link != blank %}
                     <li>
@@ -661,33 +964,51 @@ form.value = '';
                     </li>
                   {% endif %}
                 </ul>
-            </div>
+            </div>    
           {% endif %}
 
           <div class="grid__item {{ footer_column_width }} {% if num_footer_columns == 1 %}text-center{% else %}large--text-right{% endif %}">
-            <p>&copy; {{ 'now' | date: '%Y' }} Zorket<br></p>
-            {% unless shop.enabled_payment_types == empty %}
-              {% assign payment_icons_available = 'amazon_payments,american_express,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,jcb,litecoin,maestro,master,paypal,visa' | split: ',' %}
-              <ul class="inline-list payment-icons">
-                {% for type in shop.enabled_payment_types %}
-                  {% if payment_icons_available contains type %}
-                    <li>
-                      <span class="icon-fallback-text">
-                        <span class="icon icon-{{ type }}" aria-hidden="true"></span>
-                        <span class="fallback-text">{{ type | replace: '_',' ' }}</span>
-                      </span>
-                    </li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-            {% endunless %}
+            <p class="foot-copyright">&copy; {{ 'now' | date: '%Y' }} <span class="footer-logo">zorket</span></p>
+             {% comment %}
+						  <p class="foot-gateway">
+                <i class="pw pw-paypal"></i>
+                <i>{{ 'skrill-logo-footer.svg' | asset_url | img_tag: 'Skrill', 'foot-skrill' }}</i>
+              </p>
+							{% endcomment %}
+			  			<p class="footerpayment">
+								<i class="pw pw-paypal"></i>
+                <i class="pw pw-visa"></i>
+                <i class="pw pw-mastercard"></i>
+                <i class="pw pw-american-express"></i>
+                {% comment %}<i class="pw pw-discover"></i>{% endcomment %}
+              </p>
+			  <p class="foot-crypto">
+				 {{ 'bwi-eth.png' | asset_url | img_tag: 'Ethereum', 'cr-foot-icon' }}
+				 {{ 'bwi-btc.png' | asset_url | img_tag: 'Bitcoin', 'cr-foot-icon' }}
+				 {{ 'bwi-dash.png' | asset_url | img_tag: 'Dash', 'cr-foot-icon' }}
+				 {{ 'bwi-ltc.png' | asset_url | img_tag: 'Litecoin', 'cr-foot-icon' }}
+				 {{ 'bwi-xrp.png' | asset_url | img_tag: 'Ripple', 'cr-foot-icon' }} 
+			  </p>
           </div>
         </div>
+        
+        
+        
+        
+        
+       
+        
 
       </div>
     </footer>
 
   </div>
+
+
+	<i class="fas fa-chevron-circle-up" id="go-top"></i>
+	<script>
+		$('#go-top').goTop({scrollTop: 500});
+	</script>
 
 
   {{ 'theme.js' | asset_url | script_tag }}
@@ -708,20 +1029,10 @@ form.value = '';
     Documentation:
       - http://shopify.com/timber#ajax-cart
   {% endcomment %}
+
   {% if settings.cart_type == 'drawer' %}
     {% include 'ajax-cart-template' %}
     {{ 'ajax-cart.js' | asset_url | script_tag }}
-    <script>
-      jQuery(function($) {
-        ajaxCart.init({
-          formSelector: '#AddToCartForm',
-          cartContainer: '#CartContainer',
-          addToCartSelector: '#AddToCart',
-          enableQtySelectors: true,
-          moneyFormat: {{ shop.money_format | json }}
-        });
-      });
-    </script>
   {% endif %}
 
   {% if settings.header_search_enable and search_modal %}
@@ -729,10 +1040,32 @@ form.value = '';
       {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--modal' %}
     </div>
   {% endif %}
-
-  {% include 'buddha-megamenu' %}
+ 
+  <script>
+    jQuery(function() {
+        CartJS.init({{ cart | json }}, {
+            "dataAPI": true,
+            "requestBodyClass": null,
+            "debug": true
+        });
+      console.log("Ajax Cart by CartJS");
+    });
+  </script>
   
+  
+  
+  {% if template contains 'product' %}
+
+  <script>
+  Shopify.Products.recordRecentlyViewed();
+  </script>
+
+  {% endif %}
+  
+  
+  {{ 'fotorama.js' | asset_url | script_tag }}
   {{ 'zorket.js' | asset_url | script_tag }}
 
-</body>
 </html>
+
+

@@ -1,0 +1,12 @@
+<h1>All Products</h1>
+
+
+<ol>
+{% paginate collections.all.products by 1001 %}
+{% for product in collections.all.products %}
+
+<li>{{ product.title | link_to: product.url }} — {{ product.vendor }} </li>
+
+{% endfor %}
+{% endpaginate %}
+</ol>

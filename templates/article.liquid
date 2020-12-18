@@ -9,11 +9,11 @@
   <article class="grid__item large--five-sixths push--large--one-twelfth article" itemscope itemtype="http://schema.org/Article">
 
     <header class="section-header text-center">
-      <h1>{{ article.title }}</h1>
-      <hr class="hr--small">
+      <h1 class="blog-article-header">{{ article.title }}</h1>
+      <!-- <hr class="hr--small">
       <p>
         <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time></span>
-      </p>
+      </p> -->
       <!-- Facebook Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -41,10 +41,13 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
         <ul class="tags tags--article inline-list">
           {% include 'tags-article' %}
         </ul>
-
+ 			 {% comment %}
         {% if settings.social_sharing_blog %}
           {% include 'social-sharing' %}
         {% endif %}
+			{% endcomment %}
+			
+			<br><br><br>
 
         {% if blog.comments_enabled? %}
 

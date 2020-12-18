@@ -5,8 +5,9 @@
 {% paginate collection.products by 24 %}
 
 <header class="section-header text-center" style="margin-bottom:-20px;">
-  <h1>{{ collection.title }}</h1>
-  <hr class="hr--small">
+
+
+  
   {% if collection.description != blank %}
     <div class="grid">
       <div class="grid__item">
@@ -18,20 +19,308 @@
   {% endif %}
 {% if settings.collection_products_grid != 'collage' %}
   <style>
-  .grid-product__image-wrapper{height:220px !important;}
-</style>
+  .grid-product__image-wrapper { height: 220px; }
+	.grid__item {	padding-left: 10px; }
+  </style>
 <script>
  $(window).load(function(){
-$('.grid-product__image-wrapper').height(220);
+		$('.grid-product__image-wrapper').height(220);
   });
 </script>
 {% endif %}
+  
+
+
+
+
+  
+
+  
+
   {% if settings.collection_tags_enable %}
+    <hr class="hr--small hr--clear">
+  {% endif %}
+</header>
+
+
+{% comment %}
+<div class="grid-uniform">
+  {% assign grid_item_width = 'medium--one-half large--one-third' %}
+  {% for product in collection.products %}
+    {% include 'product-grid-item' %}
+  {% else %}
+    {% if collection.handle == 'all' %}
+      {% comment %}
+        Add default products to help with onboarding for collections/all only
+      {% endcomment %}
+      {% unless emptyState %}
+        {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+        {% assign emptyState = true %}
+      {% endunless %}
+
+      {% include 'onboarding-empty-collection' %}
+
+    {% else %}
+
+      {% comment %}
+        If collection exists but is empty, display message
+      {% endcomment %}
+      <div class="grid__item text-center">
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      </div>
+
+    {% endif %}
+  {% endfor %}
+</div>
+{% endcomment %}
+
+{% assign curhandle = collection.handle %}
+{% assign handleparts = curhandle | split: '-' %}
+{% assign current_category = handleparts[0] %}
+{% assign current_category_2 = handleparts[1] %}
+{% assign currentcategory = current_category | downcase %}
+{% assign currentcategory2 = current_category_2 | downcase %}
+
+<div class="grid collection-grid">
+  
+  <div class="grid__item {% if currentcategory != 'shoe' and currentcategory != 'spring' and currentcategory != 'bestsellers' and currentcategory != 'new' and currentcategory != 'sales' and currentcategory != 'winter' and currentcategory != 'featured' and currentcategory != 'summer' and currentcategory != 'autumn'  %} large--one-fifth collection-links {% endif %} small--hide medium--hide">
+    <h1 class="category-title" {% if currentcategory == 'shoe' or currentcategory == 'spring' or currentcategory == 'bestsellers' or currentcategory == 'new' or currentcategory == 'sales' or currentcategory == 'winter' or currentcategory == 'featured' or currentcategory == 'summer' or currentcategory == 'autumn' or currentcategory == 't' %} style="margin-bottom: -40px;" {% endif %} >{{ currentcategory }}</h1> 
+  	<ul class='left-cat' style="list-style-type: none; margin: 0px; {% if currentcategory == 'shoe' %} display: none; {% endif %}">                  	
+    {% for link in linklists.main-menu.links %}
+      {% assign linktitle = link.title | downcase %}
+      {% if linktitle == currentcategory %}
+        {% assign child_list_handle = link.title | handleize %}
+        {% if linklists[child_list_handle].links != blank %}
+            {% for childlink in linklists[child_list_handle].links %}
+              <li class="col-menu-item {% unless template == 'index' %}{% if childlink.active %} active-collection {% endif %}{% endunless %}">
+                <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+				
+				
+				
+				
+				
+				{% if childlink.active %}
+			    {% if currentcategory != "spring" and currentcategory != "bestsellers" and currentcategory != "new" and currentcategory != "sales" and currentcategory != "winter" and currentcategory != "featured" and currentcategory != "summer" and currentcategory != "autumn" and currentcategory != "t" and currentcategory != "shoe" %}
+			    {% if settings.collection_tags_enable %}
+			    {% if collection.all_tags.size > 0 %}
+			      {% comment %}
+			        To provide a 'catch-all' link at the top of the list,
+			        check against the collection.handle, product type, and vendor.
+			      {% endcomment %}
+    
+			      <ul class="submenu-list">
+			        <li class="submenu-item submenu-item-all {% unless current_tags %} submenu--active{% endunless %}">
+			          {% comment %}
+			            Good for /collections/all collection and regular collections
+			          {% endcomment %}
+			          {% if collection.handle %}
+			            <a href="/collections/{{ collection.handle }}">
+			              {{ 'collections.general.all_of_collection' | t }}
+			            </a>
+
+			          {% comment %}
+			            Good for automatic type collections
+			          {% endcomment %}
+			          {% elsif collection.current_type %}
+			            <a href="{{ collection.current_type | url_for_type }}">
+			              {{ 'collections.general.all_of_collection' | t }}
+			            </a>
+
+			          {% comment %}
+			            Good for automatic vendor collections
+			          {% endcomment %}
+			          {% elsif collection.current_vendor %}
+			            <a href="{{ collection.current_vendor | url_for_vendor }}">
+			              {{ 'collections.general.all_of_collection' | t }}
+			            </a>
+			          {% endif %}
+			        </li>
+
+			        {% for tag in collection.all_tags %}
+			          {% if current_tags contains tag %}
+			            <li class="submenu-item submenu--active">
+			              {{ tag | link_to_remove_tag: tag }}
+			            </li>
+			          {% else %}
+			            <li class="submenu-item">
+			              {% comment %}
+			                Use link_to_add_tag if you want to allow filtering
+			                by multiple tags
+			              {% endcomment %}
+			              {{ tag | link_to_tag: tag }}
+			            </li>
+			          {% endif %}
+			        {% endfor %}
+			      </ul>
+			    {% endif %}
+			    {% endif %}
+			    {% endif %}
+				{% endif %}
+				
+				
+				
+				
+              </li>
+			  
+			  
+			  
+			  
+			  
+			  
+            {% endfor %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    </ul>
+  </div>
+  
+  <div class="grid__item {% if currentcategory == 'spring' or currentcategory == 'bestsellers' or currentcategory == 'new' or currentcategory == 'sales' or currentcategory == 'winter' or currentcategory == 'featured' or currentcategory == 'summer' or currentcategory == 'autumn' or currentcategory == 't' or currentcategory == 'shoe' %} large--one-whole {% else %} large--four-fifths {% endif %} medium--one-whole small--one-whole">  
+    <div class="grid-uniform">
+      <div class="grid__item large--two-quarters left-title">
+        <h1 class="collection_title" {% if currentcategory == 'spring' or currentcategory == 'bestsellers' or currentcategory == 'new' or currentcategory == 'sales' or currentcategory == 'winter' or currentcategory == 'featured' or currentcategory == 'summer' or currentcategory == 'autumn' or currentcategory == 't' or currentcategory == 'shoe' %} style="left: 116px;" {% endif %} >{{ collection.title }}</h1>
+			</div>
+			
+			<div class="mob-categoty-title medium--hide large--hide small--hide" {% if currentcategory == 'accessories' %} style="font-size: 60px;" {% endif %} >{{ currentcategory }}</div>
+      <div class="grid__item sorting large--two-quarters small--hide medium--hide">
+				<strong>Sorting:</strong>
+				<a class="sorting-item" value="created-descending" href="javascript:void(0);">New</a>&nbsp;|
+				<a class="sorting-item" value="price-ascending" href="javascript:void(0);">Low&nbsp;Price</a>&nbsp;|
+				<a class="sorting-item" value="price-descending" href="javascript:void(0);">High&nbsp;Price</a>
+      </div>
+    </div>
+		
+    
+    
+    {% comment %}
+	    Man/Woman Select
+    {% endcomment %}
+		
+		{% if currentcategory == "sales" or currentcategory == "winter" or currentcategory == "summer"
+			 or currentcategory == "autumn" or currentcategory == "spring" or currentcategory == "t" or currentcategory == "shoe" %}
+			 
+			 <style>
+				 .sorting {
+					 position: relative;
+					 top: 50px;
+				 }
+			 </style>
+			 
+		{% endif %}	 
+    
+    {% if currentcategory == "sales" %}
+    <div class="sales-select" style=" text-align: left;">
+    <ul class="sales-tags inline-list">
+      <li{% if currentcategory2 == "womens" %} class="tag--active"{% endif %}>
+        <a href="/collections/sales-womens">Women's</a>
+  	  </li>
+      <li{% if currentcategory2 == "mens" %} class="tag--active"{% endif %}>
+        <a href="/collections/sales-mens">Men's</a>
+  	  </li>
+    </ul>
+    </div>
+    {% endif %}
+    
+    {% if currentcategory == "winter" %}
+    <div class="sales-select" style=" text-align: left;">
+    <ul class="sales-tags tags--collection inline-list">
+      <li{% if currentcategory2 == "womens" %} class="tag--active"{% endif %}>
+        <a href="/collections/winter-womens">Women's</a>
+  	  </li>
+      <li{% if currentcategory2 == "mens" %} class="tag--active"{% endif %}>
+        <a href="/collections/winter-mens">Men's</a>
+  	  </li>
+    </ul>
+    </div>
+    {% endif %}
+		
+    {% if currentcategory == "summer" %}
+    <div class="sales-select" style=" text-align: left;">
+    <ul class="sales-tags tags--collection inline-list">
+      <li{% if currentcategory2 == "womens" %} class="tag--active"{% endif %}>
+        <a href="/collections/summer-womens">Women's</a>
+  	  </li>
+      <li{% if currentcategory2 == "mens" %} class="tag--active"{% endif %}>
+        <a href="/collections/summer-mens">Men's</a>
+  	  </li>
+    </ul>
+    </div>
+    {% endif %}
+		
+    {% if currentcategory == "autumn" %}
+    <div class="sales-select" style=" text-align: left;">
+    <ul class="sales-tags tags--collection inline-list">
+      <li{% if currentcategory2 == "womens" %} class="tag--active"{% endif %}>
+        {% if collection.handle == "autumn-coats-jackets" %}
+          <a href="/collections/women-coats-jackets-and-vests">Women's</a>
+        {% else %}
+          <a href="/collections/autumn-womens">Women's</a>
+        {% endif %}
+  	  </li>
+      <li{% if currentcategory2 == "mens" %} class="tag--active"{% endif %}>
+      {% if collection.handle == "autumn-coats-jackets" %}
+        <a href="/collections/men-coats-jackets">Men's</a>
+      {% else %}
+        <a href="/collections/autumn-mens">Men's</a>
+      {% endif %}
+  	  </li>
+    </ul>
+    </div>
+    {% endif %}
+		
+    {% if currentcategory == "spring" %}
+    <div class="sales-select" style=" text-align: left;">
+    <ul class="sales-tags tags--collection inline-list">
+      <li{% if currentcategory2 == "womens" %} class="tag--active"{% endif %}>
+        <a href="/collections/spring-womens">Women's</a>
+  	  </li>
+      <li{% if currentcategory2 == "mens" %} class="tag--active"{% endif %}>
+        <a href="/collections/spring-mens">Men's</a>
+  	  </li>
+    </ul>
+    </div>
+    {% endif %}
+	
+    {% if currentcategory == "shoe" %}
+    <div class="sales-select" style=" text-align: left;">
+    <ul class="sales-tags tags--collection inline-list">
+      <li{% if currentcategory2 == "womens" %} class="tag--active"{% endif %}>
+        <a href="/collections/shoes-womens-shoes">Women's</a>
+  	  </li>
+      <li{% if currentcategory2 == "mens" %} class="tag--active"{% endif %}>
+        <a href="/collections/shoes-mens">Men's</a>
+  	  </li>
+    </ul>
+    </div>
+    <script>
+      $('.category-title').html('<nobr>Shoes</nobr>');
+    </script>
+    {% endif %}
+    
+    {% if currentcategory == "t" %}
+    <div class="sales-select" style=" text-align: left;">
+    <ul class="sales-tags tags--collection inline-list">
+      <li{% if currentcategory2 == "womens" %} class="tag--active"{% endif %}>
+        <a href="/collections/women-t-shirts">Women's</a>
+  	  </li>
+      <li{% if currentcategory2 == "mens" %} class="tag--active"{% endif %}>
+        <a href="/collections/men-tops-and-tees/t-shirts">Men's</a>
+  	  </li>
+    </ul>
+    </div>
+    <script>
+      $('.category-title').html('<nobr>T-Shirts</nobr>');
+    </script>
+    {% endif %}
+    
+    
+    {% if currentcategory != "spring" and currentcategory != "bestsellers" and currentcategory != "new" and currentcategory != "sales" and currentcategory != "winter" and currentcategory != "featured" and currentcategory != "summer" and currentcategory != "autumn" and currentcategory != "t" and currentcategory != "shoe" %}
+    {% if settings.collection_tags_enable %}
     {% if collection.all_tags.size > 0 %}
       {% comment %}
         To provide a 'catch-all' link at the top of the list,
         check against the collection.handle, product type, and vendor.
       {% endcomment %}
+    
       <ul class="tags tags--collection inline-list">
         <li{% unless current_tags %} class="tag--active"{% endunless %}>
           {% comment %}
@@ -77,91 +366,158 @@ $('.grid-product__image-wrapper').height(220);
         {% endfor %}
       </ul>
     {% endif %}
-  {% endif %}
+    {% endif %}
+    {% endif %}
 
-  {% if settings.collection_tags_enable %}
-    <hr class="hr--small hr--clear">
-  {% endif %}
-</header>
-
-{% if settings.collection_products_grid == 'collage' %}
-  <div class="grid grid-collage">
-    {% comment %}
-      Loop through our products in the current collection.
-      See the snippet 'snippets/product-grid-collage.liquid'.
-
-      `is_reverse_row__product`, `three_row_index__product`, `collection_product_count`, and `divisible_by_three__product` are
-      all used by 'snippets/product-grid-collage.liquid'
-    {% endcomment %}
-    {% assign is_reverse_row__product = false %}
-    {% assign three_row_index__product = 0 %}
-    {% assign collection_product_count__product = collection.products.size %}
-    {% assign divisible_by_three__product = collection_product_count__product | modulo:3 %}
-    {% for product in collection.products %}
-      {% include 'product-grid-collage' %}
-    {% else %}
-
-      {% if shop.products_count == 0 %}
-
-        {% comment %}
-          Add default products to help with onboarding for collections/all only
-        {% endcomment %}
-        {% unless emptyState %}
-          {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
-          {% assign emptyState = true %}
-        {% endunless %}
-
-        {% include 'onboarding-empty-collection' %}
-
-      {% else %}
-
-        {% comment %}
-          If collection exists but is empty, display message
-        {% endcomment %}
-        <div class="grid__item text-center">
-          <p>{{ 'collections.general.no_matches' | t }}</p>
-        </div>
-
-      {% endif %}
-
-    {% endfor %}
-
+    
+		<div class='sorting small--one-whole large--hide'>
+			<strong>Sorting:</strong>
+			<a class="sorting-item" value="created-descending" href="javascript:void(0);">New</a>&nbsp;|
+			<a class="sorting-item" value="price-ascending" href="javascript:void(0);">Low&nbsp;Price</a>&nbsp;|
+			<a class="sorting-item" value="price-descending" href="javascript:void(0);">High&nbsp;Price</a>
+			
+		</div>
+		
+    
+    <div class="grid-uniform EndlessClick">
+		
+		{% for product in collection.products %}
+		  {% if template == 'collection.list' %}
+			{% include 'product-list-item' %}
+		  {% else %}
+		  	{% include 'product-grid-item' %}
+		  {% endif %}
+		{% endfor %}
+						
+    </div>	
   </div>
-{% elsif settings.collection_products_grid == 'grid' %}
-  <div class="grid-uniform">
-    {% assign grid_item_width = 'medium--one-half large--one-third' %}
-    {% for product in collection.products %}
-      {% include 'product-grid-item' %}
-    {% else %}
-      {% if collection.handle == 'all' %}
-        {% comment %}
-          Add default products to help with onboarding for collections/all only
-        {% endcomment %}
-        {% unless emptyState %}
-          {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
-          {% assign emptyState = true %}
-        {% endunless %}
+</div>
 
-        {% include 'onboarding-empty-collection' %}
 
-      {% else %}
 
-        {% comment %}
-          If collection exists but is empty, display message
-        {% endcomment %}
-        <div class="grid__item text-center">
-          <p>{{ 'collections.general.no_matches' | t }}</p>
-        </div>
-
-      {% endif %}
-    {% endfor %}
-  </div>
-{% endif %}
-
+<!-- Pagination and reopen wrapper-->
+</div>
 {% if paginate.pages > 1 %}
-  <div class="pagination">
+<div class="grid pagination-grid">
+  <div class="grid__item {% if currentcategory != 'spring' and currentcategory != 'bestsellers' and currentcategory != 'new' and currentcategory != 'sales' and currentcategory != 'winter' and currentcategory != 'featured' and currentcategory != 'summer' and currentcategory != 'autumn' and currentcategory != 't' and currentcategory != 'shoe' %} large--one-fifth {% endif %}  small--hide medium--hide">&nbsp;</div>
+  <div class="grid__item {% if currentcategory == 'spring' or currentcategory == 'bestsellers' or currentcategory == 'new' or currentcategory == 'sales' or currentcategory == 'winter' or currentcategory == 'featured' or currentcategory == 'summer' or currentcategory == 'autumn' or currentcategory == 't' or currentcategory == 'shoe' %} large--one-whole {% else %} large--four-fifths {% endif %} medium--one-whole small--one-whole pagination">
     {{ paginate | default_pagination | replace: '&laquo; Previous', '<span class="icon icon-arrow-left" aria-hidden="true"></span>' | replace: 'Next &raquo;', '<span class="icon icon-arrow-right" aria-hidden="true"></span>' }}
   </div>
+</div>
 {% endif %}
+<div class="wrapper">
+<!-- End Best Sellers and reopened wrapper-->
 
 {% endpaginate %}
+
+
+<!-- Best Sellers and reopen wrapper-->
+</div>
+<div class="rec-box-divider white-bg">&nbsp;</div>
+<div id="RecBestsellers" class="rec-wrapper">
+	<div class="rec-head-wrap">
+		<span class="new-arrivals">Best Sellers</span>
+		<div class="view-more-mob">
+		    <a href="/collections/bestsellers" class="vm-mob-link-light">view more <strong>⟩</strong></a>
+		</div>
+	</div>
+	<div class="scrollyeah new-arr-home">
+	  {% assign counter = 0 %}
+	  {% assign products = collections.bestsellers.products %}
+	  {% for product in products %}
+	    {% if counter < 100 and product.available %}
+	      {% include 'rec-float-item' with product %}
+	      {% assign counter = counter | plus: 1 %}
+	    {% endif %}
+	  {% endfor %}
+	</div>
+	<script>
+		$('#RecBestsellers').find('.float-item').pick(20);
+		var parent = $('#RecBestsellers').find('.float-item').parent();
+		var divs = parent.children();
+		while (divs.length) {
+			parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+		};
+		
+		// $(document).ready(function(){
+// 		  ajaxify({
+//     		fade: 'normal',
+// 				textChange: 'Loading...'
+//     	});
+// 		});
+		
+		
+	</script>
+	<div class="scrollyeah-left">
+		<a href="javascript:void(0);" class="scrollyeah-left-link"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+	</div>
+	<div class="view-more-arr view-more">
+	    <a href="/collections/bestsellers" class="link-button">View more</a>
+	</div>
+	<div class="scrollyeah-right">
+		<a href="javascript:void(0);" class="scrollyeah-right-link"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+	</div>
+</div>
+<div class="wrapper">
+<!-- End Best Sellers and reopened wrapper-->
+	
+<!-- scroll script for recommendation boxes -->
+{{ 'scrollyeah-scroll-btns.js' | asset_url | script_tag }}
+
+
+<!-- Recents and reopened wrapper -->
+</div>
+<div class="rec-wrapper recents-wrap white-bg">
+<div class="rec-box-divider white-bg">&nbsp;</div>	
+<h1 class="new-arrivals">Recently Viewed Products</h1>
+{% include 'recently-viewed' %}
+</div>
+<div class="wrapper">
+<!-- End Recents and reopened wrapper -->
+
+
+
+<script>
+Shopify.queryParams = {};
+if (location.search.length) {
+  for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+    aKeyValue = aCouples[i].split('=');
+    if (aKeyValue.length > 1) {
+      Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+    }
+  }
+}
+
+jQuery('#sort-by')
+  .val('{{ collection.sort_by | default: collection.default_sort_by | escape }}')
+  .bind('change', function() {
+    Shopify.queryParams.sort_by = jQuery(this).val();
+    location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+  });
+
+$('.sorting-item').click(function() {
+  Shopify.queryParams.sort_by = jQuery(this).attr('value');
+	console.log(Shopify.queryParams.sort_by);
+  location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+});
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+var sortParam = getUrlParameter('sort_by');
+$('a[value=' + sortParam +']').css('font-weight', 'bold').css('color', '#444');
+console.log(sortParam);
+
+</script>	

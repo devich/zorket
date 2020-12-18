@@ -1,0 +1,23 @@
+<div id="recently-viewed-products" class="collection clearfix" style="display:none">
+</div>
+{% raw %}
+<script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
+<div id="product-${handle}" class="product">
+  <div class="image">
+    <a href="${url}">
+      <img src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
+    </a>
+  </div>
+  <div class="details">
+    <a href="${url}">
+      <span class="title">${title}</span>
+      <span class="price">{{if price_varies}}From {{/if}}${Shopify.formatMoney(price)}</span>
+    </a>
+  </div>
+</div>
+</script>
+{% endraw %}
+
+<script>
+Shopify.Products.showRecentlyViewed( { howManyToShow: 20 } );
+</script>
