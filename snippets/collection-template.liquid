@@ -201,6 +201,19 @@
 			 
 		{% endif %}	 
     
+    {% if currentcategory == "new" %}
+    <div class="sales-select" style=" text-align: left;">
+    <ul class="sales-tags inline-list">
+      <li{% if currentcategory2 == "womens" %} class="tag--active"{% endif %}>
+        <a href="/collections/new-womens">Women's</a>
+  	  </li>
+      <li{% if currentcategory2 == "mens" %} class="tag--active"{% endif %}>
+        <a href="/collections/new-mens">Men's</a>
+  	  </li>
+    </ul>
+    </div>
+    {% endif %}
+
     {% if currentcategory == "sales" %}
     <div class="sales-select" style=" text-align: left;">
     <ul class="sales-tags inline-list">
