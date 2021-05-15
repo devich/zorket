@@ -17,3 +17,8 @@ if(getUrlParameter('msg')) {
 	var value = 'Question about product #' + getUrlParameter('id') + '\n' + 'https://zorket.com/products/' + getUrlParameter('handle') + '\n' + getUrlParameter('msg') + '\n';
 	$('textarea#ContactFormMessage').val(value);	
 }
+
+if(getUrlParameter('cryptoerr')) {
+	var value = 'Error recieving cryptocurrency exchange rates' + '\n';
+	$('textarea#ContactFormMessage').val(value);	
+}

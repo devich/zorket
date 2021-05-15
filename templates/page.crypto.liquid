@@ -4,22 +4,6 @@
 
     <header class="section-header text-center page-header" style="display: none;">
       
-      <!-- Facebook Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '709796692516135');
-fbq('track', 'PageView');
-fbq('track', 'ViewContent');  
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
-/></noscript>
-<!-- DO NOT MODIFY -->
-<!-- End Facebook Pixel Code -->
     </header>
 
     <div class="grid">
@@ -27,6 +11,13 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
         <h1 class="page-h1">{{ page.title }}</h1>
         <div class="rte--nomargin rte--indented-images crypto-checkout">
           {{ page.content }}
+
+
+					{% if cart.total_price == 0 %}
+						<div>
+							Your cart is empty. Add some products to your cart and then return to checkout.<br><br><br>
+						</div>
+					{% endif %}
 		  
 
 	        <div class="crypto-cart-labels cart__row medium-down--hide cart__header-labels">
@@ -64,7 +55,7 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 
 	                  <div class="grid__item two-thirds">
 	                    <p class="crypto-title">
-	                      {{ item.product.title }}
+	                      <a href="{{ item.product.url }}">{{ item.product.title }}</a>
 	                    </p>
 
 	                    {% unless item.variant.title contains 'Default' %}
@@ -120,30 +111,24 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 	              <div class="grid--full cart__row--table">
 	                <div class="grid__item one-half large--two-thirds large--text-center">
 	                  <p class="cart__subtotal subtottitle"><span id="bk-cart-subtotal-label">{{ 'cart.general.subtotal' | t }}</span></p>
-	                </div>
-	                <div class="grid__item one-half large--one-third">
-	                  <p class="crypto-subtotal cart__subtotal subtotmon"><span>{{ cart.total_price | money }}</span></p>
-					  <p class="crypto-price eth"><span class="cr-token-name">ETH</span>&thinsp;<span id="ethprice">...</span></p>
-					  <p class="crypto-price btc"><span class="cr-token-name">BTC</span>&thinsp;<span id="btcprice">...</span></p>
-					  <p class="crypto-price dash"><span class="cr-token-name">DASH</span>&thinsp;<span id="dashprice">...</span></p>
-					  <p class="crypto-price ltc"><span class="cr-token-name">LTC</span>&thinsp;<span id="ltcprice">...</span></p>
-					  <p class="crypto-price xrp"><span class="cr-token-name">XRP</span>&thinsp;<span id="xrpprice">...</span></p>
-	                </div>
-	              </div>
-              
-              
-	              <div class="grid--full cart__row--table">
-	                
-	                  <p id="dicsnote">
+										<p id="dicsnote">
 	                    {% comment %}{{ 'cart.general.shipping_at_checkout' | t }}{% endcomment %}
 	                    <strong>Free shipping</strong><br>
 	                    Cryptocurrency price is valid within 1 hour<br>Refresh browser page to update the price<br>
-	                    <span style="color: #c83619">Cryptocurrency prices include <strong>10% OFF!</strong></span>
+	                    <span class="crypto-discount" style="color: #c83619">Cryptocurrency prices include <strong>10% OFF!</strong></span>
 	                  </p>
-
-	                
+	                </div>
+	                <div class="grid__item one-half large--one-third">
+	                  <p class="crypto-subtotal cart__subtotal subtotmon"><span>{{ cart.total_price | money }}</span></p>
+										<div class="crypto-prices">
+											<p class="crypto-price eth"><span class="cr-token-name">ETH</span>&thinsp;<span id="ethprice">...</span></p>
+											<p class="crypto-price btc"><span class="cr-token-name">BTC</span>&thinsp;<span id="btcprice">...</span></p>
+											<p class="crypto-price dash"><span class="cr-token-name">DASH</span>&thinsp;<span id="dashprice">...</span></p>
+											<p class="crypto-price ltc"><span class="cr-token-name">LTC</span>&thinsp;<span id="ltcprice">...</span></p>
+											<p class="crypto-price xrp"><span class="cr-token-name">XRP</span>&thinsp;<span id="xrpprice">...</span></p>
+										</div>
+	                </div>
 	              </div>
-             
 	          </div>
 
 	        </div>
@@ -164,15 +149,23 @@ src="https://www.facebook.com/tr?id=709796692516135&ev=PageView&noscript=1"
 				We'll process your order as soon as possible and send confirmation email to you within 24 hours.
               </p>
 			  
-			  <style>
-				  .cr-sel-wrap {
-				  	  display: none;
-				  }
-			  </style>
+							<style>
+								.cr-sel-wrap {
+										display: none !important;
+								}
+							</style>
+							<script>
+								$('.cr-sel-wrap').hide();
+								$('.cr-sel-wrap').css("display", "none");
+							</script>
 			  
             {% endif %}
 
             {{ form.errors | default_errors }}
+						<p class="note crypto-form-error">
+							Something went wrong. Can not receive cryptocurrency exchange rates at this time.<br>
+							Try again later. If this message keeps appearing, please <a href="https://www.zorket.com/pages/contact-zorket?cryptoerr"><strong>let&nbsp;us&nbsp;know</strong></a>.
+						</p>
 
 		<div class="cr-sel-wrap">
 			<div class="cr-sel-title">
@@ -341,124 +334,12 @@ Cart Total: {{ cart.total_price | money }}</textarea>
 
 
 <script>
-	usdprice = {{ cart.total_price }} / 100;
-	$.ajaxSettings.async = false;
-	
-	discount = 10; //discount in %
-	
-	$.getJSON('https://api.coinmarketcap.com/v1/ticker/ethereum/', function (data) {
-		ethPrice = data[0]['price_usd'];
-		ethTotal = usdprice / ethPrice;
-		ethTotal = ethTotal - (ethTotal / 100 * discount); //discount
-    });
-	
-	$.getJSON('https://api.coinmarketcap.com/v1/ticker/bitcoin/', function (data) {
-		btcPrice = data[0]['price_usd'];
-		btcTotal = usdprice / btcPrice;
-		btcTotal = btcTotal - (btcTotal / 100 * discount); //discount
-    });
-	
-	$.getJSON('https://api.coinmarketcap.com/v1/ticker/dash/', function (data) {
-		dashPrice = data[0]['price_usd'];
-		dashTotal = usdprice / dashPrice;
-		dashTotal = dashTotal - (dashTotal / 100 * discount); //discount
-    });
-	
-	$.getJSON('https://api.coinmarketcap.com/v1/ticker/litecoin/', function (data) {
-		ltcPrice = data[0]['price_usd'];
-		ltcTotal = usdprice / ltcPrice;
-		ltcTotal = ltcTotal - (ltcTotal / 100 * discount); //discount
-    });
-	
-	$.getJSON('https://api.coinmarketcap.com/v1/ticker/ripple/', function (data) {
-		xrpPrice = data[0]['price_usd'];
-		xrpTotal = usdprice / xrpPrice;
-		xrpTotal = xrpTotal - (xrpTotal / 100 * discount); //discount
-    });
-	
-	
-	$('#ethprice').text(ethTotal.toFixed(5));
-	$('#btcprice').text(btcTotal.toFixed(5));
-	$('#dashprice').text(dashTotal.toFixed(5));
-	$('#ltcprice').text(ltcTotal.toFixed(5));
-	$('#xrpprice').text(xrpTotal.toFixed(5));
-	
-	
-	//$("#crypto-block-eth").show();
-	//$('#ethprice2').text(ethTotal.toFixed(5));
-	//$('#ContactFormCryptoPrice').val('ETH ' + ethTotal + '; ' + 'ETH/USD: ' + ethPrice);
-		
-	$(".crypto-select-eth").click(function() {
-		$(".crypto-block").hide();
-		$("#crypto-block-eth").show();
-		$("#crypto-shipping").show();
-		$('#ethprice').text(ethTotal.toFixed(5));
-		$('#ethprice2').text(ethTotal.toFixed(5));
-		$('#ContactFormCryptoPrice').val('ETH ' + ethTotal + '; ' + 'ETH/USD: ' + ethPrice);
-		$('.crypto-price').removeClass('cr-current');
-		$('.crypto-price.eth').addClass('cr-current');
-	});
-	
-	$(".crypto-select-btc").click(function() {
-		$(".crypto-block").hide();
-		$("#crypto-block-btc").show();
-		$("#crypto-shipping").show();
-		$('#btcprice').text(btcTotal.toFixed(5));
-		$('#btcprice2').text(btcTotal.toFixed(5));
-		$('#ContactFormCryptoPrice').val('BTC ' + btcTotal + '; ' + 'BTC/USD: ' + btcPrice);
-		$('.crypto-price').removeClass('cr-current');
-		$('.crypto-price.btc').addClass('cr-current');
-	});
-	
-	$(".crypto-select-dash").click(function() {
-		$(".crypto-block").hide();
-		$("#crypto-block-dash").show();
-		$("#crypto-shipping").show();
-		$('#dashprice').text(dashTotal.toFixed(5));
-		$('#dashprice2').text(dashTotal.toFixed(5));
-		$('#ContactFormCryptoPrice').val('DASH ' + dashTotal + '; ' + 'DASH/USD: ' + dashPrice);
-		$('.crypto-price').removeClass('cr-current');
-		$('.crypto-price.dash').addClass('cr-current');
-	});
-	
-	$(".crypto-select-ltc").click(function() {
-		$(".crypto-block").hide();
-		$("#crypto-block-ltc").show();
-		$("#crypto-shipping").show();
-		$('#ltcprice').text(ltcTotal.toFixed(5));
-		$('#ltcprice2').text(ltcTotal.toFixed(5));
-		$('#ContactFormCryptoPrice').val('LTC ' + ltcTotal + '; ' + 'LTC/USD: ' + ltcPrice);
-		$('.crypto-price').removeClass('cr-current');
-		$('.crypto-price.ltc').addClass('cr-current');
-	});
-	
-	$(".crypto-select-xrp").click(function() {
-		$(".crypto-block").hide();
-		$("#crypto-block-xrp").show();
-		$("#crypto-shipping").show();
-		$('#xrpprice').text(xrpTotal.toFixed(5));
-		$('#xrpprice2').text(xrpTotal.toFixed(5));
-		$('#ContactFormCryptoPrice').val('XRP ' + xrpTotal + '; ' + 'XRP/USD: ' + xrpPrice);
-		$('.crypto-price').removeClass('cr-current');
-		$('.crypto-price.xrp').addClass('cr-current');
-	});
-	   
-	
-	// window.setInterval(function(){
-	//     //code goes here that will be run every 5 seconds
-	// 	$.getJSON('https://api.coinmarketcap.com/v1/ticker/ethereum/', function (data) {
-	// 		console.log(data[0]['price_usd']);
-	// 		usdprice = {{ cart.total_price }} / 100;
-	// 		ethPrice = data[0]['price_usd'];
-	// 		ethTotal = usdprice / ethPrice;
-	// 		console.log(usdprice);
-	// 		console.log(ethPrice);
-	// 		console.log(ethTotal);
-	// 		$('#eth_price').text(ethTotal.toFixed(5));
-	//     });
-	// }, 60000);
-	
+	var cartTotal = {{ cart.total_price }} ;
+	_(cartTotal);
 </script>
+
+{{ 'crypto-checkout.js' | asset_url | script_tag }}
+
 
 <style>
 	.newsletter{
